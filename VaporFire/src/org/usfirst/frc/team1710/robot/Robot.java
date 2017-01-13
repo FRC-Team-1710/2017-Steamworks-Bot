@@ -35,8 +35,8 @@ public class Robot extends IterativeRobot {
         RobotMap.climber = new Talon(4);
         RobotMap.shooter = new Talon(5);
         CameraServer camera = CameraServer.getInstance();
-        camera.setQuality(50);
-        camera.startAutomaticCapture("Front Camera");
+        //camera.setQuality(50);
+        //camera.startAutomaticCapture("Front Camera");
         turboActivate = false;
         axisType = 1;
         RobotMap.shifter = new DoubleSolenoid(1,2);
@@ -69,9 +69,10 @@ public class Robot extends IterativeRobot {
     	forward = RobotMap.driveStick.getRawAxis(0);
     	multiplier = RobotMap.driveStick.getRawAxis(3)*.5+.5;
     	turboActivate = RobotMap.driveStick.getRawButton(1);
+    	//Make a "drive" subsystem and put this code in it VVV
     	if(turboActivate == true){
     		//engage shift
-    		RobotMap.shifter.set(1,2);
+    		//RobotMap.shifter.set(on);
         	RobotMap.move.arcadeDrive(forward*multiplier, turn*.3);
     		axisType = 2;
     		gear = 2;
