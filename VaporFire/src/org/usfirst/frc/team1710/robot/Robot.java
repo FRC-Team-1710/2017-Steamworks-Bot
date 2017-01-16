@@ -17,7 +17,7 @@ public class Robot extends IterativeRobot {
     String autoSelected;
     SendableChooser chooser;
 	double turn, forward, multiplier, climbPower;
-	int axisType, gear;
+	public static int axisType, gear;
 	boolean turboActivate;
     
     /**
@@ -69,22 +69,7 @@ public class Robot extends IterativeRobot {
     	forward = RobotMap.driveStick.getRawAxis(0);
     	multiplier = RobotMap.driveStick.getRawAxis(3)*.5+.5;
     	turboActivate = RobotMap.driveStick.getRawButton(1);
-    	//Make a "drive" subsystem and put this code in it VVV
-    	if(turboActivate == true){
-    		//engage shift
-    		//RobotMap.shifter.set(on);
-        	RobotMap.move.arcadeDrive(forward*multiplier, turn*.3);
-    		axisType = 2;
-    		gear = 2;
-    	}
-    	else{
-    		//disengage shift
-        	RobotMap.move.arcadeDrive(forward*multiplier, turn*multiplier);
-    		axisType = 1;
-    		gear = 1;
-    		
-    	}
-    	//***************************
+    	Drive.arcadeDrive(forward, turn, turboActivate);
     	climbPower = RobotMap.mechStick.getRawAxis(1);
         SmartDashboard.putNumber("Gear", gear);
         SmartDashboard.putNumber("Multiplier", multiplier);
