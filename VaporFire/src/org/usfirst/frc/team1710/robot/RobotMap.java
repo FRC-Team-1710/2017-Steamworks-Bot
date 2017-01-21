@@ -4,7 +4,7 @@ import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.Talon;
-
+import com.kauailabs.navx.frc.*;
 public class RobotMap {
 	
 	public static RobotDrive move;
@@ -15,4 +15,5 @@ public class RobotMap {
 	
 	public static DoubleSolenoid shifter;
 
+	public static AHRS navx;
 }

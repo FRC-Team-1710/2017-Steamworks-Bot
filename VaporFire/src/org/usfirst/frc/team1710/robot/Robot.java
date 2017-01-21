@@ -1,11 +1,14 @@
 
 package org.usfirst.frc.team1710.robot;
 
+import com.kauailabs.navx.frc.AHRS;
+
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.RobotDrive;
+import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -25,6 +28,7 @@ public class Robot extends IterativeRobot {
      * used for any initialization code.
      */
     public void robotInit() {
+    	RobotMap.navx = new AHRS(SPI.Port.kMXP);
         chooser = new SendableChooser();
         chooser.addDefault("Default Auto", defaultAuto);
         chooser.addObject("My Auto", customAuto);
@@ -40,6 +44,7 @@ public class Robot extends IterativeRobot {
         turboActivate = false;
         axisType = 1;
         RobotMap.shifter = new DoubleSolenoid(1,2);
+        
     }
     
     public void autonomousInit() {
@@ -73,7 +78,7 @@ public class Robot extends IterativeRobot {
     	climbPower = RobotMap.mechStick.getRawAxis(1);
         SmartDashboard.putNumber("Gear", gear);
         SmartDashboard.putNumber("Multiplier", multiplier);
-        
+        SmartDashboard.putNumber("Robot Speed", RobotMap.navx.getVelocityY());
     	
     }
     
