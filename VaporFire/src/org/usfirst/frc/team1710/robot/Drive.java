@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class Drive extends Subsystem {
 
-	public static double speedMultiplier = 1;
+	public static double speedMultiplier = 0.35;
 	static double currentYaw;
 	
     // Put methods for controlling this subsystem
@@ -18,16 +18,15 @@ public class Drive extends Subsystem {
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
         //setDefaultCommand(new MySpecialCommand());
-    	speedMultiplier = 0.5;
     }
     public static void arcadeDrive(double forwardPower, double turningPower, double shiftVal) {
-    	RobotMap.leftOne.set((forwardPower * speedMultiplier) + turningPower);
-    	RobotMap.leftTwo.set((forwardPower * speedMultiplier) + turningPower);
-    	RobotMap.leftThree.set((forwardPower * speedMultiplier) + turningPower);
+    	RobotMap.leftOne.set((forwardPower * speedMultiplier) - turningPower* speedMultiplier);
+    	RobotMap.leftTwo.set((forwardPower * speedMultiplier) - turningPower* speedMultiplier);
+    	RobotMap.leftThree.set((forwardPower * speedMultiplier) - turningPower* speedMultiplier);
     	
-    	RobotMap.rightOne.set((-forwardPower * speedMultiplier) + turningPower);
-    	RobotMap.rightTwo.set((-forwardPower * speedMultiplier) + turningPower);
-    	RobotMap.rightThree.set((-forwardPower * speedMultiplier) + turningPower);
+    	RobotMap.rightOne.set((-forwardPower * speedMultiplier) - turningPower* speedMultiplier);
+    	RobotMap.rightTwo.set((-forwardPower * speedMultiplier) - turningPower* speedMultiplier);
+    	RobotMap.rightThree.set((-forwardPower * speedMultiplier) - turningPower* speedMultiplier);
     	
     	if(shiftVal > 0.5) {
     		RobotMap.shifterRight.set(DoubleSolenoid.Value.kReverse);
@@ -46,107 +45,16 @@ public class Drive extends Subsystem {
     public static void StegDrive(double forwardPower) {
     	currentYaw = RobotMap.navx.getYaw();
     	if(currentYaw < -2.5) {
-    		RobotMap.leftOne.set(forwardPower + (currentYaw/100));
-    		RobotMap.leftTwo.set(forwardPower + (currentYaw/100));
-    		RobotMap.leftThree.set(forwardPower + (currentYaw/100));
-    	
-    		RobotMap.rightOne.set(-forwardPower + (currentYaw/100));
-    		RobotMap.rightTwo.set(-forwardPower + (currentYaw/100));
-    		RobotMap.rightThree.set(-forwardPower + (currentYaw/100));
+    		arcadeDrive(forwardPower, currentYaw/100, 0);
     	} else if(currentYaw > 2.5){
-    		RobotMap.leftOne.set(forwardPower - (currentYaw/100));
-    		RobotMap.leftTwo.set(forwardPower - (currentYaw/100));
-    		RobotMap.leftThree.set(forwardPower - (currentYaw/100));
-    	
-    		RobotMap.rightOne.set(-forwardPower - (currentYaw/100));
-    		RobotMap.rightTwo.set(-forwardPower - (currentYaw/100));
-    		RobotMap.rightThree.set(-forwardPower - (currentYaw/100));
+    		arcadeDrive(forwardPower, -currentYaw/100, 0);
     	} else {
-    		RobotMap.leftOne.set(forwardPower);
-    		RobotMap.leftTwo.set(forwardPower);
-    		RobotMap.leftThree.set(forwardPower);
-    	
-    		RobotMap.rightOne.set(-forwardPower);
-    		RobotMap.rightTwo.set(-forwardPower);
-    		RobotMap.rightThree.set(-forwardPower);
+    		arcadeDrive(forwardPower, 0, 0);
     	}
     }
     
     public static void zeroYaw() {
     	RobotMap.navx.zeroYaw();
-    }
-    
-    public static void RotateToAngle(int angle) {
-    	currentYaw = RobotMap.navx.getYaw();
-
-    	if(angle == 0) {
-    		//get straight...er than STEG HAHAHAHa
-        	if(currentYaw < -2.5) {
-        		setAllMotorPower(currentYaw/100);
-        	} else if(currentYaw > 2.5){
-        		setAllMotorPower(-currentYaw/100);
-        	} else {
-        		stopDriving();
-        	}
-    	} else if(angle == 45) {
-        	if(currentYaw < 42.5) {
-        		setAllMotorPower(currentYaw/100);
-        	} else if(currentYaw > 47.5){
-        		setAllMotorPower(-currentYaw/100);
-        	} else {
-        		stopDriving();
-        	}
-    	} else if(angle == 90) {
-        	if(currentYaw < 87.5) {
-        		setAllMotorPower(currentYaw/100);
-        	} else if(currentYaw > 92.5){
-        		setAllMotorPower(-currentYaw/100);
-        	} else {
-        		stopDriving();
-        	}
-    	} else if(angle == 135) {
-        	if(currentYaw < 132.5) {
-        		setAllMotorPower(currentYaw/100);
-        	} else if(currentYaw > 137.5){
-        		setAllMotorPower(-currentYaw/100);
-        	} else {
-        		stopDriving();
-        	}
-    	} else if(angle == 180) {
-        	if(currentYaw < 177.5) {
-        		setAllMotorPower(currentYaw/100);
-        	} else if(currentYaw < -177.5){
-        		setAllMotorPower(-currentYaw/100);
-        	} else {
-        		stopDriving();
-        	}
-    	} else if(angle == 225) {
-        	if(currentYaw > -132.5) {
-        		setAllMotorPower(currentYaw/100);
-        	} else if(currentYaw < -137.5){
-        		setAllMotorPower(-currentYaw/100);
-        	} else {
-        		stopDriving();
-        	}
-    	} else if(angle == 270) {
-        	if(currentYaw > -87.5) {
-        		setAllMotorPower(currentYaw/100);
-        	} else if(currentYaw < -92.5){
-        		setAllMotorPower(-currentYaw/100);
-        	} else {
-        		stopDriving();
-        	}
-    	} else if(angle == 315) {
-        	if(currentYaw > -42.5) {
-        		setAllMotorPower(currentYaw/100);
-        	} else if(currentYaw < -47.5){
-        		setAllMotorPower(-currentYaw/100);
-        	} else {
-        		stopDriving();
-        	}
-    	} else {
-    		stopDriving();
-    	}
     }
     
     public static void stopDriving() {

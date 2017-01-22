@@ -60,8 +60,6 @@ public class Robot extends IterativeRobot {
     	
     	if(activateSteg) {
     		Drive.StegDrive(forward);
-    	} else if(RobotMap.driveStick.getPOV() != -1) {
-    		Drive.RotateToAngle(RobotMap.driveStick.getPOV());
     	} else {
     		Drive.arcadeDrive(forward, turn, shifter);
     	}
