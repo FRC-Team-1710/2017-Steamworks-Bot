@@ -12,69 +12,42 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Robot extends IterativeRobot {
-    final String defaultAuto = "Default";
-    final String customAuto = "My Auto";
-    String autoSelected;
-    SendableChooser chooser;
-	double turn, forward, multiplier, climbPower;
+	double turn, forward;
 	public static int axisType, gear;
-	boolean turboActivate;
-    
-    /**
-     * This function is run when the robot is first started up and should be
-     * used for any initialization code.
-     */
+	boolean turboActivate, shift;
+   
     public void robotInit() {
-        chooser = new SendableChooser();
-        chooser.addDefault("Default Auto", defaultAuto);
-        chooser.addObject("My Auto", customAuto);
-        SmartDashboard.putData("Auto choices", chooser);
+    	RobotMap.leftOne = new Talon(1);
+    	RobotMap.leftTwo = new Talon(2);
+    	RobotMap.leftThree = new Talon(3);
+
+    	RobotMap.rightOne = new Talon(4);
+    	RobotMap.rightTwo = new Talon(5);
+    	RobotMap.rightThree = new Talon(6);
+
         RobotMap.driveStick = new Joystick(0);
-        RobotMap.mechStick = new Joystick(1);
-        RobotMap.move = new RobotDrive(0,1,2,3);
-        RobotMap.climber = new Talon(4);
-        RobotMap.shooter = new Talon(5);
-        CameraServer camera = CameraServer.getInstance();
-        //camera.setQuality(50);
-        //camera.startAutomaticCapture("Front Camera");
-        turboActivate = false;
-        axisType = 1;
-        RobotMap.shifter = new DoubleSolenoid(1,2);
+        RobotMap.shifterRight = new DoubleSolenoid(0,1);
+        RobotMap.shifterLeft = new DoubleSolenoid(2,3);
+
     }
     
     public void autonomousInit() {
-    	autoSelected = (String) chooser.getSelected();
-//		autoSelected = SmartDashboard.getString("Auto Selector", defaultAuto);
-		System.out.println("Auto selected: " + autoSelected);
+
     }
 
 
     public void autonomousPeriodic() {
-    	switch(autoSelected) {
-    	case customAuto:
-        //Put custom auto code here   
-            break;
-    	case defaultAuto:
-    	default:
-    	//Put default auto code here
-            break;
-    	}
+
     }
 
     /**
      * This function is called periodically during operator control
      */
     public void teleopPeriodic() {
-    	turn = RobotMap.driveStick.getRawAxis(axisType);
-    	forward = RobotMap.driveStick.getRawAxis(0);
-    	multiplier = RobotMap.driveStick.getRawAxis(3)*.5+.5;
-    	turboActivate = RobotMap.driveStick.getRawButton(1);
-    	Drive.arcadeDrive(forward, turn, turboActivate);
-    	climbPower = RobotMap.mechStick.getRawAxis(1);
-        SmartDashboard.putNumber("Gear", gear);
-        SmartDashboard.putNumber("Multiplier", multiplier);
-        
-    	
+    	turn = RobotMap.driveStick.getRawAxis(2);
+    	forward = RobotMap.driveStick.getRawAxis(1);
+    	shift = RobotMap.driveStick.getRawButton(0);
+    	Drive.arcadeDrive(forward, turn, shift);
     }
     
     /**

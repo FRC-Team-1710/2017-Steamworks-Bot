@@ -6,13 +6,11 @@ import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.Talon;
 
 public class RobotMap {
-	
-	public static RobotDrive move;
-	
+		
 	public static Joystick driveStick, mechStick;
 	
-	public static Talon climber, shooter, lift;
+	public static Talon climber, shooter, lift, leftOne, leftTwo, leftThree, rightOne, rightTwo, rightThree;
 	
-	public static DoubleSolenoid shifter;
+	public static DoubleSolenoid shifterRight, shifterLeft;
 
 }
