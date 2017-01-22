@@ -15,7 +15,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class Robot extends IterativeRobot {
 	double turn, forward, shifter;
 	public static int axisType, gear, compressorToggleCount;
-	boolean turboActivate, photosynthesis;
+	boolean activateSteg, photosynthesis;
    
     public void robotInit() {
     	RobotMap.leftOne = new Talon(1);
@@ -52,7 +52,13 @@ public class Robot extends IterativeRobot {
     	forward = RobotMap.driveStick.getRawAxis(1);
     	shifter = RobotMap.driveStick.getRawAxis(3);
     	photosynthesis = RobotMap.driveStick.getRawButton(2);
-    	Drive.arcadeDrive(forward, turn, shifter);
+    	activateSteg = RobotMap.driveStick.getRawButton(0);
+    	
+    	if(activateSteg) {
+    		Drive.StegDrive(forward);
+    	} else {
+    		Drive.arcadeDrive(forward, turn, shifter);
+    	}
     	PneumaticsCrap.CheckPressure();
     	//turns on compressor
     	if(photosynthesis) {

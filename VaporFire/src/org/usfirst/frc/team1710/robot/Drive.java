@@ -28,14 +28,27 @@ public class Drive extends Subsystem {
     	RobotMap.rightTwo.set((-forwardPower * speedMultiplier) + turningPower);
     	RobotMap.rightThree.set((-forwardPower * speedMultiplier) + turningPower);
     	
-    	if(shiftVal > 0) {
+    	if(shiftVal > 0.25) {
     		RobotMap.shifterRight.set(DoubleSolenoid.Value.kReverse);
     		RobotMap.shifterLeft.set(DoubleSolenoid.Value.kReverse);
     		SmartDashboard.putBoolean("gear", true);
-    	} else {
+    	} else if(shiftVal < -0.25){
     		RobotMap.shifterRight.set(DoubleSolenoid.Value.kForward);
     		RobotMap.shifterLeft.set(DoubleSolenoid.Value.kForward);
     		SmartDashboard.putBoolean("gear", false);
+    	} else {
+    		RobotMap.shifterRight.set(DoubleSolenoid.Value.kOff);
+    		RobotMap.shifterLeft.set(DoubleSolenoid.Value.kOff);
     	}
+    }
+    
+    public static void StegDrive(double forwardPower) {
+    	 RobotMap.leftOne.set(forwardPower);
+    	 RobotMap.leftTwo.set(forwardPower);
+    	 RobotMap.leftThree.set(forwardPower);
+    	 
+    	 RobotMap.rightOne.set(-forwardPower);
+    	 RobotMap.rightTwo.set(-forwardPower);
+    	 RobotMap.rightThree.set(-forwardPower);
     }
 }
