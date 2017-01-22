@@ -14,7 +14,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Robot extends IterativeRobot {
 	double turn, forward;
-	public static int axisType, gear;
+	public static int axisType, gear, compressorToggleCount;
 	boolean turboActivate, shift, photosynthesis;
    
     public void robotInit() {
@@ -30,6 +30,8 @@ public class Robot extends IterativeRobot {
         RobotMap.shifterRight = new DoubleSolenoid(1,2);
         RobotMap.shifterLeft = new DoubleSolenoid(3,4);
         RobotMap.moreAir = new Compressor(0);
+        
+        compressorToggleCount = 1;
 
     }
     
@@ -51,11 +53,11 @@ public class Robot extends IterativeRobot {
     	shift = RobotMap.driveStick.getRawButton(1);
     	photosynthesis = RobotMap.driveStick.getRawButton(2);
     	Drive.arcadeDrive(forward, turn, shift);
+    	PneumaticsCrap.CheckPressure();
     	//turns on compressor
     	if(photosynthesis) {
-    		RobotMap.moreAir.setClosedLoopControl(true);
-    	} else {
-    		RobotMap.moreAir.setClosedLoopControl(false);
+    		PneumaticsCrap.ToggleCompressor(compressorToggleCount += 1);
+    		Timer.delay(1);
     	}
     }
     
