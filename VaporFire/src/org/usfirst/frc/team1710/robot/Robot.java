@@ -44,15 +44,12 @@ public class Robot extends IterativeRobot {
 
     }
 
-    /**
-     * This function is called periodically during operator control
-     */
     public void teleopPeriodic() {
     	turn = RobotMap.driveStick.getRawAxis(2);
     	forward = RobotMap.driveStick.getRawAxis(1);
     	shifter = RobotMap.driveStick.getRawAxis(3);
     	photosynthesis = RobotMap.driveStick.getRawButton(2);
-    	activateSteg = RobotMap.driveStick.getRawButton(0);
+    	activateSteg = RobotMap.driveStick.getRawButton(1);
     	
     	if(activateSteg) {
     		Drive.StegDrive(forward);
@@ -66,10 +63,7 @@ public class Robot extends IterativeRobot {
     		Timer.delay(1);
     	}
     }
-    
-    /**
-     * This function is called periodically during test mode
-     */
+
     public void testPeriodic() {
     
     }
