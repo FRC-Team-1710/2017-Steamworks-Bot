@@ -2,6 +2,7 @@
 package org.usfirst.frc.team1710.robot;
 
 import edu.wpi.first.wpilibj.CameraServer;
+import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Joystick;
@@ -14,7 +15,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class Robot extends IterativeRobot {
 	double turn, forward;
 	public static int axisType, gear;
-	boolean turboActivate, shift;
+	boolean turboActivate, shift, photosynthesis;
    
     public void robotInit() {
     	RobotMap.leftOne = new Talon(1);
@@ -26,8 +27,9 @@ public class Robot extends IterativeRobot {
     	RobotMap.rightThree = new Talon(6);
 
         RobotMap.driveStick = new Joystick(0);
-        RobotMap.shifterRight = new DoubleSolenoid(0,1);
-        RobotMap.shifterLeft = new DoubleSolenoid(2,3);
+        RobotMap.shifterRight = new DoubleSolenoid(1,2);
+        RobotMap.shifterLeft = new DoubleSolenoid(3,4);
+        RobotMap.moreAir = new Compressor(0);
 
     }
     
@@ -46,8 +48,15 @@ public class Robot extends IterativeRobot {
     public void teleopPeriodic() {
     	turn = RobotMap.driveStick.getRawAxis(2);
     	forward = RobotMap.driveStick.getRawAxis(1);
-    	shift = RobotMap.driveStick.getRawButton(0);
+    	shift = RobotMap.driveStick.getRawButton(1);
+    	photosynthesis = RobotMap.driveStick.getRawButton(2);
     	Drive.arcadeDrive(forward, turn, shift);
+    	//turns on compressor
+    	if(photosynthesis) {
+    		RobotMap.moreAir.setClosedLoopControl(true);
+    	} else {
+    		RobotMap.moreAir.setClosedLoopControl(false);
+    	}
     }
     
     /**

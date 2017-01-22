@@ -1,5 +1,6 @@
 package org.usfirst.frc.team1710.robot;
 
+import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.RobotDrive;
@@ -13,4 +14,5 @@ public class RobotMap {
 	
 	public static DoubleSolenoid shifterRight, shifterLeft;
 
+	public static Compressor moreAir;
 }
