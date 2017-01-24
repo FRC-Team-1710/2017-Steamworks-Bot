@@ -19,4 +19,6 @@ public class RobotMap {
 	public static Compressor moreAir;
 	
 	public static AHRS navx;
+	
+	public static int axisType;
 }
