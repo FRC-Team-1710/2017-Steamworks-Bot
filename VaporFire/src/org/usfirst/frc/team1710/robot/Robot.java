@@ -1,6 +1,7 @@
 
 package org.usfirst.frc.team1710.robot;
 
+import com.ctre.CANTalon;
 import com.kauailabs.navx.frc.AHRS;
 
 import edu.wpi.first.wpilibj.CameraServer;
@@ -19,19 +20,20 @@ public class Robot extends IterativeRobot {
 	double turn, forward;
 	public static int gear, compressorToggleCount;
 	boolean activateSteg, photosynthesis, zeroYaw, turboMode, shifter;
+	public static double speedMultiplier;
+	double compressorCurrent;
    
     public void robotInit() {
-    	RobotMap.leftOne = new Talon(1);
-    	RobotMap.leftTwo = new Talon(2);
-    	RobotMap.leftThree = new Talon(3);
+    	RobotMap.leftOne = new CANTalon(1);
+    	RobotMap.leftTwo = new CANTalon(2);
+    	RobotMap.leftThree = new CANTalon(3);
 
-    	RobotMap.rightOne = new Talon(4);
-    	RobotMap.rightTwo = new Talon(5);
-    	RobotMap.rightThree = new Talon(6);
+    	RobotMap.rightOne = new CANTalon(8);
+    	RobotMap.rightTwo = new CANTalon(9);
+    	RobotMap.rightThree = new CANTalon(10);
 
         RobotMap.driveStick = new Joystick(0);
-        RobotMap.shifterRight = new DoubleSolenoid(2,1);
-        RobotMap.shifterLeft = new DoubleSolenoid(3,4);
+        RobotMap.shifter = new DoubleSolenoid(0,1);
         RobotMap.moreAir = new Compressor(0);
         
         compressorToggleCount = 1;
@@ -51,21 +53,23 @@ public class Robot extends IterativeRobot {
     }
 
     public void teleopPeriodic() {
-    	turn = RobotMap.driveStick.getRawAxis(RobotMap.axisType);
+    	turn = RobotMap.driveStick.getRawAxis(2);
     	forward = RobotMap.driveStick.getRawAxis(1);
     	shifter = RobotMap.driveStick.getRawButton(1);
     	photosynthesis = RobotMap.driveStick.getRawButton(3);
     	activateSteg = RobotMap.driveStick.getRawButton(4);
     	zeroYaw = RobotMap.driveStick.getRawButton(6);
     	turboMode = RobotMap.driveStick.getRawButton(2);
-    	
-    	if(activateSteg) {
-    		Drive.StegDrive(forward);
+    	speedMultiplier = Math.abs(RobotMap.driveStick.getRawAxis(3));
+    	compressorCurrent = RobotMap.moreAir.getCompressorCurrent();
+    	if(turboMode || activateSteg) {
+    		Drive.StegDrive(forward, speedMultiplier);
     	} else {
-    		Drive.arcadeDrive(forward, turn, shifter, turboMode);
+    		Drive.arcadeDrive(forward, turn, shifter, speedMultiplier);
     	}
     	//checks pressure switch to see if it's low and prints result to dashboard
     	PneumaticsCrap.CheckPressure();
+    	SmartDashboard.putNumber("compressor current", compressorCurrent);
     	//turns on compressor
     	if(photosynthesis) {
     		PneumaticsCrap.ToggleCompressor((compressorToggleCount += 1));

@@ -1,5 +1,6 @@
 package org.usfirst.frc.team1710.robot;
 
+import com.ctre.CANTalon;
 import com.kauailabs.navx.frc.AHRS;
 
 import edu.wpi.first.wpilibj.Compressor;
@@ -12,9 +13,9 @@ public class RobotMap {
 		
 	public static Joystick driveStick, mechStick;
 	
-	public static Talon climber, shooter, lift, leftOne, leftTwo, leftThree, rightOne, rightTwo, rightThree;
+	public static CANTalon climber, shooter, lift, leftOne, leftTwo, leftThree, rightOne, rightTwo, rightThree;
 	
-	public static DoubleSolenoid shifterRight, shifterLeft;
+	public static DoubleSolenoid shifter;;
 
 	public static Compressor moreAir;
 	
