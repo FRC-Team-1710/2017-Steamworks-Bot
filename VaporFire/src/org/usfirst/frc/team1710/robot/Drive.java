@@ -19,7 +19,7 @@ public class Drive extends Subsystem {
         // Set the default command for a subsystem here.
         //setDefaultCommand(new MySpecialCommand());
     }
-    public static void arcadeDrive(double forwardPower, double turningPower, double shiftVal, boolean turboMode) {
+    public static void arcadeDrive(double forwardPower, double turningPower, boolean shiftVal, boolean turboMode) {
     	if(turboMode = true){
     		RobotMap.leftOne.set((forwardPower * speedMultiplier) - turningPower* speedMultiplier);
         	RobotMap.leftTwo.set((forwardPower * speedMultiplier) - turningPower* speedMultiplier);
@@ -45,7 +45,7 @@ public class Drive extends Subsystem {
     	}
     	
     	
-    	if(RobotMap.driveStick.getRawButton(1) == true) {
+    	if(shiftVal == true) {
     		RobotMap.shifterRight.set(DoubleSolenoid.Value.kReverse);
     		RobotMap.shifterLeft.set(DoubleSolenoid.Value.kReverse);
     		SmartDashboard.putBoolean("gear", true);

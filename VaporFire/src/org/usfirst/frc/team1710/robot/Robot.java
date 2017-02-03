@@ -53,11 +53,11 @@ public class Robot extends IterativeRobot {
     public void teleopPeriodic() {
     	turn = RobotMap.driveStick.getRawAxis(RobotMap.axisType);
     	forward = RobotMap.driveStick.getRawAxis(1);
-    	shifter = RobotMap.driveStick.getRawButton(3);
-    	photosynthesis = RobotMap.driveStick.getRawButton(2);
-    	activateSteg = RobotMap.driveStick.getRawButton(3);
+    	shifter = RobotMap.driveStick.getRawButton(1);
+    	photosynthesis = RobotMap.driveStick.getRawButton(3);
+    	activateSteg = RobotMap.driveStick.getRawButton(4);
     	zeroYaw = RobotMap.driveStick.getRawButton(6);
-    	turboMode = RobotMap.driveStick.getRawButton(1);
+    	turboMode = RobotMap.driveStick.getRawButton(2);
     	
     	if(activateSteg) {
     		Drive.StegDrive(forward);
@@ -69,7 +69,7 @@ public class Robot extends IterativeRobot {
     	//turns on compressor
     	if(photosynthesis) {
     		PneumaticsCrap.ToggleCompressor((compressorToggleCount += 1));
-    		Timer.delay(1);
+    		Timer.delay(0.5);
     	} else if(zeroYaw) {
     		Drive.zeroYaw();
     	}
