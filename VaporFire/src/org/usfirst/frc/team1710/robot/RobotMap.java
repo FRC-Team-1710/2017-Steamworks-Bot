@@ -14,7 +14,7 @@ public class RobotMap {
 	
 	public static Talon climber, shooter, lift, leftOne, leftTwo, leftThree, rightOne, rightTwo, rightThree;
 	
-	public static DoubleSolenoid shifterRight, shifterLeft;
+	public static DoubleSolenoid shifter, piston1, piston2;
 
 	public static Compressor moreAir;
 	

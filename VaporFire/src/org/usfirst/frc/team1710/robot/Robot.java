@@ -18,7 +18,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class Robot extends IterativeRobot {
 	double turn, forward;
 	public static int gear, compressorToggleCount;
-	boolean activateSteg, photosynthesis, zeroYaw, turboMode, shifter;
+	boolean activateSteg, startCompressor, zeroYaw, turboMode, shifter, piston1Start, piston2Start;
    
     public void robotInit() {
     	RobotMap.leftOne = new Talon(1);
@@ -30,8 +30,9 @@ public class Robot extends IterativeRobot {
     	RobotMap.rightThree = new Talon(6);
 
         RobotMap.driveStick = new Joystick(0);
-        RobotMap.shifterRight = new DoubleSolenoid(2,1);
-        RobotMap.shifterLeft = new DoubleSolenoid(3,4);
+        RobotMap.shifter = new DoubleSolenoid(1,2);
+        RobotMap.piston1 = new DoubleSolenoid(3,4);
+        RobotMap.piston2 = new DoubleSolenoid(5,6);
         RobotMap.moreAir = new Compressor(0);
         
         compressorToggleCount = 1;
@@ -53,24 +54,43 @@ public class Robot extends IterativeRobot {
     public void teleopPeriodic() {
     	turn = RobotMap.driveStick.getRawAxis(RobotMap.axisType);
     	forward = RobotMap.driveStick.getRawAxis(1);
-    	shifter = RobotMap.driveStick.getRawButton(1);
-    	photosynthesis = RobotMap.driveStick.getRawButton(3);
-    	activateSteg = RobotMap.driveStick.getRawButton(4);
-    	zeroYaw = RobotMap.driveStick.getRawButton(6);
-    	turboMode = RobotMap.driveStick.getRawButton(2);
-    	
-    	if(activateSteg) {
-    		Drive.StegDrive(forward);
-    	} else {
-    		Drive.arcadeDrive(forward, turn, shifter, turboMode);
-    	}
+    	startCompressor = RobotMap.driveStick.getRawButton(3);
+    	//activateSteg = RobotMap.driveStick.getRawButton(4);
+    	//zeroYaw = RobotMap.driveStick.getRawButton(6);
+    	turboMode = RobotMap.driveStick.getRawButton(1);
+    	piston1Start = RobotMap.driveStick.getRawButton(5);
+    	piston2Start = RobotMap.driveStick.getRawButton(6);
+    
+    	//if(activateSteg) {
+    		//Drive.StegDrive(forward);
+    	//} else {
+    	Drive.arcadeDrive(forward, turn, turboMode);
+    	//}
     	//checks pressure switch to see if it's low and prints result to dashboard
-    	PneumaticsCrap.CheckPressure();
+    	//PneumaticsCrap.CheckPressure();
     	//turns on compressor
-    	if(photosynthesis) {
-    		PneumaticsCrap.ToggleCompressor((compressorToggleCount += 1));
-    		Timer.delay(0.5);
-    	} else if(zeroYaw) {
+    	if (piston1Start == true){
+    		RobotMap.piston1.set(DoubleSolenoid.Value.kForward);
+    		
+    	}
+    	else{
+    		RobotMap.piston1.set(DoubleSolenoid.Value.kReverse);
+    	}
+    	if (piston2Start == true){
+    		RobotMap.piston2.set(DoubleSolenoid.Value.kForward);
+    	}
+    	else{
+    		RobotMap.piston2.set(DoubleSolenoid.Value.kReverse);
+    	}
+    	if (startCompressor == true){
+    		RobotMap.moreAir.setClosedLoopControl(true);
+    		SmartDashboard.putBoolean("Compressor On?", true);
+    	}
+    	else{
+    		RobotMap.moreAir.setClosedLoopControl(false);
+    		SmartDashboard.putBoolean("Compressor On?", false);
+    	}
+    	if(zeroYaw) {
     		Drive.zeroYaw();
     	}
     }
