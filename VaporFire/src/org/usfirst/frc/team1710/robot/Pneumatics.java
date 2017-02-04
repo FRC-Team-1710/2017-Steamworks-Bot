@@ -17,6 +17,28 @@ public class Pneumatics extends Subsystem {
     	RobotMap.LPiston.set(DoubleSolenoid.Value.kOff);
     	RobotMap.RPiston.set(DoubleSolenoid.Value.kOff);
     }
+    public static void air(){
+    	if(RobotMap.onLPiston == true){
+    		Pneumatics.LPistonForward();
+    	}
+    	else{
+    		Pneumatics.LPistonReverse();
+    	}
+    	if(RobotMap.onRPiston == true){
+    		Pneumatics.RPistonForward();
+    	}
+    	else{
+    		Pneumatics.RPistonReverse();
+    	}
+    	if(RobotMap.onCompress == true){
+    		Pneumatics.startCompressor();
+    	}
+    	else{
+    		Pneumatics.stopCompressor();
+    	}
+    }
+    
+    //hella useful functions
     public static void shiftForward() {
     	RobotMap.Shifter.set(DoubleSolenoid.Value.kForward);
     	//RobotMap.RShifter.set(DoubleSolenoid.Value.kForward);
@@ -58,7 +80,7 @@ public class Pneumatics extends Subsystem {
     }
     
     //*************************
-    //stuff idk about
+    //other stuff
     
     /*  public static void ToggleCompressor(int count) {
     	if(count%2 == 0) {

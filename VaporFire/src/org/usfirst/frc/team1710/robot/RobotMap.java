@@ -23,7 +23,7 @@ public class RobotMap {
 	
 	public static int axisType;
 	
-	public static boolean onTurbo, onCompress, neutral, onRPiston, onLPiston, onSteg, zeroYaw;
+	public static boolean onTurbo, onCompress, onClimb, neutral, onRPiston, onLPiston, onSteg, zeroYaw;
 	
 	public static double TurnP, ForwardP, Multiplier, LPower, RPower, ShooterP, ClimbP, MultAxis2;
 	

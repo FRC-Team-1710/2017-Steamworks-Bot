@@ -62,6 +62,8 @@ public class Robot extends IterativeRobot {
     	RobotMap.TurnP = RobotMap.driveStick.getRawAxis(RobotMap.axisType);
     	RobotMap.ForwardP = RobotMap.driveStick.getRawAxis(1);
     	RobotMap.Multiplier = RobotMap.driveStick.getRawAxis(3);
+    	RobotMap.ClimbP = RobotMap.mechStick.getRawAxis(1);
+    	RobotMap.onClimb = RobotMap.mechStick.getRawButton(0);
     	RobotMap.onTurbo = RobotMap.driveStick.getRawButton(1);
     	RobotMap.onSteg = RobotMap.driveStick.getRawButton(2);
     	RobotMap.onLPiston = RobotMap.driveStick.getRawButton(3);
@@ -77,25 +79,10 @@ public class Robot extends IterativeRobot {
     	RobotMap.LM1.set(RobotMap.LPower);
     	RobotMap.LM2.set(RobotMap.LPower);
     	RobotMap.LM3.set(RobotMap.LPower);
+    	//Climber
+    	//Climber.climbthatshit(RobotMap.ClimbP, RobotMap.Multiplier, RobotMap.onClimb);
     	//Pneumatics
-    	if(RobotMap.onLPiston == true){
-    		Pneumatics.LPistonForward();
-    	}
-    	else{
-    		Pneumatics.LPistonReverse();
-    	}
-    	if(RobotMap.onRPiston == true){
-    		Pneumatics.RPistonForward();
-    	}
-    	else{
-    		Pneumatics.RPistonReverse();
-    	}
-    	if(RobotMap.onCompress == true){
-    		Pneumatics.startCompressor();
-    	}
-    	else{
-    		Pneumatics.stopCompressor();
-    	}
+    	Pneumatics.air();
     	//Shooter
     }
 
