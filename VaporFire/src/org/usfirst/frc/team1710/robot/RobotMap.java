@@ -6,24 +6,26 @@ import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.RobotDrive;
-import edu.wpi.first.wpilibj.Talon;
 
 public class RobotMap {
 		
 	public static Joystick driveStick, mechStick;
 	
-	public static CANTalon climber, shooter, lift, leftOne, leftTwo, leftThree, rightOne, rightTwo, rightThree;
+	public static CANTalon RM1, RM2, RM3, LM1, LM2, LM3, Shooter1, Shooter2, Climber;
 	
-<<<<<<< HEAD
-	public static DoubleSolenoid shifter, piston1, piston2;
-=======
-	public static DoubleSolenoid shifter;;
->>>>>>> origin/master
+	public static DoubleSolenoid RPiston, LPiston, Shifter;
 
-	public static Compressor moreAir;
+	public static Compressor Compressor;
 	
 	public static AHRS navx;
 	
+	//public static ****analogpressure storedPressure, workingPressure, REncoder, LEncoder;
+	
 	public static int axisType;
+	
+	public static boolean onTurbo, onCompress, neutral, onRPiston, onLPiston, onSteg, zeroYaw;
+	
+	public static double TurnP, ForwardP, Multiplier, LPower, RPower, ShooterP, ClimbP, MultAxis2;
+	
+	public static float currentYaw;
 }
