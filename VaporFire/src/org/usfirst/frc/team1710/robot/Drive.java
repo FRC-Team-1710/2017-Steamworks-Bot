@@ -8,14 +8,10 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  *
  */
 public class Drive extends Subsystem {
-<<<<<<< HEAD
 
 	public static double speedMultiplier = (RobotMap.driveStick.getRawAxis(3)*-1*.5+.5);
 	public static double currentYaw;
 	public static boolean neutral = RobotMap.driveStick.getRawButton(11);
-=======
-	static double currentYaw;
->>>>>>> origin/master
 	
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
@@ -24,7 +20,6 @@ public class Drive extends Subsystem {
         // Set the default command for a subsystem here.
         //setDefaultCommand(new MySpecialCommand());
     }
-<<<<<<< HEAD
     public static void arcadeDrive(double forwardPower, double turningPower, boolean turboMode) {
     	if(turboMode = true){
     		RobotMap.leftOne.set((forwardPower * speedMultiplier) - turningPower*speedMultiplier*.3);
@@ -63,44 +58,19 @@ public class Drive extends Subsystem {
     		SmartDashboard.putBoolean("gear", false);
     	} 
 
-=======
-    public static void arcadeDrive(double forwardPower, double turningPower, boolean shiftVal, double speedMultiplier) {
-       RobotMap.leftOne.set((forwardPower * speedMultiplier) - turningPower* speedMultiplier);
-       RobotMap.leftTwo.set((forwardPower * speedMultiplier) - turningPower* speedMultiplier);
-       RobotMap.leftThree.set((forwardPower * speedMultiplier) - turningPower* speedMultiplier);
-       
-       RobotMap.rightOne.set((-forwardPower * speedMultiplier) - turningPower* speedMultiplier);
-       RobotMap.rightTwo.set((-forwardPower * speedMultiplier) - turningPower* speedMultiplier);
-       RobotMap.rightThree.set((-forwardPower * speedMultiplier) - turningPower* speedMultiplier);    	
-    	
-       if(shiftVal == true) {
-    	   RobotMap.shifter.set(DoubleSolenoid.Value.kReverse);
-    	   SmartDashboard.putBoolean("gear", true);
-       } else if(shiftVal == false){
-    	   RobotMap.shifter.set(DoubleSolenoid.Value.kForward);
-    	   SmartDashboard.putBoolean("gear", false);
-       } else {
-    	   RobotMap.shifter.set(DoubleSolenoid.Value.kOff);
-       }
->>>>>>> origin/master
+
     }
     
     public static void StegDrive(double forwardPower, double speedMultiplier) {
     	currentYaw = RobotMap.navx.getYaw();
     	if(currentYaw < -2.5) {
-<<<<<<< HEAD
     		//arcadeDrive(forwardPower, currentYaw/100, 0, false);
-    	} else if(currentYaw > 2.5){
+    	} 
+    	else if(currentYaw > 2.5){
     		//arcadeDrive(forwardPower, -currentYaw/100, 0, false);
-    	} else {
+    	} 
+    	else {
     		//arcadeDrive(forwardPower, 0, 0, false);
-=======
-    		arcadeDrive(forwardPower, currentYaw/100, false, speedMultiplier);
-    	} else if(currentYaw > 2.5){
-    		arcadeDrive(forwardPower, -currentYaw/100, false, speedMultiplier);
-    	} else {
-    		arcadeDrive(forwardPower, 0, false, 1);
->>>>>>> origin/master
     	}
     }
     
