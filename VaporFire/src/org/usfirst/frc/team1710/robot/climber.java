@@ -13,16 +13,16 @@ public class Climber extends Subsystem {
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
         //setDefaultCommand(new MySpecialCommand());
-    	RobotMap.climber.set(0);
+    	RobotMap.Climber.set(0);
     	
     }
     
     
     public static void climb(boolean isClimbing, double speed){
     	if(isClimbing == true){
-    		RobotMap.climber.set(speed);     		
+    		RobotMap.Climber.set(speed);     		
     	}else{
-    		RobotMap.climber.set(0);
+    		RobotMap.Climber.set(0);
     	}
     }
 }
