@@ -5,7 +5,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 /**
  *
  */
-public class Climber extends Subsystem {
+public class climber extends Subsystem {
 
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
@@ -16,12 +16,11 @@ public class Climber extends Subsystem {
     	RobotMap.Climber.set(0);
     	
     }
-    
-    
-    public static void climb(boolean isClimbing, double speed){
-    	if(isClimbing == true){
-    		RobotMap.Climber.set(speed);     		
-    	}else{
+    public static void climbthatshit(boolean onClimb, double ClimbP){
+    	if(onClimb == true){
+    		RobotMap.Climber.set(ClimbP*-1);     		
+    	}
+    	else{
     		RobotMap.Climber.set(0);
     	}
     }

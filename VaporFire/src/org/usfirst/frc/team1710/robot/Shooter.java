@@ -21,22 +21,22 @@ public class Shooter extends Subsystem {
        power = 0;
     }
     public static void run(){
-    	currentVelocity = RobotMap.shooter.getEncVelocity();
+    	currentVelocity = RobotMap.Shooter1.getEncVelocity();
     	error = ((goalVelocity - currentVelocity) / (goalVelocity + currentVelocity));
     	power -= (inc * error);
     	Timer.delay(.25);
-    	RobotMap.shooter.set(power);
+    	RobotMap.Shooter1.set(power);
+    	RobotMap.Shooter2.set(power);
     	SmartDashboard.putNumber("Motor Power", power);
     	SmartDashboard.putNumber("Velocity", currentVelocity);
-    
     }
-    
     public static void testMode() {
-    	RobotMap.shooter.set(-0.3);
+    	RobotMap.Shooter1.set(-0.3);
+    	RobotMap.Shooter2.set(-0.3);
     }
-    
     public static void stopShooter(){ 
-    	RobotMap.shooter.set(0);
+    	RobotMap.Shooter1.set(0);
+    	RobotMap.Shooter2.set(0);
     }
 }
 
