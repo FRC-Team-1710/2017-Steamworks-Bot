@@ -23,19 +23,19 @@ public class Drive extends Subsystem {
     	}
     	if(onTurbo == true && neutral == false){
     		RobotMap.LPower = ((forwardP*multiplier) - (turnP*multiplier*.3));
-        	RobotMap.RPower = ((forwardP*multiplier) - (turnP*multiplier*.3));    	
+        	RobotMap.RPower = ((forwardP*multiplier) + (turnP*multiplier*.3));    	
         	RobotMap.axisType = 2;
         	Pneumatics.shiftForward();
     	}
     	else if (onTurbo == false && neutral == false){ 
     		RobotMap.LPower = ((forwardP*multiplier) - (turnP*multiplier));    		
-    		RobotMap.RPower = ((forwardP*multiplier) - (turnP*multiplier));    		
+    		RobotMap.RPower = ((forwardP*multiplier) + (turnP*multiplier));    		
         	RobotMap.axisType = 0;
         	Pneumatics.shiftReverse();
     	}
     	else {
     		RobotMap.LPower = ((forwardP*multiplier*.1) - (turnP*multiplier*.1));    		
-    		RobotMap.RPower = ((forwardP*multiplier*.1) - (turnP*multiplier*.1));	
+    		RobotMap.RPower = ((forwardP*multiplier*.1) + (turnP*multiplier*.1));	
         	RobotMap.axisType = 0;
         	Pneumatics.shiftNeutral();
     	}

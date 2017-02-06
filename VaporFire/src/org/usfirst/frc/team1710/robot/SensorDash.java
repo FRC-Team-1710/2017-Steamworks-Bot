@@ -14,7 +14,7 @@ public class SensorDash extends Subsystem {
         //sensor values go here
     }
     public static void stuff(){
-    	
+    	//call specific sensors
     }
 }
 
