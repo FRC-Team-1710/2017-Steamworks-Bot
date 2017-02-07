@@ -16,6 +16,7 @@ public class Shooter extends Subsystem {
 	static double power = 0;
 	static double error = 0;
 	static int goalVelocity = -28000;
+	static public boolean shooteratspeed = false;
 	
 	
 	
@@ -23,37 +24,53 @@ public class Shooter extends Subsystem {
        power = 0;
     }
     public static void runShooter(){
-    	currentVelocity = RobotMap.shooter.getEncVelocity();
+    	currentVelocity = RobotMap.Shooter1.getEncVelocity();
     	error = ((goalVelocity - currentVelocity) / (goalVelocity + currentVelocity));
     	power -= (inc * error);
     	Timer.delay(.1);
-    	RobotMap.shooter.set(power);
+    	RobotMap.Shooter1.set(power);
     	SmartDashboard.putNumber("Motor Power", power);
     	SmartDashboard.putNumber("Velocity", currentVelocity);
     
     }
-    public static void runIndexer(){
-    	RobotMap.indexer.set(1);
+    public static void runInjector(){
+    	RobotMap.Injector.set(1);
     }
-    public static void stopIndexer(){
-    	RobotMap.indexer.set(0);
+    public static void stopInjector(){
+    	RobotMap.Injector.set(0);
     }
     
     public static void testMode() {
-    	RobotMap.shooter.set(-0.3);
+    	RobotMap.Shooter1.set(-0.3);
+    	RobotMap.Shooter2.set(-0.3);
     }
     
     public static void stopShooter(){ 
-    	RobotMap.shooter.set(0);
+    	RobotMap.Shooter1.set(0);
+    	RobotMap.Shooter2.set(0);
     }
     public static void runSystem(){
-    	currentVelocity = RobotMap.shooter.getEncVelocity();
+    	currentVelocity = RobotMap.Shooter1.getEncVelocity();
     	if(currentVelocity > goalVelocity - 500 && currentVelocity < goalVelocity + 500){
     		runShooter();
-    		runIndexer();
-    	}else{
-    		stopIndexer();
+    		runInjector();
+    	}
+    	else{
+    		stopInjector();
     		runShooter();
+    	}
+    }
+    public static void noEncoderRun(){
+    	if (shooteratspeed == true){
+    		RobotMap.Injector.set(1);
+    		RobotMap.Shooter1.set(.5);
+    		RobotMap.Shooter2.set(.5);
+    	}
+    	else{
+    		RobotMap.Shooter1.set(.5);
+    		RobotMap.Shooter2.set(.5);
+    		Timer.delay(.5);
+    		shooteratspeed = true;
     	}
     }
 }

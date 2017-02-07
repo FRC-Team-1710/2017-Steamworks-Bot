@@ -79,20 +79,22 @@ public class Robot extends IterativeRobot {
     	Scheduler.getInstance().run();
     }
     public void teleopPeriodic() {
-    	//Control
+    	//Drive Controls
     	RobotMap.TurnP = RobotMap.driveStick.getRawAxis(RobotMap.axisType);
     	RobotMap.ForwardP = RobotMap.driveStick.getRawAxis(1);
     	RobotMap.Multiplier = (-1*RobotMap.driveStick.getRawAxis(3)*.5+.5);
-    	RobotMap.ClimbP = (RobotMap.mechStick.getRawAxis(2) + RobotMap.mechStick.getRawAxis(3));
-    	RobotMap.onClimb = RobotMap.mechStick.getRawButton(1);
     	RobotMap.onTurbo = RobotMap.driveStick.getRawButton(1);
     	RobotMap.onSteg = RobotMap.driveStick.getRawButton(2);
     	RobotMap.onLPiston = RobotMap.driveStick.getRawButton(3);
     	RobotMap.onRPiston = RobotMap.driveStick.getRawButton(4);
-    	RobotMap.onShootSys = RobotMap.mechStick.getRawButton(1);
+    	RobotMap.neutral = RobotMap.driveStick.getRawButton(5);
     	RobotMap.zeroYaw = RobotMap.driveStick.getRawButton(6);
-    	RobotMap.onCompress = RobotMap.driveStick.getRawButton(8);
-    	RobotMap.neutral = RobotMap.driveStick.getRawButton(11);
+    	RobotMap.onCompress = RobotMap.driveStick.getRawButton(10);
+    	//Mech Controls
+    	RobotMap.ClimbP = (RobotMap.mechStick.getRawAxis(2)*.5 + RobotMap.mechStick.getRawAxis(3)*.5);
+    	RobotMap.onClimbPos = RobotMap.mechStick.getRawButton(2);
+    	RobotMap.onClimbNeg = RobotMap.mechStick.getRawButton(3);
+    	RobotMap.onShootSys = RobotMap.mechStick.getRawButton(1);
     	//Drive
     	Drive.arcadeDrive(RobotMap.ForwardP, RobotMap.TurnP, RobotMap.Multiplier, RobotMap.navx.getYaw(), RobotMap.onTurbo, RobotMap.onSteg, RobotMap.neutral);
     	RobotMap.RM1.set(RobotMap.RPower*-1);
@@ -102,21 +104,24 @@ public class Robot extends IterativeRobot {
     	RobotMap.LM2.set(RobotMap.LPower);
     	RobotMap.LM3.set(RobotMap.LPower);
     	//Climber
-    	climber.climbthatshit(RobotMap.onClimb, RobotMap.ClimbP);
+    	climber.climbthatshit(RobotMap.onClimbPos, RobotMap.onClimbNeg, RobotMap.ClimbP);
     	//Pneumatics
     	Pneumatics.air();
     	if (RobotMap.onCompress == true){
-    		//Pneumatics.startCompressor();
-    		RobotMap.Compressor.setClosedLoopControl(true);
+    		Pneumatics.startCompressor();
     	}
     	else{
-    		//Pneumatics.stopCompressor();
-    		RobotMap.Compressor.setClosedLoopControl(false);    		
+    		Pneumatics.stopCompressor();   		
     	}
     	//Shooter
-    	RobotMap.Shooter1.set(RobotMap.mechStick.getRawAxis(1));
-    	RobotMap.Shooter2.set(RobotMap.mechStick.getRawAxis(5));
-    	//RobotMap.Injector.set(RobotMap.mechStick.getRawAxis(2));
+    	if(RobotMap.onShootSys == true){
+    		Shooter.noEncoderRun();
+    	}
+    	else{
+    		Shooter.shooteratspeed = false;
+    		Shooter.stopShooter();
+    		Shooter.stopInjector();
+    	}
     }
 
     public void testPeriodic() {
