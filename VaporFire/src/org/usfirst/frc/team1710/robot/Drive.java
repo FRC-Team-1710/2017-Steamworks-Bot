@@ -15,8 +15,14 @@ public class Drive extends Subsystem {
         RobotMap.RPower = 0;
     }
     public static void arcadeDrive(double forwardP, double turnP, double multiplier, double currentYaw, boolean onTurbo, boolean onSteg, boolean neutral ) {
-    	if (onSteg == true && (currentYaw> 3 || currentYaw< -3)){
-    		turnP = ((RobotMap.currentYaw)/10);
+    	if(onSteg == true) {
+    		if(currentYaw < (currentYaw-2.5)) {
+    			forwardP = -0.6;
+    		} else if(currentYaw > (currentYaw+2.5)) {
+    			forwardP = 0.6;
+    		} else {
+    			forwardP = 0.0;
+    		}
     	}
     	else{
     		RobotMap.navx.zeroYaw();

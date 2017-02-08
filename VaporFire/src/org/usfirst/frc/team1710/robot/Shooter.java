@@ -63,12 +63,12 @@ public class Shooter extends Subsystem {
     public static void noEncoderRun(){
     	if (shooteratspeed == true){
     		RobotMap.Injector.set(1);
-    		RobotMap.Shooter1.set(.5);
-    		RobotMap.Shooter2.set(.5);
+    		RobotMap.Shooter1.set(0.8);
+    		RobotMap.Shooter2.set(0.8);
     	}
     	else{
-    		RobotMap.Shooter1.set(.5);
-    		RobotMap.Shooter2.set(.5);
+    		RobotMap.Shooter1.set(1);
+    		RobotMap.Shooter2.set(1);
     		Timer.delay(.5);
     		shooteratspeed = true;
     	}
