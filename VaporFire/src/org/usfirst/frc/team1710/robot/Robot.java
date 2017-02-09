@@ -105,7 +105,7 @@ public class Robot extends IterativeRobot {
     	if(RobotMap.onSteg == true) {
     		Drive.StegDrive(RobotMap.ForwardP, RobotMap.navx.getYaw(), RobotMap.Multiplier);
     	} else {
-        	Drive.arcadeDrive(RobotMap.ForwardP, RobotMap.TurnP, RobotMap.Multiplier, RobotMap.navx.getYaw(), RobotMap.onTurbo, RobotMap.onSteg, RobotMap.neutral);
+        	Drive.arcadeDrive(RobotMap.ForwardP, RobotMap.TurnP, RobotMap.Multiplier, RobotMap.navx.getYaw(), RobotMap.onTurbo, RobotMap.neutral);
     	}
     	//Climber
     	climber.climbthatrope(RobotMap.onClimbPos, RobotMap.onClimbNeg, RobotMap.ClimbP);

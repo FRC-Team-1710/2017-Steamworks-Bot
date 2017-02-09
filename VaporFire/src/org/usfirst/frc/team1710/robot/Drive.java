@@ -14,26 +14,20 @@ public class Drive extends Subsystem {
         RobotMap.LPower = 0;
         RobotMap.RPower = 0;
     }
-    public static void arcadeDrive(double forwardP, double turnP, double multiplier, float currentYaw, boolean onTurbo, boolean onSteg, boolean neutral ) {
-    	if(onSteg == true) {
-    		StegDrive(forwardP, currentYaw);
-    	}
-    	else{
-    		RobotMap.navx.zeroYaw();
-    	}
-    	if(onTurbo == true && neutral == false && onSteg == false){
+    public static void arcadeDrive(double forwardP, double turnP, double multiplier, float currentYaw, boolean onTurbo, boolean neutral ) {
+    	if(onTurbo == true && neutral == false){
     		RobotMap.LPower = ((forwardP*multiplier) - (turnP*multiplier*.3));
         	RobotMap.RPower = ((forwardP*multiplier) + (turnP*multiplier*.3));    	
         	RobotMap.axisType = 2;
         	Pneumatics.shiftForward();
     	}
-    	else if (onTurbo == false && neutral == false && onSteg == false){ 
+    	else if (onTurbo == false && neutral == false){ 
     		RobotMap.LPower = ((forwardP*multiplier) - (turnP*multiplier));    		
     		RobotMap.RPower = ((forwardP*multiplier) + (turnP*multiplier));    		
         	RobotMap.axisType = 0;
         	Pneumatics.shiftReverse();
     	}
-    	else if(onSteg == false) {
+    	else {
     		RobotMap.LPower = ((forwardP*multiplier*.1) - (turnP*multiplier*.1));    		
     		RobotMap.RPower = ((forwardP*multiplier*.1) + (turnP*multiplier*.1));	
         	RobotMap.axisType = 0;
