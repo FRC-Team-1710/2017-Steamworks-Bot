@@ -90,6 +90,7 @@ public class Robot extends IterativeRobot {
     	RobotMap.neutral = RobotMap.driveStick.getRawButton(5);
     	RobotMap.zeroYaw = RobotMap.driveStick.getRawButton(6);
     	RobotMap.onCompress = RobotMap.driveStick.getRawButton(10);
+    	RobotMap.flipDir = RobotMap.driveStick.getRawButton(11);
     	//Mech Controls
     	RobotMap.ClimbP = (RobotMap.mechStick.getRawAxis(2)*.5 + RobotMap.mechStick.getRawAxis(3)*.5);
     	RobotMap.onClimbPos = RobotMap.mechStick.getRawButton(2);
@@ -105,7 +106,7 @@ public class Robot extends IterativeRobot {
     	if(RobotMap.onSteg == true) {
     		Drive.StegDrive(RobotMap.ForwardP, RobotMap.navx.getYaw(), RobotMap.Multiplier);
     	} else {
-        	Drive.arcadeDrive(RobotMap.ForwardP, RobotMap.TurnP, RobotMap.Multiplier, RobotMap.navx.getYaw(), RobotMap.onTurbo, RobotMap.neutral);
+        	Drive.arcadeDrive(RobotMap.ForwardP, RobotMap.TurnP, RobotMap.Multiplier, RobotMap.navx.getYaw(), RobotMap.onSteg, RobotMap.onTurbo, RobotMap.neutral, RobotMap.flipDir);
     	}
     	//Climber
     	climber.climbthatrope(RobotMap.onClimbPos, RobotMap.onClimbNeg, RobotMap.ClimbP);
