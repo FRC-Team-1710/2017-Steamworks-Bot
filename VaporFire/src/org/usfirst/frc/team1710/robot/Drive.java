@@ -17,16 +17,16 @@ public class Drive extends Subsystem {
         RobotMap.LPower = 0;
         RobotMap.RPower = 0;
     }
-    public static void arcadeDrive(double forwardP, double turnP, double multiplier, float currentYaw, boolean onSteg, boolean onTurbo, boolean neutral, boolean flip ) {
+    public static void arcadeDrive(double forwardP, double turnP, double multiplier, float currentYaw, boolean onSteg, boolean onTurbo, boolean neutral) {
     	if(onTurbo == true && neutral == false){
-    		RobotMap.LPower = ((forwardP*multiplier) - (turnP*multiplier*.3)) * flipMultiplier;
-        	RobotMap.RPower = ((forwardP*multiplier) + (turnP*multiplier*.3)) * flipMultiplier;    	
+    		RobotMap.LPower = ((forwardP*multiplier) - (turnP*multiplier*.3));
+        	RobotMap.RPower = ((forwardP*multiplier) + (turnP*multiplier*.3));    	
         	RobotMap.axisType = 2;
         	Pneumatics.shiftForward();
     	}
     	else if (onTurbo == false && neutral == false){ 
-    		RobotMap.LPower = ((forwardP*multiplier) - (turnP*multiplier)) * flipMultiplier;    		
-    		RobotMap.RPower = ((forwardP*multiplier) + (turnP*multiplier)) * flipMultiplier;    		
+    		RobotMap.LPower = ((forwardP*multiplier) - (turnP*multiplier));    		
+    		RobotMap.RPower = ((forwardP*multiplier) + (turnP*multiplier));    		
         	RobotMap.axisType = 0;
         	Pneumatics.shiftReverse();
     	}
@@ -35,20 +35,10 @@ public class Drive extends Subsystem {
         	Pneumatics.shiftForward();
     	}
     	else {
-    		RobotMap.LPower = ((forwardP*multiplier*.1) - (turnP*multiplier*.1)) * flipMultiplier;    		
-    		RobotMap.RPower = ((forwardP*multiplier*.1) + (turnP*multiplier*.1)) * flipMultiplier;	
+    		RobotMap.LPower = ((forwardP*multiplier*.1) - (turnP*multiplier*.1));    		
+    		RobotMap.RPower = ((forwardP*multiplier*.1) + (turnP*multiplier*.1));	
         	RobotMap.axisType = 0;
         	Pneumatics.shiftNeutral();
-    	}
-    	if(flip == true) {
-    		//flip robot dir
-    		flipMultiplier = -1;
-    		flip = !flip;
-    		Timer.delay(0.2);
-    	} else {
-    		flipMultiplier = -1;
-    		flip = !flip;
-    		Timer.delay(0.2);
     	}
     }
     
