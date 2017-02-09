@@ -47,13 +47,23 @@ public class Drive extends Subsystem {
     }
     
     public static void StegDrive(double forwardP, float currentYaw, double multiplier) {
-		if(currentYaw < (currentYaw-2.5)) {
-			simpleArcade(forwardP, -0.6, multiplier);
-		} else if(currentYaw > (currentYaw+2.5)) {
-			simpleArcade(forwardP, 0.6, multiplier);
-		} else {
-			simpleArcade(forwardP, 0.0, multiplier);
-		}
+    	if(forwardP > 0) {
+    		if(currentYaw < (currentYaw-2.5)) {
+				simpleArcade(forwardP, -0.6, multiplier);
+			} else if(currentYaw > (currentYaw+2.5)) {
+				simpleArcade(forwardP, 0.6, multiplier);
+			} else {
+				simpleArcade(forwardP, 0.0, multiplier);
+			}	
+    	} else {
+    		if(currentYaw < (currentYaw-2.5)) {
+				simpleArcade(forwardP, 0.6, multiplier);
+			} else if(currentYaw > (currentYaw+2.5)) {
+				simpleArcade(forwardP, -0.6, multiplier);
+			} else {
+				simpleArcade(forwardP, 0.0, multiplier);
+			}
+    	}
     }
     
     public static void stopDriving() {
