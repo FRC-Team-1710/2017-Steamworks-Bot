@@ -104,7 +104,7 @@ public class Robot extends IterativeRobot {
     	RobotMap.LM2.set(RobotMap.LPower);
     	RobotMap.LM3.set(RobotMap.LPower);
     	//Climber
-    	climber.climbthatshit(RobotMap.onClimbPos, RobotMap.onClimbNeg, RobotMap.ClimbP);
+    	climber.climbthatrobe(RobotMap.onClimbPos, RobotMap.onClimbNeg, RobotMap.ClimbP);
     	//Pneumatics
     	Pneumatics.air();
     	if (RobotMap.onCompress == true){
