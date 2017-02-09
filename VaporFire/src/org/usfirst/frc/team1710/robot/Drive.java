@@ -21,19 +21,19 @@ public class Drive extends Subsystem {
     	else{
     		RobotMap.navx.zeroYaw();
     	}
-    	if(onTurbo == true && neutral == false){
+    	if(onTurbo == true && neutral == false && onSteg == false){
     		RobotMap.LPower = ((forwardP*multiplier) - (turnP*multiplier*.3));
         	RobotMap.RPower = ((forwardP*multiplier) + (turnP*multiplier*.3));    	
         	RobotMap.axisType = 2;
         	Pneumatics.shiftForward();
     	}
-    	else if (onTurbo == false && neutral == false){ 
+    	else if (onTurbo == false && neutral == false && onSteg == false){ 
     		RobotMap.LPower = ((forwardP*multiplier) - (turnP*multiplier));    		
     		RobotMap.RPower = ((forwardP*multiplier) + (turnP*multiplier));    		
         	RobotMap.axisType = 0;
         	Pneumatics.shiftReverse();
     	}
-    	else {
+    	else if(onSteg == false) {
     		RobotMap.LPower = ((forwardP*multiplier*.1) - (turnP*multiplier*.1));    		
     		RobotMap.RPower = ((forwardP*multiplier*.1) + (turnP*multiplier*.1));	
         	RobotMap.axisType = 0;
@@ -45,13 +45,13 @@ public class Drive extends Subsystem {
     	RobotMap.navx.zeroYaw();
     }
     
-    public static void StegDrive(double forwardP, float currentYaw) {
+    public static void StegDrive(double forwardP, float currentYaw, double multiplier) {
 		if(currentYaw < (currentYaw-2.5)) {
-			forwardP = -0.6;
+			simpleArcade(forwardP, -0.6, multiplier);
 		} else if(currentYaw > (currentYaw+2.5)) {
-			forwardP = 0.6;
+			simpleArcade(forwardP, 0.6, multiplier);
 		} else {
-			forwardP = 0.0;
+			simpleArcade(forwardP, 0.0, multiplier);
 		}
     }
     
@@ -62,5 +62,10 @@ public class Drive extends Subsystem {
 		RobotMap.RM1.set(0);
 		RobotMap.RM2.set(0);
 		RobotMap.RM3.set(0);
+    }
+    
+    public static void simpleArcade(double forwardP, double turnP, double multiplier) {
+		RobotMap.LPower = ((forwardP*multiplier) - (turnP*multiplier));    		
+		RobotMap.RPower = ((forwardP*multiplier) + (turnP*multiplier));
     }
 }

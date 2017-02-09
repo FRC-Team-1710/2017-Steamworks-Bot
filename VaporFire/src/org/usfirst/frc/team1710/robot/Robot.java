@@ -96,15 +96,19 @@ public class Robot extends IterativeRobot {
     	RobotMap.onClimbNeg = RobotMap.mechStick.getRawButton(3);
     	RobotMap.onShootSys = RobotMap.mechStick.getRawButton(1);
     	//Drive
-    	Drive.arcadeDrive(RobotMap.ForwardP, RobotMap.TurnP, RobotMap.Multiplier, RobotMap.navx.getYaw(), RobotMap.onTurbo, RobotMap.onSteg, RobotMap.neutral);
     	RobotMap.RM1.set(RobotMap.RPower*-1);
     	RobotMap.RM2.set(RobotMap.RPower*-1);
     	RobotMap.RM3.set(RobotMap.RPower*-1);
     	RobotMap.LM1.set(RobotMap.LPower);
     	RobotMap.LM2.set(RobotMap.LPower);
     	RobotMap.LM3.set(RobotMap.LPower);
+    	if(RobotMap.onSteg == true) {
+    		Drive.StegDrive(RobotMap.ForwardP, RobotMap.navx.getYaw(), RobotMap.Multiplier);
+    	} else {
+        	Drive.arcadeDrive(RobotMap.ForwardP, RobotMap.TurnP, RobotMap.Multiplier, RobotMap.navx.getYaw(), RobotMap.onTurbo, RobotMap.onSteg, RobotMap.neutral);
+    	}
     	//Climber
-    	climber.climbthatrobe(RobotMap.onClimbPos, RobotMap.onClimbNeg, RobotMap.ClimbP);
+    	climber.climbthatrope(RobotMap.onClimbPos, RobotMap.onClimbNeg, RobotMap.ClimbP);
     	//Pneumatics
     	Pneumatics.air();
     	if (RobotMap.onCompress == true){
