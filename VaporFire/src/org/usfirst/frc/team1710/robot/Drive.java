@@ -14,15 +14,9 @@ public class Drive extends Subsystem {
         RobotMap.LPower = 0;
         RobotMap.RPower = 0;
     }
-    public static void arcadeDrive(double forwardP, double turnP, double multiplier, double currentYaw, boolean onTurbo, boolean onSteg, boolean neutral ) {
+    public static void arcadeDrive(double forwardP, double turnP, double multiplier, float currentYaw, boolean onTurbo, boolean onSteg, boolean neutral ) {
     	if(onSteg == true) {
-    		if(currentYaw < (currentYaw-2.5)) {
-    			forwardP = -0.6;
-    		} else if(currentYaw > (currentYaw+2.5)) {
-    			forwardP = 0.6;
-    		} else {
-    			forwardP = 0.0;
-    		}
+    		StegDrive(forwardP, currentYaw);
     	}
     	else{
     		RobotMap.navx.zeroYaw();
@@ -49,6 +43,16 @@ public class Drive extends Subsystem {
     
     public static void zeroYaw() {
     	RobotMap.navx.zeroYaw();
+    }
+    
+    public static void StegDrive(double forwardP, float currentYaw) {
+		if(currentYaw < (currentYaw-2.5)) {
+			forwardP = -0.6;
+		} else if(currentYaw > (currentYaw+2.5)) {
+			forwardP = 0.6;
+		} else {
+			forwardP = 0.0;
+		}
     }
     
     public static void stopDriving() {
