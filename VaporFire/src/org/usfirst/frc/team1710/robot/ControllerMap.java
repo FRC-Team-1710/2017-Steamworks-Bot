@@ -27,26 +27,23 @@ public class ControllerMap extends Subsystem {
     	RobotMap.onCompress = RobotMap.driveStick.getRawButton(10);
     	//Mech Controls
     	RobotMap.ClimbP = (RobotMap.mechStick.getRawAxis(2)*.5 + RobotMap.mechStick.getRawAxis(3)*.5);
-    	RobotMap.onClimbPos = RobotMap.mechStick.getRawButton(2);
-    	RobotMap.onClimbNeg = RobotMap.mechStick.getRawButton(3);
     	RobotMap.onShootSys = RobotMap.mechStick.getRawButton(1);
     }
     public static void runPennMode(){
-    	RobotMap.TurnP = RobotMap.driveStick.getRawAxis(4);
+    	RobotMap.TurnP = RobotMap.driveStick.getRawAxis(4) * .75;
     	RobotMap.ForwardP = RobotMap.driveStick.getRawAxis(1);
-    	RobotMap.Multiplier = RobotMap.driveStick.getRawAxis(3) + 0.25;
+    	RobotMap.Multiplier = 0.75;
     	RobotMap.onTurbo = RobotMap.driveStick.getRawButton(5);
     	RobotMap.onSteg = RobotMap.driveStick.getRawButton(6);
-    	RobotMap.onLPiston = RobotMap.mechStick.getRawButton(3);
-    	RobotMap.onRPiston = RobotMap.mechStick.getRawButton(6);
     	RobotMap.neutral = RobotMap.driveStick.getRawButton(7);
     	RobotMap.zeroYaw = RobotMap.driveStick.getRawButton(8);
     	RobotMap.onCompress = RobotMap.driveStick.getRawButton(1);
     	//Mech Controls
-    	RobotMap.ClimbP = (RobotMap.mechStick.getRawAxis(2)*.5 + RobotMap.mechStick.getRawAxis(3)*.5);
-    	RobotMap.onClimbPos = RobotMap.mechStick.getRawButton(2);
-    	RobotMap.onClimbNeg = RobotMap.mechStick.getRawButton(3);
+    	RobotMap.ClimbP = -RobotMap.mechStick.getRawAxis(1);
+    	RobotMap.climb = RobotMap.mechStick.getRawButton(2);
     	RobotMap.onShootSys = RobotMap.mechStick.getRawButton(1);
+    	RobotMap.onLPiston = RobotMap.mechStick.getRawButton(3);
+    	RobotMap.onRPiston = RobotMap.mechStick.getRawButton(4);
     }
 }
 

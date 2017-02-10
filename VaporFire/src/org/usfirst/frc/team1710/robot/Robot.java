@@ -96,7 +96,11 @@ public class Robot extends IterativeRobot {
         	Drive.arcadeDrive(RobotMap.ForwardP, RobotMap.TurnP, RobotMap.Multiplier, RobotMap.navx.getYaw(), RobotMap.onSteg, RobotMap.onTurbo, RobotMap.neutral);
     	}
     	//Climber
-    	climber.climbthatrope(RobotMap.onClimbPos, RobotMap.onClimbNeg, RobotMap.ClimbP);
+    	if(RobotMap.climb) {
+    		climber.climbthatrope(RobotMap.ClimbP);
+    	} else {
+    		climber.climbthatrope(0);
+    	}
     	//Pneumatics
     	Pneumatics.air();
     	if (RobotMap.onCompress == true){

@@ -16,16 +16,8 @@ public class climber extends Subsystem {
     	RobotMap.Climber.set(0);
     	
     }
-    public static void climbthatrope(boolean onClimbPos, boolean onClimbNeg, double ClimbP){
-    	if(onClimbPos == true && onClimbNeg == false){
-    		RobotMap.Climber.set(ClimbP*-1);     		
-    	}
-    	else if(onClimbPos == false && onClimbNeg == true){
-    		RobotMap.Climber.set(ClimbP);
-    	}
-    	else{
-    		RobotMap.Climber.set(0);
-    	}
+    public static void climbthatrope(double ClimbP){
+    	RobotMap.Climber.set(ClimbP);
     }
 }
 
