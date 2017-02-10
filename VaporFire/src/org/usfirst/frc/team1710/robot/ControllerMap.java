@@ -34,14 +34,14 @@ public class ControllerMap extends Subsystem {
     public static void runPennMode(){
     	RobotMap.TurnP = RobotMap.driveStick.getRawAxis(4);
     	RobotMap.ForwardP = RobotMap.driveStick.getRawAxis(1);
-    	RobotMap.Multiplier = (-1*RobotMap.driveStick.getRawAxis(3)*.5+.5);
-    	RobotMap.onTurbo = RobotMap.driveStick.getRawButton(6);
-    	RobotMap.onSteg = RobotMap.driveStick.getRawButton(7);
-    	RobotMap.onLPiston = RobotMap.driveStick.getRawButton(3);
-    	RobotMap.onRPiston = RobotMap.driveStick.getRawButton(4);
-    	RobotMap.neutral = RobotMap.driveStick.getRawButton(5);
-    	RobotMap.zeroYaw = RobotMap.driveStick.getRawButton(6);
-    	RobotMap.onCompress = RobotMap.driveStick.getRawButton(10);
+    	RobotMap.Multiplier = 0.6 /*(-1*RobotMap.driveStick.getRawAxis(3)*.5+.5)*/;
+    	RobotMap.onTurbo = RobotMap.driveStick.getRawButton(5);
+    	RobotMap.onSteg = RobotMap.driveStick.getRawButton(9);
+    	RobotMap.onLPiston = RobotMap.mechStick.getRawButton(3);
+    	RobotMap.onRPiston = RobotMap.mechStick.getRawButton(6);
+    	RobotMap.neutral = RobotMap.driveStick.getRawButton(7);
+    	RobotMap.zeroYaw = RobotMap.driveStick.getRawButton(8);
+    	RobotMap.onCompress = RobotMap.driveStick.getRawButton(1);
     	//Mech Controls
     	RobotMap.ClimbP = (RobotMap.mechStick.getRawAxis(2)*.5 + RobotMap.mechStick.getRawAxis(3)*.5);
     	RobotMap.onClimbPos = RobotMap.mechStick.getRawButton(2);
