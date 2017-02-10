@@ -91,6 +91,7 @@ public class Robot extends IterativeRobot {
     	RobotMap.LM3.set(RobotMap.LPower);
     	if(RobotMap.onSteg == true) {
     		Drive.StegDrive(RobotMap.ForwardP, RobotMap.navx.getYaw(), RobotMap.Multiplier);
+    		System.out.println("running steg");
     	} else {
         	Drive.arcadeDrive(RobotMap.ForwardP, RobotMap.TurnP, RobotMap.Multiplier, RobotMap.navx.getYaw(), RobotMap.onSteg, RobotMap.onTurbo, RobotMap.neutral);
     	}

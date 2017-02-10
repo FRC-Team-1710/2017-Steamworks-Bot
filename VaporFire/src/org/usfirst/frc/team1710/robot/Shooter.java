@@ -22,6 +22,7 @@ public class Shooter extends Subsystem {
 	
     public void initDefaultCommand() {
        power = 0;
+       shooteratspeed = false;
     }
     public static void runShooter(){
     	currentVelocity = RobotMap.Shooter1.getEncVelocity();
@@ -63,8 +64,8 @@ public class Shooter extends Subsystem {
     public static void noEncoderRun(){
     	if (shooteratspeed == true){
     		RobotMap.Injector.set(1);
-    		RobotMap.Shooter1.set(0.8);
-    		RobotMap.Shooter2.set(0.8);
+    		RobotMap.Shooter1.set(1);
+    		RobotMap.Shooter2.set(1);
     	}
     	else{
     		RobotMap.Shooter1.set(1);
