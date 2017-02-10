@@ -80,21 +80,8 @@ public class Robot extends IterativeRobot {
     }
     public void teleopPeriodic() {
     	//Drive Controls
-    	RobotMap.TurnP = RobotMap.driveStick.getRawAxis(RobotMap.axisType);
-    	RobotMap.ForwardP = RobotMap.driveStick.getRawAxis(1);
-    	RobotMap.Multiplier = (-1*RobotMap.driveStick.getRawAxis(3)*.5+.5);
-    	RobotMap.onTurbo = RobotMap.driveStick.getRawButton(1);
-    	RobotMap.onSteg = RobotMap.driveStick.getRawButton(2);
-    	RobotMap.onLPiston = RobotMap.driveStick.getRawButton(3);
-    	RobotMap.onRPiston = RobotMap.driveStick.getRawButton(4);
-    	RobotMap.neutral = RobotMap.driveStick.getRawButton(5);
-    	RobotMap.zeroYaw = RobotMap.driveStick.getRawButton(6);
-    	RobotMap.onCompress = RobotMap.driveStick.getRawButton(10);
-    	//Mech Controls
-    	RobotMap.ClimbP = (RobotMap.mechStick.getRawAxis(2)*.5 + RobotMap.mechStick.getRawAxis(3)*.5);
-    	RobotMap.onClimbPos = RobotMap.mechStick.getRawButton(2);
-    	RobotMap.onClimbNeg = RobotMap.mechStick.getRawButton(3);
-    	RobotMap.onShootSys = RobotMap.mechStick.getRawButton(1);
+    	//ControllerMap.runIsaacMode();
+    	ControllerMap.runPennMode();
     	//Drive
     	RobotMap.RM1.set(RobotMap.RPower*-1);
     	RobotMap.RM2.set(RobotMap.RPower*-1);
@@ -118,7 +105,7 @@ public class Robot extends IterativeRobot {
     		Pneumatics.stopCompressor();   		
     	}
     	//Shooter
-    	if(RobotMap.onShootSys == true){
+    	if(RobotMap.onShootSys == true){                                                                                                                                                                                                                                                                                                                                                                                             
     		Shooter.noEncoderRun();
     	}
     	else{
