@@ -24,19 +24,21 @@ public class EncoderDrive extends Command {
     // Called just before this Command runs the first time
     protected void initialize() {
     	System.out.println(startEncoder);
+    	hiRotationAdded = false;
+    	loRotationAdded = false;
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	angle = (RobotMap.REncoder.getVoltage() * 360/5);
-    	
+    	System.out.println(rotations);
     	if(rotations < rotateToPublic){
-    		Drive.simpleArcade(1, 0, 1);
-    		if(angle > 179 && angle < 0 && hiRotationAdded == false) {
+    		Drive.simpleArcade(-speedPublic, 0, 1);
+    		if(angle > 179 && hiRotationAdded == false) {
         		rotations += 0.5;
         		hiRotationAdded = true;
         		loRotationAdded = false;
-        	} else if(angle < 179 && angle > 0 && loRotationAdded == false) {
+        	} else if(angle <= 179 && angle >= 0 && loRotationAdded == false) {
         		rotations += 0.5;
         		loRotationAdded = true;
         		hiRotationAdded = false;
