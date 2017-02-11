@@ -7,17 +7,17 @@ import edu.wpi.first.wpilibj.command.Command;
  *
  */
 public class EncoderDrive extends Command {
-	double speedPublic, currentVelocity, distance, angle;
+	double goalVelocityPublic, currentVelocity, distance, angle, error, power, inc;
 	boolean done, hiRotationAdded, loRotationAdded;
 	
 	double rotations, rotateToPublic;
 	
 	long startTime, endTime, timeElapsed, currentEncoder, startEncoder, rotationVal;
-    public EncoderDrive(double rotateTo, double speed) {
+    public EncoderDrive(double rotateTo, double goalVelocity) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     	
-    	speedPublic = speed;
+    	goalVelocityPublic = goalVelocity;
     	rotateToPublic = rotateTo;
     }
 
@@ -26,6 +26,8 @@ public class EncoderDrive extends Command {
     	System.out.println(startEncoder);
     	hiRotationAdded = false;
     	loRotationAdded = false;
+    	startTime = System.nanoTime() / 1000000000;
+    	inc = 0.3;
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -33,21 +35,28 @@ public class EncoderDrive extends Command {
     	angle = (RobotMap.REncoder.getVoltage() * 360/5);
     	System.out.println(rotations);
     	if(rotations < rotateToPublic){
-    		Drive.simpleArcade(-speedPublic, 0, 1);
+    		Drive.simpleArcade(-power, 0, 1);
     		if(angle > 179 && hiRotationAdded == false) {
         		rotations += 0.5;
         		hiRotationAdded = true;
         		loRotationAdded = false;
+        		endTime = System.nanoTime();
         	} else if(angle <= 179 && angle >= 0 && loRotationAdded == false) {
         		rotations += 0.5;
         		loRotationAdded = true;
         		hiRotationAdded = false;
+        		endTime = System.nanoTime();
         	}
-        	
+    		timeElapsed = endTime - startTime;
+        	distance = rotations * Math.PI * 4;
+    		currentVelocity = distance / timeElapsed;
+        	error = ((goalVelocityPublic - currentVelocity) / (goalVelocityPublic + currentVelocity));
+        	power -= (inc * error);
     	}else{
     		Drive.simpleArcade(0, 0, 0);
     		done = true;
     	}
+    	
     	RobotMap.RM1.set(RobotMap.RPower*-1);
     	RobotMap.RM2.set(RobotMap.RPower*-1);
     	RobotMap.RM3.set(RobotMap.RPower*-1);
@@ -55,6 +64,7 @@ public class EncoderDrive extends Command {
     	RobotMap.LM2.set(RobotMap.LPower);
     	RobotMap.LM3.set(RobotMap.LPower);
     }
+    
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
