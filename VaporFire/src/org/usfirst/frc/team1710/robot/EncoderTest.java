@@ -9,6 +9,6 @@ public class EncoderTest extends CommandGroup {
 
     public EncoderTest() {
     	addSequential(new ZeroYaw());
-    	addSequential(new EncoderDrive(10, .5));
+    	addSequential(new EncoderDrive(9.5, .5));
     }
 }

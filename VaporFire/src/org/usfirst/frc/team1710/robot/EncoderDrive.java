@@ -7,12 +7,11 @@ import edu.wpi.first.wpilibj.command.Command;
  *
  */
 public class EncoderDrive extends Command {
-	int encoderAtRest, currentEncoder, rotations, rotateToPublic;
-	double speedPublic, currentVelocity, distance;
-	boolean done;
+	double speedPublic, currentVelocity, distance, angle;
+	boolean done, hiRotationAdded, loRotationAdded;
 	
-	long startTime, endTime, timeElapsed;
-    public EncoderDrive(int rotateTo, double speed) {
+	
+	long startTime, endTime, timeElapsed, currentEncoder, startEncoder, rotationVal;
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     	
@@ -22,28 +21,25 @@ public class EncoderDrive extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	encoderAtRest = RobotMap.REncoder.getValue();
-		startTime = System.nanoTime() / 1000000000;
-		endTime = 1;
+    	System.out.println(startEncoder);
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	currentEncoder = RobotMap.REncoder.getValue();
-       	timeElapsed = endTime - startTime;
-    	currentVelocity = (rotations * 4 * (Math.PI))/timeElapsed;
-    	System.out.println(distance);
+    	angle = (RobotMap.REncoder.getVoltage() * 360/5);
+    	
     	if(rotations < rotateToPublic){
-        	if(currentEncoder > encoderAtRest - 100 && currentEncoder < encoderAtRest + 100){
-        		rotations ++;
-        		System.out.println("rotated");
-        		endTime = System.nanoTime() / 1000000000;
-        		Drive.StegDrive(-speedPublic, RobotMap.navx.getYaw(), 1);
-        		distance = (rotations * 4 * Math.PI);
-        		Timer.delay(0.005);
-        	} else {
-        		Drive.StegDrive(-speedPublic, RobotMap.navx.getYaw(), 1);
+    		Drive.simpleArcade(1, 0, 1);
+    		if(angle > 179 && angle < 0 && hiRotationAdded == false) {
+        		rotations += 0.5;
+        		hiRotationAdded = true;
+        		loRotationAdded = false;
+        	} else if(angle < 179 && angle > 0 && loRotationAdded == false) {
+        		rotations += 0.5;
+        		loRotationAdded = true;
+        		hiRotationAdded = false;
         	}
+        	
     	}else{
     		Drive.simpleArcade(0, 0, 0);
     		done = true;
@@ -63,6 +59,7 @@ public class EncoderDrive extends Command {
 
     // Called once after isFinished returns true
     protected void end() {
+    	System.out.println(RobotMap.REncoder.getAccumulatorCount());
     }
 
     // Called when another command which requires one or more of the same

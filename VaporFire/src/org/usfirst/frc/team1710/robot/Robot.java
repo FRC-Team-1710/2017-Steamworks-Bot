@@ -22,6 +22,8 @@ public class Robot extends IterativeRobot {
 	Command autonomousCommand;
 	SendableChooser autoChooser;
 	
+	double angle, continuousAngle;
+	
     public void robotInit() {
     	//Set ports
     	/*
@@ -94,7 +96,10 @@ public class Robot extends IterativeRobot {
     	RobotMap.LM1.set(RobotMap.LPower);
     	RobotMap.LM2.set(RobotMap.LPower);
     	RobotMap.LM3.set(RobotMap.LPower);
-    	SmartDashboard.putNumber("R encoder", RobotMap.REncoder.getValue());
+    	
+    	
+    	angle = (RobotMap.REncoder.getVoltage() * 360)/5;
+    	    	
     	if(RobotMap.onSteg == true) {
     		Drive.StegDrive(RobotMap.ForwardP, RobotMap.navx.getYaw(), RobotMap.Multiplier);
     		System.out.println("running steg");
