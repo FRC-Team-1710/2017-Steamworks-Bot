@@ -48,8 +48,13 @@ public class Robot extends IterativeRobot {
         RobotMap.LPiston = new DoubleSolenoid(5,6);
         RobotMap.Compressor = new Compressor(0);
         RobotMap.navx = new AHRS(SPI.Port.kMXP);
-        RobotMap.storedPressure = new AnalogInput(4);
-        RobotMap.workingPressure = new AnalogInput(1);
+        //RobotMap.storedPressure = new AnalogInput(4);
+        //RobotMap.workingPressure = new AnalogInput(1);
+        
+        RobotMap.REncoder = new AnalogInput(1);
+        
+        //this encoder doesnt work, we dont need it anyways
+        RobotMap.LEncoder = new AnalogInput(2);
         //Set defaults
         RobotMap.Compressor.setClosedLoopControl(false);
     	RobotMap.LM1.set(0);
@@ -67,7 +72,7 @@ public class Robot extends IterativeRobot {
     	RobotMap.Compressor.setClosedLoopControl(false);
     	//Auto stuff
     	autoChooser = new SendableChooser();
-        //autoChooser.addDefault("Hopper Shoot", new HopperShoot());
+        autoChooser.addDefault("Encoder Test", new EncoderTest());
         SmartDashboard.putData("Autonomous Mode Chooser", autoChooser);
     }
     
@@ -89,6 +94,7 @@ public class Robot extends IterativeRobot {
     	RobotMap.LM1.set(RobotMap.LPower);
     	RobotMap.LM2.set(RobotMap.LPower);
     	RobotMap.LM3.set(RobotMap.LPower);
+    	SmartDashboard.putNumber("R encoder", RobotMap.REncoder.getValue());
     	if(RobotMap.onSteg == true) {
     		Drive.StegDrive(RobotMap.ForwardP, RobotMap.navx.getYaw(), RobotMap.Multiplier);
     		System.out.println("running steg");
@@ -102,7 +108,7 @@ public class Robot extends IterativeRobot {
     		climber.climbthatrope(0);
     	}
     	//Pneumatics
-    	Pneumatics.air();
+    	//Pneumatics.air();
     	if (RobotMap.onCompress == true){
     		Pneumatics.startCompressor();
     	}
