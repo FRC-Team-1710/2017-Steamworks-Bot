@@ -10,8 +10,10 @@ public class EncoderDrive extends Command {
 	double speedPublic, currentVelocity, distance, angle;
 	boolean done, hiRotationAdded, loRotationAdded;
 	
+	double rotations, rotateToPublic;
 	
 	long startTime, endTime, timeElapsed, currentEncoder, startEncoder, rotationVal;
+    public EncoderDrive(double rotateTo, double speed) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     	
