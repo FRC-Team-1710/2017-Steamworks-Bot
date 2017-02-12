@@ -12,6 +12,8 @@ public class EncoderDrive extends Command {
 	
 	double rotations, rotateToPublic;
 	
+	double[] motionProfile = {90,90,90,90,90,90,90,90,90,90,90,60,60,60,60,30,30,30,30,30,30,30,30};
+	int count;
 	long startTime, endTime, timeElapsed, currentEncoder, startEncoder, rotationVal;
     public EncoderDrive(double rotateTo, double goalVelocity) {
         // Use requires() here to declare subsystem dependencies
@@ -28,28 +30,34 @@ public class EncoderDrive extends Command {
     	loRotationAdded = false;
     	startTime = System.nanoTime() / 1000000000;
     	inc = 0.3;
+    	count = 0;
+    	power = 0.8;
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	angle = (RobotMap.REncoder.getVoltage() * 360/5);
-    	System.out.println(rotations);
     	if(rotations < rotateToPublic){
-    		Drive.simpleArcade(-power, 0, 1);
+    		Drive.simpleArcade(power, 0, 1);
     		if(angle > 179 && hiRotationAdded == false) {
         		rotations += 0.5;
         		hiRotationAdded = true;
         		loRotationAdded = false;
-        		endTime = System.nanoTime();
+        		endTime = System.nanoTime()/1000000000;
         	} else if(angle <= 179 && angle >= 0 && loRotationAdded == false) {
         		rotations += 0.5;
         		loRotationAdded = true;
         		hiRotationAdded = false;
-        		endTime = System.nanoTime();
+        		endTime = System.nanoTime()/1000000000;
         	}
     		timeElapsed = endTime - startTime;
         	distance = rotations * Math.PI * 4;
     		currentVelocity = distance / timeElapsed;
+    		System.out.println(currentVelocity);
+    		goalVelocityPublic = motionProfile[count];
+    		if(count < motionProfile.length - 1) {
+    			count ++;
+    		}
         	error = ((goalVelocityPublic - currentVelocity) / (goalVelocityPublic + currentVelocity));
         	power -= (inc * error);
     	}else{
@@ -73,7 +81,6 @@ public class EncoderDrive extends Command {
 
     // Called once after isFinished returns true
     protected void end() {
-    	System.out.println(RobotMap.REncoder.getAccumulatorCount());
     }
 
     // Called when another command which requires one or more of the same
