@@ -7,8 +7,11 @@ import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.Ultrasonic;
+
 
 public class RobotMap {
+
 		
 	public static Joystick driveStick, mechStick;
 	
@@ -20,7 +23,7 @@ public class RobotMap {
 	
 	public static AHRS navx;
 	
-	public static AnalogInput storedPressure, workingPressure, REncoder, LEncoder;
+	public static AnalogInput storedPressure, workingPressure, REncoder, LEncoder ;
 	
 	public static int axisType;
 	

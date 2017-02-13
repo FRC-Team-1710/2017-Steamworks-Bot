@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.SPI;
+import edu.wpi.first.wpilibj.Ultrasonic;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -31,6 +32,7 @@ public class Robot extends IterativeRobot {
     	 - Drive = same
     	 - Shooters = 6 and 7
     	 */
+
         RobotMap.driveStick = new Joystick(0);
         RobotMap.mechStick = new Joystick(1);
     	RobotMap.LM1 = new CANTalon(8);
@@ -96,7 +98,6 @@ public class Robot extends IterativeRobot {
     	RobotMap.LM1.set(RobotMap.LPower);
     	RobotMap.LM2.set(RobotMap.LPower);
     	RobotMap.LM3.set(RobotMap.LPower);
-    	
     	
     	angle = (RobotMap.REncoder.getVoltage() * 360)/5;
     	    	

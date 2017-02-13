@@ -18,7 +18,6 @@ public class EncoderDrive extends Command {
     public EncoderDrive(double rotateTo, double goalVelocity) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-    	
     	goalVelocityPublic = goalVelocity;
     	rotateToPublic = rotateTo;
     }
@@ -38,7 +37,7 @@ public class EncoderDrive extends Command {
     protected void execute() {
     	angle = (RobotMap.REncoder.getVoltage() * 360/5);
     	if(rotations < rotateToPublic){
-    		Drive.simpleArcade(power, 0, 1);
+    		Drive.simpleArcade(-goalVelocityPublic, 0, 1);
     		if(angle > 179 && hiRotationAdded == false) {
         		rotations += 0.5;
         		hiRotationAdded = true;
@@ -53,17 +52,11 @@ public class EncoderDrive extends Command {
     		timeElapsed = endTime - startTime;
         	distance = rotations * Math.PI * 4;
     		currentVelocity = distance / timeElapsed;
-    		System.out.println(currentVelocity);
-    		goalVelocityPublic = motionProfile[count];
-    		if(count < motionProfile.length - 1) {
-    			count ++;
-    		}
-        	error = ((goalVelocityPublic - currentVelocity) / (goalVelocityPublic + currentVelocity));
-        	power -= (inc * error);
     	}else{
     		Drive.simpleArcade(0, 0, 0);
     		done = true;
     	}
+    	System.out.println(currentVelocity);
     	
     	RobotMap.RM1.set(RobotMap.RPower*-1);
     	RobotMap.RM2.set(RobotMap.RPower*-1);
@@ -72,6 +65,7 @@ public class EncoderDrive extends Command {
     	RobotMap.LM2.set(RobotMap.LPower);
     	RobotMap.LM3.set(RobotMap.LPower);
     }
+    
     
 
     // Make this return true when this Command no longer needs to run execute()
