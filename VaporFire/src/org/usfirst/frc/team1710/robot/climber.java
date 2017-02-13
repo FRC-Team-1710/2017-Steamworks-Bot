@@ -16,8 +16,8 @@ public class climber extends Subsystem {
     	RobotMap.Climber.set(0);
     	
     }
-    public static void climbthatrope(double ClimbP){
-    	RobotMap.Climber.set(ClimbP);
+    public static void climbthatrope(double ClimbP, double oppP){
+    	RobotMap.Climber.set(ClimbP + oppP);
     }
 }
 

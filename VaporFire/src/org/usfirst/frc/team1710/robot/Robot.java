@@ -108,9 +108,9 @@ public class Robot extends IterativeRobot {
     	}
     	//Climber
     	if(RobotMap.climb) {
-    		climber.climbthatrope(RobotMap.ClimbP);
+    		climber.climbthatrope(RobotMap.ClimbP, RobotMap.ClimbDown);
     	} else {
-    		climber.climbthatrope(0);
+    		climber.climbthatrope(0, 0);
     	}
     	//Pneumatics
     	//Pneumatics.air();

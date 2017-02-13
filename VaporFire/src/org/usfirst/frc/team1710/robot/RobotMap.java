@@ -26,7 +26,7 @@ public class RobotMap {
 	
 	public static boolean onShootSys, onTurbo, onCompress, climb, neutral, onRPiston, onLPiston, onSteg, zeroYaw, flipDir;
 	
-	public static double TurnP, ForwardP, Multiplier, LPower, RPower, ShooterP, ClimbP;
+	public static double TurnP, ForwardP, Multiplier, LPower, RPower, ShooterP, ClimbP, ClimbDown;
 	
 	public static float currentYaw;
 }
