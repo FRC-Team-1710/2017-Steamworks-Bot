@@ -7,7 +7,7 @@ import edu.wpi.first.wpilibj.command.Command;
  *
  */
 public class EncoderDrive extends Command {
-	double goalVelocityPublic, currentVelocity, distance, angle, error, power, inc;
+	double goalVelocityPublic, currentVelocity, distance, angle, error, power, inc, percentageDone;
 	boolean done, hiRotationAdded, loRotationAdded;
 	
 	double rotations, rotateToPublic;
@@ -36,9 +36,10 @@ public class EncoderDrive extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
+    	System.out.println(rotations);
+    	percentageDone = (rotations/rotateToPublic);
     	angle = (RobotMap.REncoder.getVoltage() * 360/5);
     	if(rotations < rotateToPublic){
-    		Drive.simpleArcade(-goalVelocityPublic, 0, 1);
     		if(angle > 179 && hiRotationAdded == false) {
         		rotations += 0.5;
         		hiRotationAdded = true;
@@ -50,6 +51,15 @@ public class EncoderDrive extends Command {
         		hiRotationAdded = false;
         		endTime = System.nanoTime()/1000000000;
         	}
+    		if (percentageDone >= .8){
+    			Drive.simpleArcade(-1.8 + percentageDone, 0, 1);
+    		}
+    		else {
+    			Pneumatics.shiftForward();
+    			Timer.delay(.5);
+    			Drive.simpleArcade(-.75, 0, 1);
+    		}
+    		
     		timeElapsed = endTime - startTime;
         	distance = rotations * Math.PI * 4;
     		currentVelocity = distance / timeElapsed;
