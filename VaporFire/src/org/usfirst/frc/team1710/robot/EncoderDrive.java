@@ -12,9 +12,10 @@ public class EncoderDrive extends Command {
 	
 	double rotations, rotateToPublic;
 	
-	double[] motionProfile = {90,90,90,90,90,90,90,90,90,90,90,60,60,60,60,30,30,30,30,30,30,30,30};
 	int count;
 	long startTime, endTime, timeElapsed, currentEncoder, startEncoder, rotationVal;
+	/*@param the amount of rotations you want the robot to do
+	@param the starting velocity of the robot*/
     public EncoderDrive(double rotateTo, double goalVelocity) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
