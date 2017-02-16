@@ -27,7 +27,7 @@ public class BetterVision extends Subsystem {
     	if(yawSet == false) {
     		if(angleToTurn == 0) {
     			//spins slowly until target is found
-    			Drive.arcadeDrive(0, 0.4, false);
+    			Drive.simpleArcade(0, 0.4, 1);
     		} else {
     			angleToTarget = angleToTurn;
     			Timer.delay(0.2);
@@ -39,7 +39,7 @@ public class BetterVision extends Subsystem {
     			Drive.RotateToAngle(angleToTurn);
     		} else {
     			currentYaw = RobotMap.navx.getYaw();
-    			Drive.arcadeDrive(-0.6, 0, false);
+    			Drive.StegDrive(-0.6, currentYaw, 1);
     		}
     	}
     }
