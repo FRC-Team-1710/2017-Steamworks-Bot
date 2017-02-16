@@ -27,7 +27,7 @@ public class RobotMap {
 	
 	public static int axisType;
 	
-	public static boolean onShootSys, onTurbo, onCompress, climb, neutral, onRPiston, onLPiston, onSteg, zeroYaw, flipDir;
+	public static boolean onShootSys, onTurbo, onCompress, climb, neutral, onRPiston, onLPiston, onSteg, zeroYaw, flipDir, trackLift;
 	
 	public static double TurnP, ForwardP, Multiplier, LPower, RPower, ShooterP, ClimbP, ClimbDown;
 	

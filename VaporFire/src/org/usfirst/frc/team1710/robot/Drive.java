@@ -66,6 +66,30 @@ public class Drive extends Subsystem {
     	}
     }
     
+    public static void RotateToAngle(float angleToTurn) {
+    	float currentYaw = RobotMap.navx.getYaw();
+
+    	if (angleToTurn > 0){
+    		if (currentYaw > angleToTurn - 1 && currentYaw < angleToTurn + 1){
+    			simpleArcade(0, 0, 1);
+    			BetterVision.rotated = true;
+    		} else if (angleToTurn > currentYaw){
+    			simpleArcade(0, .4, 1);
+    		} else if (currentYaw > angleToTurn){
+    			simpleArcade(0, -.4, 1);
+    		}
+    	} else if(angleToTurn < 0) {
+    		if (currentYaw > angleToTurn - 1 && currentYaw < angleToTurn + 1){
+        		simpleArcade(0, 0, 1);
+    			BetterVision.rotated = true;
+        	} else if (angleToTurn < currentYaw){
+        		simpleArcade(0, -.4, 1);
+        	} else if (currentYaw > angleToTurn){
+        		simpleArcade(0, .4, 1);
+        	}
+    	}
+    }
+    
     public static void stopDriving() {
 		RobotMap.LM1.set(0);
 		RobotMap.LM2.set(0);

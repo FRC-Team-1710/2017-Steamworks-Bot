@@ -38,6 +38,7 @@ public class ControllerMap extends Subsystem {
     	RobotMap.neutral = RobotMap.driveStick.getRawButton(7);
     	RobotMap.zeroYaw = RobotMap.driveStick.getRawButton(8);
     	RobotMap.onCompress = RobotMap.driveStick.getRawButton(1);
+    	RobotMap.trackLift = RobotMap.driveStick.getRawButton(3);
     	//Mech Controls
     	RobotMap.ClimbP = -RobotMap.driveStick.getRawAxis(2);
     	RobotMap.ClimbDown = RobotMap.driveStick.getRawAxis(3);

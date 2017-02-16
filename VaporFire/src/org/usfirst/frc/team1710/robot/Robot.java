@@ -118,6 +118,9 @@ public class Robot extends IterativeRobot {
     	if (RobotMap.onCompress == true){
     		Pneumatics.startCompressor();
     	}
+    	else if(RobotMap.trackLift == true) {
+    		BetterVision.trackGear((float) SmartDashboard.getNumber("ANGLE_TO_TURN"), SmartDashboard.getBoolean("IS_ALIGNED"));
+    	}
     	else{
     		Pneumatics.stopCompressor();   		
     	}
