@@ -105,6 +105,7 @@ public class Robot extends IterativeRobot {
     		Drive.StegDrive(RobotMap.ForwardP, RobotMap.navx.getYaw(), RobotMap.Multiplier);
     		System.out.println("running steg");
     	} else {
+    		Drive.yawZeroed = false;
         	Drive.arcadeDrive(RobotMap.ForwardP, RobotMap.TurnP, RobotMap.Multiplier, RobotMap.navx.getYaw(), RobotMap.onSteg, RobotMap.onTurbo, RobotMap.neutral);
     	}
     	//Climber

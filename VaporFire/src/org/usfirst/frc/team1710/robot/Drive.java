@@ -12,6 +12,7 @@ public class Drive extends Subsystem {
     // here. Call these from Commands.
 	
 	static double flipMultiplier = 1;
+	public static boolean yawZeroed;
 	
     public void initDefaultCommand() {
         RobotMap.LPower = 0;
@@ -47,22 +48,28 @@ public class Drive extends Subsystem {
     }
     
     public static void StegDrive(double forwardP, float currentYaw, double multiplier) {
-    	if(forwardP > 0) {
-    		if(currentYaw < (-2.5)) {
-				simpleArcade(forwardP, -0.5, multiplier);
-			} else if(currentYaw > (2.5)) {
-				simpleArcade(forwardP, 0.5, multiplier);
-			} else {
-				simpleArcade(forwardP, 0.0, multiplier);
-			}	
+    	if(yawZeroed == true) { 
+    		if(forwardP > 0) {
+    			if(currentYaw < (-5)) {
+    				simpleArcade(forwardP, -0.1, multiplier);
+    			} else if(currentYaw > (5)) {
+    				simpleArcade(forwardP, 0.1, multiplier);
+					} else {
+						simpleArcade(forwardP, 0.0, multiplier);
+					}	
+    		} else {
+    			if(currentYaw > (-5)) {
+    				simpleArcade(forwardP, 0.1, multiplier);
+    			} else if(currentYaw < (5)) {
+    				simpleArcade(forwardP, -0.1, multiplier);
+    			} else {
+    				simpleArcade(forwardP, 0.0, multiplier);
+    			}
+    		}
     	} else {
-    		if(currentYaw > (-2.5)) {
-				simpleArcade(forwardP, 0.5, multiplier);
-			} else if(currentYaw < (2.5)) {
-				simpleArcade(forwardP, -0.5, multiplier);
-			} else {
-				simpleArcade(forwardP, 0.0, multiplier);
-			}
+    		RobotMap.navx.zeroYaw();
+    		Timer.delay(0.2);
+    		yawZeroed = true;
     	}
     }
     
@@ -74,18 +81,18 @@ public class Drive extends Subsystem {
     			simpleArcade(0, 0, 1);
     			BetterVision.rotated = true;
     		} else if (angleToTurn > currentYaw){
-    			simpleArcade(0, .4, 1);
+    			simpleArcade(0, .3, 1);
     		} else if (currentYaw > angleToTurn){
-    			simpleArcade(0, -.4, 1);
+    			simpleArcade(0, -.3, 1);
     		}
     	} else if(angleToTurn < 0) {
     		if (currentYaw > angleToTurn - 1 && currentYaw < angleToTurn + 1){
         		simpleArcade(0, 0, 1);
     			BetterVision.rotated = true;
         	} else if (angleToTurn < currentYaw){
-        		simpleArcade(0, -.4, 1);
+        		simpleArcade(0, -.3, 1);
         	} else if (currentYaw > angleToTurn){
-        		simpleArcade(0, .4, 1);
+        		simpleArcade(0, .3, 1);
         	}
     	}
     }
