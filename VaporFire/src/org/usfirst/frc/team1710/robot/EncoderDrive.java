@@ -55,7 +55,6 @@ public class EncoderDrive extends Command {
     			Drive.simpleArcade(-1.8 + percentageDone, 0, 1);
     		}
     		else {
-    			Pneumatics.shiftForward();
     			Timer.delay(.5);
     			Drive.simpleArcade(-.75, 0, 1);
     		}
