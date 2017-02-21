@@ -7,12 +7,18 @@ import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.Ultrasonic;
+import edu.wpi.first.wpilibj.Victor;
 
 
 public class RobotMap {
 
 		
+	public static Victor pRM1, pLM1;
+	
+	public static Talon pClimber, pInjector;
+	
 	public static Joystick driveStick, mechStick;
 	
 	public static CANTalon RM1, RM2, RM3, LM1, LM2, LM3, Shooter1, Shooter2, Injector, Climber;
