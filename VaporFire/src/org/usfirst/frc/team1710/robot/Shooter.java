@@ -38,9 +38,10 @@ public class Shooter extends Subsystem {
 
     public static void runIndexer(){
     	if(motorMap.runningCompetitionBot == true) {
-    		RobotMap.Injector.set(0.7);
+    		//was 0.84
+    		RobotMap.Injector.set(0.835);
     	} else {
-    		RobotMap.pInjector.set(0.7);
+    		RobotMap.pInjector.set(0.835);
     	}
     }
     public static void stopIndexer(){
@@ -91,9 +92,14 @@ public class Shooter extends Subsystem {
     
     public static void runSystemNoPID() {
     	if(shooterAtSpeed == true) {
-        	RobotMap.Shooter1.set(0.9);
-        	RobotMap.Shooter2.set(0.9);
-        	if(RobotMap.Shooter1.getEncVelocity() > 27500 && RobotMap.Shooter1.getEncVelocity() < 31500) {
+    		if(motorMap.runningCompetitionBot == true) {
+    			RobotMap.Shooter1.set(-0.68);
+        		RobotMap.Shooter2.set(0.68);
+    		} else {
+    			RobotMap.Shooter1.set(0.68);
+        		RobotMap.Shooter2.set(0.68);
+    		}
+        	if(RobotMap.Shooter1.getEncVelocity() > 15000) {
         		runIndexer();
         	} else {
         		stopIndexer();
@@ -102,13 +108,23 @@ public class Shooter extends Subsystem {
     	} else {
     		stopIndexer();
     		if(firstInterval == false) {
-    			RobotMap.Shooter1.set(0.5);
-    			RobotMap.Shooter2.set(0.5);
+        		if(motorMap.runningCompetitionBot == true) {
+        			RobotMap.Shooter1.set(-0.4);
+            		RobotMap.Shooter2.set(0.4);
+        		} else {
+        			RobotMap.Shooter1.set(0.4);
+            		RobotMap.Shooter2.set(0.4);
+        		}
     			Timer.delay(1);
     			firstInterval = true;
     		} else {
-    			RobotMap.Shooter1.set(0.9);
-    			RobotMap.Shooter2.set(0.9);
+        		if(motorMap.runningCompetitionBot == true) {
+        			RobotMap.Shooter1.set(-0.72);
+            		RobotMap.Shooter2.set(0.72);
+        		} else {
+        			RobotMap.Shooter1.set(0.72);
+            		RobotMap.Shooter2.set(0.72);
+        		}
     			Timer.delay(1);
     			shooterAtSpeed = true;
     		}

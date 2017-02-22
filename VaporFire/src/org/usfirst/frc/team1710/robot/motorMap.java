@@ -31,6 +31,9 @@ public class motorMap {
 		
 		RobotMap.Shooter1 = new CANTalon(6);
 		RobotMap.Shooter2 = new CANTalon(9);
+		
+		//RobotMap.Shooter2.changeControlMode(CANTalon.TalonControlMode.Follower);
+		//RobotMap.Shooter2.set(6);
 		runningPracticeBot = true;
 		runningCompetitionBot = false;
 	}

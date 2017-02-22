@@ -24,23 +24,29 @@ public class Robot extends IterativeRobot {
 	SendableChooser autoChooser;
 	
 	double angle, angleIncrease, anglePrevious, angleInitial, continuousAngle;
-	double angles[] = new double[5000000];
 	
     public void robotInit() {
-    	motorMap.practiceBot();
-    	//motorMap.competitionBot();
+    	//motorMap.practiceBot();
+    	motorMap.competitionBot();
         RobotMap.driveStick = new Joystick(0);
         RobotMap.mechStick = new Joystick(1);
-
-        RobotMap.Shifter = new DoubleSolenoid(4,2);
-        RobotMap.RPiston = new DoubleSolenoid(3,7);
-        RobotMap.LPiston = new DoubleSolenoid(5,6);
-        RobotMap.Compressor = new Compressor(0);
-        RobotMap.navx = new AHRS(SPI.Port.kMXP);
+        if(motorMap.runningPracticeBot == true) {
+        	RobotMap.Shifter = new DoubleSolenoid(4,2);
+        	RobotMap.RPiston = new DoubleSolenoid(3,7);
+        	RobotMap.LPiston = new DoubleSolenoid(5,6);
+        	RobotMap.Compressor = new Compressor(0);
+        	RobotMap.navx = new AHRS(SPI.Port.kMXP);
+        } else {
+        	RobotMap.Shifter = new DoubleSolenoid(1,2);
+        	RobotMap.RPiston = new DoubleSolenoid(3,4);
+        	RobotMap.LPiston = new DoubleSolenoid(5,6);
+        	RobotMap.Compressor = new Compressor(0);
+        	RobotMap.navx = new AHRS(SPI.Port.kMXP);
+        }
         //RobotMap.storedPressure = new AnalogInput(4);
         //RobotMap.workingPressure = new AnalogInput(1);
         
-        RobotMap.REncoder = new AnalogInput(0);
+        RobotMap.REncoder = new AnalogInput(3);
         
         //Set defaults
         RobotMap.Compressor.setClosedLoopControl(false);
@@ -72,12 +78,12 @@ public class Robot extends IterativeRobot {
 
     	//Drive
     	if(motorMap.runningCompetitionBot == true){
-    		RobotMap.RM1.set(RobotMap.RPower*-1);
-    		RobotMap.RM2.set(RobotMap.RPower*-1);
-    		RobotMap.RM3.set(RobotMap.RPower*-1);
-    		RobotMap.LM1.set(RobotMap.LPower);
-    		RobotMap.LM2.set(RobotMap.LPower);
-    		RobotMap.LM3.set(RobotMap.LPower);
+    		RobotMap.RM1.set(RobotMap.RPower);
+    		RobotMap.RM2.set(RobotMap.RPower);
+    		RobotMap.RM3.set(RobotMap.RPower);
+    		RobotMap.LM1.set(RobotMap.LPower*-1);
+    		RobotMap.LM2.set(RobotMap.LPower*-1);
+    		RobotMap.LM3.set(RobotMap.LPower*-1);
     	}else{
     	 	RobotMap.pRM1.set(RobotMap.RPower);
         	RobotMap.RM2.set(RobotMap.RPower);
@@ -109,10 +115,13 @@ public class Robot extends IterativeRobot {
     		BetterVision.trackGear((float) SmartDashboard.getNumber("ANGLE_TO_TURN"), SmartDashboard.getBoolean("IS_ALIGNED"));
     	} else if(RobotMap.onTurbo == true) {
     		Pneumatics.shiftForward();
+    	} else if(RobotMap.onRPiston == true) {
+    		RobotMap.RPiston.set(DoubleSolenoid.Value.kReverse);
     	}
     	else{
     		Pneumatics.stopCompressor();  
     		Pneumatics.shiftReverse();
+    		RobotMap.RPiston.set(DoubleSolenoid.Value.kForward);
     	}
     	//Shooter
     	if(RobotMap.onShootSys == true) {
@@ -122,11 +131,13 @@ public class Robot extends IterativeRobot {
     		Shooter.stopShooter();
     		Shooter.stopIndexer();
     	}
-    	/*angleInitial = (RobotMap.REncoder.getVoltage() * 360/5);
-    	angleIncrease = angleInitial - anglePrevious;
+    	
+    	//RobotMap.Injector.set(RobotMap.mechStick.getRawAxis(2));
+    	angle = (RobotMap.REncoder.getVoltage() * 360/5);
+    	/*angleIncrease = angleInitial - anglePrevious;
     	angle = anglePrevious + angleIncrease;
-    	anglePrevious = angle;
-    	SmartDashboard.putNumber("encoder", angle);*/
+    	anglePrevious = angle;*/
+    	SmartDashboard.putNumber("encoder", angle);
     }
 
     public void testPeriodic() {
