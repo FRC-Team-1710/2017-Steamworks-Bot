@@ -30,7 +30,7 @@ public class ControllerMap extends Subsystem {
     	RobotMap.onShootSys = RobotMap.mechStick.getRawButton(1);
     }
     public static void runPennMode(){
-    	RobotMap.TurnP = RobotMap.driveStick.getRawAxis(4) * .75;
+    	RobotMap.TurnP = -RobotMap.driveStick.getRawAxis(4) * .75;
     	RobotMap.ForwardP = RobotMap.driveStick.getRawAxis(1);
     	RobotMap.Multiplier = 0.75;
     	RobotMap.onTurbo = RobotMap.driveStick.getRawButton(5);

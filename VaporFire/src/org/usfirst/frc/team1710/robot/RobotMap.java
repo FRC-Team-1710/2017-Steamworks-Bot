@@ -23,7 +23,7 @@ public class RobotMap {
 	
 	public static CANTalon RM1, RM2, RM3, LM1, LM2, LM3, Shooter1, Shooter2, Injector, Climber;
 	
-	public static DoubleSolenoid RPiston, LPiston, Shifter /*RShifter, LShifter*/;
+	public static DoubleSolenoid RPiston, LPiston, Shifter;
 
 	public static Compressor Compressor;
 	

@@ -23,7 +23,8 @@ public class Robot extends IterativeRobot {
 	Command autonomousCommand;
 	SendableChooser autoChooser;
 	
-	double angle, continuousAngle;
+	double angle, angleIncrease, anglePrevious, angleInitial, continuousAngle;
+	double angles[] = new double[5000000];
 	
     public void robotInit() {
     	motorMap.practiceBot();
@@ -31,15 +32,15 @@ public class Robot extends IterativeRobot {
         RobotMap.driveStick = new Joystick(0);
         RobotMap.mechStick = new Joystick(1);
 
-        RobotMap.Shifter = new DoubleSolenoid(1,2);
-        RobotMap.RPiston = new DoubleSolenoid(3,4);
+        RobotMap.Shifter = new DoubleSolenoid(4,2);
+        RobotMap.RPiston = new DoubleSolenoid(3,7);
         RobotMap.LPiston = new DoubleSolenoid(5,6);
         RobotMap.Compressor = new Compressor(0);
         RobotMap.navx = new AHRS(SPI.Port.kMXP);
         //RobotMap.storedPressure = new AnalogInput(4);
         //RobotMap.workingPressure = new AnalogInput(1);
         
-        RobotMap.REncoder = new AnalogInput(1);
+        RobotMap.REncoder = new AnalogInput(0);
         
         //Set defaults
         RobotMap.Compressor.setClosedLoopControl(false);
@@ -48,6 +49,13 @@ public class Robot extends IterativeRobot {
     	autoChooser = new SendableChooser();
         autoChooser.addDefault("Encoder Test", new EncoderTest());
         SmartDashboard.putData("Autonomous Mode Chooser", autoChooser);
+        RobotMap.RPiston.set(DoubleSolenoid.Value.kOff);
+        RobotMap.LPiston.set(DoubleSolenoid.Value.kOff);
+        RobotMap.Shifter.set(DoubleSolenoid.Value.kOff);
+        anglePrevious = 0;
+        angle = 0;
+        angleIncrease = 0;
+        angleInitial = 0;
     }
     
     public void autonomousInit() {
@@ -71,14 +79,13 @@ public class Robot extends IterativeRobot {
     		RobotMap.LM2.set(RobotMap.LPower);
     		RobotMap.LM3.set(RobotMap.LPower);
     	}else{
-    	 	RobotMap.pRM1.set(RobotMap.RPower*-1);
-        	RobotMap.RM2.set(RobotMap.RPower*-1);
-        	RobotMap.RM3.set(RobotMap.RPower*-1);
-        	RobotMap.pLM1.set(RobotMap.LPower);
-        	RobotMap.LM2.set(RobotMap.LPower);
-        	RobotMap.LM3.set(RobotMap.LPower);
+    	 	RobotMap.pRM1.set(RobotMap.RPower);
+        	RobotMap.RM2.set(RobotMap.RPower);
+        	RobotMap.RM3.set(RobotMap.RPower);
+        	RobotMap.pLM1.set(RobotMap.LPower * -1);
+        	RobotMap.LM2.set(RobotMap.LPower * -1);
+        	RobotMap.LM3.set(RobotMap.LPower * -1);
     	}
-    	angle = (RobotMap.REncoder.getVoltage() * 360)/5;
     	    	
     	if(RobotMap.onSteg == true) {
     		Drive.StegDrive(RobotMap.ForwardP, RobotMap.navx.getYaw(), RobotMap.Multiplier);
@@ -88,7 +95,7 @@ public class Robot extends IterativeRobot {
         	Drive.arcadeDrive(RobotMap.ForwardP, RobotMap.TurnP, RobotMap.Multiplier, RobotMap.navx.getYaw(), RobotMap.onSteg, RobotMap.onTurbo, RobotMap.neutral);
     	}
     	//Climber
-    	if(RobotMap.climb) {
+    	if(RobotMap.climb == true) {
     		climber.climbthatrope(RobotMap.ClimbP, RobotMap.ClimbDown);
     	} else {
     		climber.climbthatrope(0, 0);
@@ -100,16 +107,26 @@ public class Robot extends IterativeRobot {
     	}
     	else if(RobotMap.trackLift == true) {
     		BetterVision.trackGear((float) SmartDashboard.getNumber("ANGLE_TO_TURN"), SmartDashboard.getBoolean("IS_ALIGNED"));
+    	} else if(RobotMap.onTurbo == true) {
+    		Pneumatics.shiftForward();
     	}
     	else{
-    		Pneumatics.stopCompressor();   		
+    		Pneumatics.stopCompressor();  
+    		Pneumatics.shiftReverse();
     	}
     	//Shooter
     	if(RobotMap.onShootSys == true) {
     		Shooter.runSystemNoPID();
+    		SmartDashboard.putNumber("Velocity", RobotMap.Shooter1.getEncVelocity());
     	} else {
     		Shooter.stopShooter();
+    		Shooter.stopIndexer();
     	}
+    	/*angleInitial = (RobotMap.REncoder.getVoltage() * 360/5);
+    	angleIncrease = angleInitial - anglePrevious;
+    	angle = anglePrevious + angleIncrease;
+    	anglePrevious = angle;
+    	SmartDashboard.putNumber("encoder", angle);*/
     }
 
     public void testPeriodic() {
