@@ -37,11 +37,8 @@ public class EncoderDrive extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	System.out.println(rotations);
     	percentageDone = (rotations/rotateToPublic);
-    	angleIncrease = (RobotMap.REncoder.getVoltage() * 360/5) - anglePrevious;
-    	angle = angle + angleIncrease;
-    	anglePrevious = angle;
+    	angle = (RobotMap.REncoder.getVoltage() * 360/5);
     	if(rotations < rotateToPublic){
     		if(angle > 179 && hiRotationAdded == false) {
         		rotations += 0.5;
