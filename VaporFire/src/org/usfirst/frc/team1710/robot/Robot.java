@@ -55,7 +55,7 @@ public class Robot extends IterativeRobot {
     	
     	//Auto stuff
     	autoChooser = new SendableChooser();
-        autoChooser.addDefault("Encoder Test", new EncoderTest());
+        autoChooser.addDefault("Encoder Test", new HopperShoot());
         SmartDashboard.putData("Autonomous Mode Chooser", autoChooser);
         RobotMap.RPiston.set(DoubleSolenoid.Value.kOff);
         RobotMap.LPiston.set(DoubleSolenoid.Value.kOff);
