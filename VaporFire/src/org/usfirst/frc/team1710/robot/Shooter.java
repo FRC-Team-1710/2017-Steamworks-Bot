@@ -39,7 +39,7 @@ public class Shooter extends Subsystem {
     public static void runIndexer(){
     	if(motorMap.runningCompetitionBot == true) {
     		//was 0.84
-    		RobotMap.Injector.set(0.835);
+    		RobotMap.Injector.set(0.7);
     	} else {
     		RobotMap.pInjector.set(0.835);
     	}
@@ -90,14 +90,20 @@ public class Shooter extends Subsystem {
     	}
     }
     
+    public static void demonstrationModeLowPower() {
+		RobotMap.Shooter1.set(0.5);
+		RobotMap.Shooter2.set(0.5);
+		runIndexer();
+    }
+    
     public static void runSystemNoPID() {
     	if(shooterAtSpeed == true) {
     		if(motorMap.runningCompetitionBot == true) {
-    			RobotMap.Shooter1.set(-0.68);
-        		RobotMap.Shooter2.set(0.68);
+    			RobotMap.Shooter1.set(-0.71);
+        		RobotMap.Shooter2.set(0.71);
     		} else {
-    			RobotMap.Shooter1.set(0.68);
-        		RobotMap.Shooter2.set(0.68);
+    			RobotMap.Shooter1.set(0.55);
+        		RobotMap.Shooter2.set(0.55);
     		}
         	if(RobotMap.Shooter1.getEncVelocity() > 15000) {
         		runIndexer();
@@ -109,8 +115,8 @@ public class Shooter extends Subsystem {
     		stopIndexer();
     		if(firstInterval == false) {
         		if(motorMap.runningCompetitionBot == true) {
-        			RobotMap.Shooter1.set(-0.4);
-            		RobotMap.Shooter2.set(0.4);
+        			RobotMap.Shooter1.set(-0.5);
+            		RobotMap.Shooter2.set(0.5);
         		} else {
         			RobotMap.Shooter1.set(0.4);
             		RobotMap.Shooter2.set(0.4);
@@ -119,11 +125,11 @@ public class Shooter extends Subsystem {
     			firstInterval = true;
     		} else {
         		if(motorMap.runningCompetitionBot == true) {
-        			RobotMap.Shooter1.set(-0.72);
-            		RobotMap.Shooter2.set(0.72);
+        			RobotMap.Shooter1.set(-0.75);
+            		RobotMap.Shooter2.set(0.75);
         		} else {
-        			RobotMap.Shooter1.set(0.72);
-            		RobotMap.Shooter2.set(0.72);
+        			RobotMap.Shooter1.set(0.55);
+            		RobotMap.Shooter2.set(0.55);
         		}
     			Timer.delay(1);
     			shooterAtSpeed = true;

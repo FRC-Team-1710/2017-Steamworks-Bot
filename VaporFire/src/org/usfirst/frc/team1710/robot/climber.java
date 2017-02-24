@@ -18,9 +18,9 @@ public class climber extends Subsystem {
     }
     public static void climbthatrope(double ClimbP, double oppP){
     	if(motorMap.runningCompetitionBot == true){
-    	RobotMap.Climber.set(ClimbP + oppP);
+    		RobotMap.pInjector.set(ClimbP + oppP);
     	}else{
-    		RobotMap.pClimber.set(ClimbP + oppP);
+    		RobotMap.pInjector.set(1);
     	}
     }
 }

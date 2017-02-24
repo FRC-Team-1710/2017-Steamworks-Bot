@@ -26,8 +26,8 @@ public class Robot extends IterativeRobot {
 	double angle, angleIncrease, anglePrevious, angleInitial, continuousAngle;
 	
     public void robotInit() {
-    	//motorMap.practiceBot();
-    	motorMap.competitionBot();
+    	motorMap.practiceBot();
+    	//motorMap.competitionBot();
         RobotMap.driveStick = new Joystick(0);
         RobotMap.mechStick = new Joystick(1);
         if(motorMap.runningPracticeBot == true) {
@@ -101,10 +101,10 @@ public class Robot extends IterativeRobot {
         	Drive.arcadeDrive(RobotMap.ForwardP, RobotMap.TurnP, RobotMap.Multiplier, RobotMap.navx.getYaw(), RobotMap.onSteg, RobotMap.onTurbo, RobotMap.neutral);
     	}
     	//Climber
-    	if(RobotMap.climb == true) {
-    		climber.climbthatrope(RobotMap.ClimbP, RobotMap.ClimbDown);
+    	if(RobotMap.mechStick.getRawButton(2) == true) {
+    		RobotMap.pClimber.set(RobotMap.mechStick.getRawAxis(1));
     	} else {
-    		climber.climbthatrope(0, 0);
+    		RobotMap.pClimber.set(0);
     	}
     	//Pneumatics
     	//Pneumatics.air();
@@ -126,6 +126,7 @@ public class Robot extends IterativeRobot {
     	//Shooter
     	if(RobotMap.onShootSys == true) {
     		Shooter.runSystemNoPID();
+    		//Shooter.demonstrationModeLowPower();
     		SmartDashboard.putNumber("Velocity", RobotMap.Shooter1.getEncVelocity());
     	} else {
     		Shooter.stopShooter();
