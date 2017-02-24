@@ -1,6 +1,8 @@
 
 package org.usfirst.frc.team1710.robot;
 //other libraries
+import org.usfirst.frc.team1710.robot.commandGroups.EncoderTest;
+
 import com.ctre.CANTalon;
 import com.kauailabs.navx.frc.AHRS;
 

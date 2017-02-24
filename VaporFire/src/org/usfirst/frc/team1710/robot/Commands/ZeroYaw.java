@@ -1,4 +1,6 @@
-package org.usfirst.frc.team1710.robot;
+package org.usfirst.frc.team1710.robot.Commands;
+
+import org.usfirst.frc.team1710.robot.RobotMap;
 
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
