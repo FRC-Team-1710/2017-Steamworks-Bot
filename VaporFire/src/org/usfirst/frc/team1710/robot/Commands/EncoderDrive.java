@@ -1,6 +1,7 @@
 package org.usfirst.frc.team1710.robot.Commands;
 
 import org.usfirst.frc.team1710.robot.Drive;
+import org.usfirst.frc.team1710.robot.Pneumatics;
 import org.usfirst.frc.team1710.robot.RobotMap;
 
 import edu.wpi.first.wpilibj.Timer;
@@ -11,7 +12,7 @@ import edu.wpi.first.wpilibj.command.Command;
  */
 public class EncoderDrive extends Command {
 	double goalVelocityPublic, currentVelocity, distance, angle, anglePrevious, angleIncrease, error, power, inc, percentageDone;
-	boolean done, hiRotationAdded, loRotationAdded;
+	boolean done, hiRotationAdded, loRotationAdded, slowDownPublic;
 	
 	double rotations, rotateToPublic;
 	
@@ -19,11 +20,12 @@ public class EncoderDrive extends Command {
 	long startTime, endTime, timeElapsed, currentEncoder, startEncoder, rotationVal;
 	/*@param the amount of rotations you want the robot to do
 	@param the starting velocity of the robot*/
-    public EncoderDrive(double rotateTo, double goalVelocity) {
+    public EncoderDrive(double rotateTo, double goalVelocity, boolean slowDown) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     	goalVelocityPublic = goalVelocity;
     	rotateToPublic = rotateTo;
+    	slowDownPublic = slowDown;
     }
 
     // Called just before this Command runs the first time
@@ -36,10 +38,12 @@ public class EncoderDrive extends Command {
     	count = 0;
     	power = 0.8;
     	anglePrevious = 0;
+    	Pneumatics.shiftForward();
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
+    	//4pi * r = d 
     	percentageDone = (rotations/rotateToPublic);
     	angle = (RobotMap.REncoder.getVoltage() * 360/5);
     	if(rotations < rotateToPublic){
@@ -54,28 +58,22 @@ public class EncoderDrive extends Command {
         		hiRotationAdded = false;
         		endTime = System.nanoTime()/1000000000;
         	}
-    		if (percentageDone >= .8){
-    			Drive.simpleArcade(-1.8 + percentageDone, 0, 1);
+    		if(slowDownPublic == true) {
+    			Drive.simpleArcade(goalVelocityPublic, RobotMap.navx.getYaw()/50000, (1 - percentageDone) + 0.25);
+    		} else {
+    			Drive.simpleArcade(goalVelocityPublic, RobotMap.navx.getYaw()/50000, 1);
     		}
-    		else {
-    			Drive.simpleArcade(-.75, 0, 1);
-    		}
-    		
-    		timeElapsed = endTime - startTime;
-        	distance = rotations * Math.PI * 4;
-    		currentVelocity = distance / timeElapsed;
     	}else{
     		Drive.simpleArcade(0, 0, 0);
     		done = true;
-    	}
-    	System.out.println(currentVelocity);
-    	
-    	RobotMap.RM1.set(RobotMap.RPower*-1);
+    	}    	
+    	RobotMap.pRM1.set(RobotMap.RPower*-1);
     	RobotMap.RM2.set(RobotMap.RPower*-1);
     	RobotMap.RM3.set(RobotMap.RPower*-1);
-    	RobotMap.LM1.set(RobotMap.LPower);
+    	RobotMap.pLM1.set(RobotMap.LPower);
     	RobotMap.LM2.set(RobotMap.LPower);
     	RobotMap.LM3.set(RobotMap.LPower);
+    	System.out.println(rotations);
     }
     
     

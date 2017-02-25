@@ -15,16 +15,16 @@ import edu.wpi.first.wpilibj.command.Scheduler;
  */
 public class HopperShoot extends CommandGroup {
 
-    public HopperShoot() {		
+    public HopperShoot() {
+    	addSequential(new EncoderDrive(38, .8, false));
     	addSequential(new ZeroYaw());
-    	addSequential(new RotatetoAngle(-39));
+    	addSequential(new RotatetoAngle(-5));
     	//was 46
-    	addSequential(new EncoderDrive(47, .8));
+    	addSequential(new EncoderDrive(40, .8, true));
+    	addSequential(new EncoderDrive(2, -.5, false));
     	addSequential(new ZeroYaw());
-    	addSequential(new RotatetoAngle(34));
-    	addSequential(new EncoderDrive(7, -.4));
-    	addSequential(new ZeroYaw());
-    	addSequential(new RotatetoAngle(7));
+    	addSequential(new RotatetoAngle(15));
+    	addSequential(new EncoderDrive(6, -.6, false));
     	addSequential(new RunShooterAuto(10000));
     	//TODO: this is where the piston will activate
     	//addSequential(new AutoHighGoalTrack());

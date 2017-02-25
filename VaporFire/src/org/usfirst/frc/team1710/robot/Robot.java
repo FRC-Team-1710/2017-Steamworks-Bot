@@ -2,6 +2,7 @@
 package org.usfirst.frc.team1710.robot;
 //other libraries
 import org.usfirst.frc.team1710.robot.commandGroups.EncoderTest;
+import org.usfirst.frc.team1710.robot.commandGroups.HopperShoot;
 
 import com.ctre.CANTalon;
 import com.kauailabs.navx.frc.AHRS;
@@ -48,7 +49,7 @@ public class Robot extends IterativeRobot {
         //RobotMap.storedPressure = new AnalogInput(4);
         //RobotMap.workingPressure = new AnalogInput(1);
         
-        RobotMap.REncoder = new AnalogInput(3);
+        RobotMap.REncoder = new AnalogInput(0);
         
         //Set defaults
         RobotMap.Compressor.setClosedLoopControl(false);
@@ -116,13 +117,13 @@ public class Robot extends IterativeRobot {
     	else if(RobotMap.trackLift == true) {
     		BetterVision.trackGear((float) SmartDashboard.getNumber("ANGLE_TO_TURN"), SmartDashboard.getBoolean("IS_ALIGNED"));
     	} else if(RobotMap.onTurbo == true) {
-    		Pneumatics.shiftForward();
+    		Pneumatics.shiftReverse();
     	} else if(RobotMap.onRPiston == true) {
     		RobotMap.RPiston.set(DoubleSolenoid.Value.kReverse);
     	}
     	else{
     		Pneumatics.stopCompressor();  
-    		Pneumatics.shiftReverse();
+    		Pneumatics.shiftForward();
     		RobotMap.RPiston.set(DoubleSolenoid.Value.kForward);
     	}
     	//Shooter
