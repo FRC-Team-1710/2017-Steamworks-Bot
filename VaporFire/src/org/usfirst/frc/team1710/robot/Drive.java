@@ -110,4 +110,10 @@ public class Drive extends Subsystem {
 		RobotMap.LPower = ((forwardP*multiplier) - (turnP*multiplier));    		
 		RobotMap.RPower = ((forwardP*multiplier) + (turnP*multiplier));
     }
+    
+    
+    public static void StraightDrive(double forwardP, double multiplier){
+    	RobotMap.LPower = ((forwardP*multiplier) - (RobotMap.navx.getYaw()/666));    		
+		RobotMap.RPower = ((forwardP*multiplier) + (RobotMap.navx.getYaw()/666));
+    }
 }

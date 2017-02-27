@@ -38,7 +38,7 @@ public class EncoderDrive extends Command {
     	count = 0;
     	power = 0.8;
     	anglePrevious = 0;
-    	Pneumatics.shiftForward();
+    	Pneumatics.shiftReverse();
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -60,9 +60,9 @@ public class EncoderDrive extends Command {
         		endTime = System.nanoTime()/1000000000;
         	}
     		if(slowDownPublic == true) {
-    			Drive.simpleArcade(goalVelocityPublic, RobotMap.navx.getYaw()/10000, (1 - percentageDone) + 0.35);
+    			Drive.StraightDrive(goalVelocityPublic, (1 - percentageDone) + 0.35);
     		} else {
-    			Drive.simpleArcade(goalVelocityPublic, RobotMap.navx.getYaw()/10000, 1);
+    			Drive.StraightDrive(goalVelocityPublic, 1);
     		}
     	}else{
     		Drive.simpleArcade(0, 0, 0);
@@ -86,6 +86,7 @@ public class EncoderDrive extends Command {
 
     // Called once after isFinished returns true
     protected void end() {
+    	done = false;
     }
 
     // Called when another command which requires one or more of the same
