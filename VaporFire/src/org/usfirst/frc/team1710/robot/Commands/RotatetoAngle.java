@@ -39,23 +39,23 @@ public class RotatetoAngle extends Command {
             	System.out.println(currentYaw+"done");
     			done = true;
     		} else if(currentYaw > turningDegreePublic) {
-    			Drive.simpleArcade(0, -0.2, 1);
+    			Drive.simpleArcade(0, -0.4, Math.abs(1-(currentYaw / turningDegreePublic)) + .2);
     		} else if(currentYaw < turningDegreePublic) {
-    			Drive.simpleArcade(0, 0.2, 1);
+    			Drive.simpleArcade(0, 0.4, Math.abs(1-(currentYaw / turningDegreePublic)) + .2);
 
     		}
     	} else {
         	currentYaw = RobotMap.navx.getYaw();
         	System.out.println(currentYaw);
         	//wAS 5
-    		if (currentYaw > turningDegreePublic - 2.5 && currentYaw < turningDegreePublic + 2.5){
+    		if (currentYaw > turningDegreePublic - 1 && currentYaw < turningDegreePublic + 1){
     			Drive.simpleArcade(0, 0, 0);
             	System.out.println(currentYaw + "final");
         		done = true;
         	} else if(currentYaw > turningDegreePublic) {
-    			Drive.simpleArcade(0, -0.2, 1);
+    			Drive.simpleArcade(0, -0.4, Math.abs(1-(currentYaw / turningDegreePublic)) + .2);
     		} else if(currentYaw < turningDegreePublic) {
-    			Drive.simpleArcade(0, 0.2, 1);
+    			Drive.simpleArcade(0, 0.4, Math.abs(1-(currentYaw / turningDegreePublic)) + .2);
     		}
     	}
 		RobotMap.pLM1.set(RobotMap.LPower);

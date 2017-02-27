@@ -43,7 +43,8 @@ public class EncoderDrive extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	//4pi * r = d 
+    	//4pi * r = d
+    	//d/4pi = r 
     	percentageDone = (rotations/rotateToPublic);
     	angle = (RobotMap.REncoder.getVoltage() * 360/5);
     	if(rotations < rotateToPublic){
@@ -59,9 +60,9 @@ public class EncoderDrive extends Command {
         		endTime = System.nanoTime()/1000000000;
         	}
     		if(slowDownPublic == true) {
-    			Drive.simpleArcade(goalVelocityPublic, RobotMap.navx.getYaw()/50000, (1 - percentageDone) + 0.25);
+    			Drive.simpleArcade(goalVelocityPublic, RobotMap.navx.getYaw()/10000, (1 - percentageDone) + 0.35);
     		} else {
-    			Drive.simpleArcade(goalVelocityPublic, RobotMap.navx.getYaw()/50000, 1);
+    			Drive.simpleArcade(goalVelocityPublic, RobotMap.navx.getYaw()/10000, 1);
     		}
     	}else{
     		Drive.simpleArcade(0, 0, 0);

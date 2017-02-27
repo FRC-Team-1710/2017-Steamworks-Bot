@@ -122,9 +122,8 @@ public class Robot extends IterativeRobot {
     		RobotMap.RPiston.set(DoubleSolenoid.Value.kReverse);
     	}
     	else{
-    		Pneumatics.stopCompressor();  
     		Pneumatics.shiftForward();
-    		RobotMap.RPiston.set(DoubleSolenoid.Value.kForward);
+    		Pneumatics.stopCompressor();  
     	}
     	//Shooter
     	if(RobotMap.onShootSys == true) {
