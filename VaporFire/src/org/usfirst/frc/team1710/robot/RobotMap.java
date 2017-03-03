@@ -31,9 +31,9 @@ public class RobotMap {
 	
 	public static AnalogInput storedPressure, workingPressure, REncoder, LEncoder ;
 	
-	public static int axisType;
+	public static int axisType, directionToggleCount, directionMultiplier;
 	
-	public static boolean onShootSys, onTurbo, onCompress, climb, neutral, onRPiston, onLPiston, onSteg, zeroYaw, flipDir, trackLift;
+	public static boolean onShootSys, onTurbo, onCompress, climb, neutral, onRPiston, onLPiston, onSteg, zeroYaw, flipDir, trackLift, directionToggle;
 	
 	public static double TurnP, ForwardP, Multiplier, LPower, RPower, ShooterP, ClimbP, ClimbDown;
 	

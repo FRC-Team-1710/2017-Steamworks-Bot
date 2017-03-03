@@ -1,5 +1,6 @@
 package org.usfirst.frc.team1710.robot.Commands;
 
+import org.usfirst.frc.team1710.robot.BetterShooter;
 import org.usfirst.frc.team1710.robot.Shooter;
 
 import edu.wpi.first.wpilibj.command.Command;
@@ -22,6 +23,7 @@ public class RunShooterAuto extends Command {
     protected void execute() {
     	if(count < timePublic/20) {
     		Shooter.runSystemNoPID();
+    		//BetterShooter.run();
     	} else {
     		done = true;
     	}

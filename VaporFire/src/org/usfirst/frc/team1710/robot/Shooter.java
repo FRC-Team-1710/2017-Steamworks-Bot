@@ -41,7 +41,7 @@ public class Shooter extends Subsystem {
     		//was 0.84
     		RobotMap.Injector.set(0.7);
     	} else {
-    		RobotMap.pInjector.set(0.835);
+    		RobotMap.pInjector.set(0.7);
     	}
     }
     public static void stopIndexer(){
@@ -102,8 +102,8 @@ public class Shooter extends Subsystem {
     			RobotMap.Shooter1.set(-0.71);
         		RobotMap.Shooter2.set(0.71);
     		} else {
-    			RobotMap.Shooter1.set(0.9);
-        		RobotMap.Shooter2.set(0.9);
+    			RobotMap.Shooter1.set(0.72);
+        		RobotMap.Shooter2.set(0.72);
     		}
         	if(RobotMap.Shooter1.getEncVelocity() > 15000) {
         		runIndexer();
@@ -118,8 +118,8 @@ public class Shooter extends Subsystem {
         			RobotMap.Shooter1.set(-0.5);
             		RobotMap.Shooter2.set(0.5);
         		} else {
-        			RobotMap.Shooter1.set(0.6);
-            		RobotMap.Shooter2.set(0.6);
+        			RobotMap.Shooter1.set(0.4);
+            		RobotMap.Shooter2.set(0.4);
         		}
     			Timer.delay(1);
     			firstInterval = true;
@@ -128,8 +128,8 @@ public class Shooter extends Subsystem {
         			RobotMap.Shooter1.set(-0.75);
             		RobotMap.Shooter2.set(0.75);
         		} else {
-        			RobotMap.Shooter1.set(1);
-            		RobotMap.Shooter2.set(1);
+        			RobotMap.Shooter1.set(.72);
+            		RobotMap.Shooter2.set(.72);
         		}
     			Timer.delay(1);
     			shooterAtSpeed = true;
