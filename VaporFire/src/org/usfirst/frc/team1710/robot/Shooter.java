@@ -78,13 +78,13 @@ public class Shooter extends Subsystem {
     
     public static void runSystemNoEnc() {
     	if(shooterAtSpeed == true) {
-        	RobotMap.Shooter1.set(-.5);
-        	RobotMap.Shooter2.set(.5);		
+        	RobotMap.Shooter1.set(-1);
+        	RobotMap.Shooter2.set(1);		
         	runIndexer();
     		System.out.println("pew pew");
     	} else {
-        	RobotMap.Shooter1.set(-.5);
-        	RobotMap.Shooter2.set(.5);
+        	RobotMap.Shooter1.set(-1);
+        	RobotMap.Shooter2.set(1);
         	Timer.delay(2);
     		shooterAtSpeed = true;
     	}
