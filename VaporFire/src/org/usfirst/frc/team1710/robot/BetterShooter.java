@@ -33,7 +33,7 @@ public class BetterShooter extends Subsystem {
     	//p = 0.6kU
     	//i = 1.2kU/tU
     	//d = (3*kU*tU)/40
-    	double targetSpeed = 24000;
+    	double targetSpeed = 20000;
     	
         RobotMap.Shooter1.setFeedbackDevice(FeedbackDevice.CtreMagEncoder_Absolute);
         RobotMap.Shooter1.configNominalOutputVoltage(+0.0f, -0.0f);
@@ -48,7 +48,7 @@ public class BetterShooter extends Subsystem {
     	RobotMap.Shooter1.set(-targetSpeed);
     	
     	SmartDashboard.putNumber("Velocity", RobotMap.Shooter1.getEncVelocity());
-    	if(RobotMap.Shooter1.getEncVelocity() > 24000){
+    	if(RobotMap.Shooter1.getEncVelocity() > 18000){
     		Shooter.runIndexer();
     	}else{
     		Shooter.stopIndexer();

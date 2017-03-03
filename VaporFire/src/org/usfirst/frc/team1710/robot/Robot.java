@@ -15,6 +15,7 @@ import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.SPI;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.Ultrasonic;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -29,13 +30,14 @@ public class Robot extends IterativeRobot {
 	double angle, angleIncrease, anglePrevious, angleInitial, continuousAngle;
 	
     public void robotInit() {
+    	RobotMap.directionMultiplier = 1;
     	motorMap.practiceBot();
     	//motorMap.competitionBot();
         RobotMap.driveStick = new Joystick(0);
         RobotMap.mechStick = new Joystick(1);
         if(motorMap.runningPracticeBot == true) {
         	RobotMap.Shifter = new DoubleSolenoid(4,2);
-        	RobotMap.RPiston = new DoubleSolenoid(3,7);
+        	RobotMap.RPiston = new DoubleSolenoid(1,3);
         	RobotMap.LPiston = new DoubleSolenoid(5,6);
         	RobotMap.Compressor = new Compressor(0);
         	RobotMap.navx = new AHRS(SPI.Port.kMXP);
@@ -78,7 +80,17 @@ public class Robot extends IterativeRobot {
     	//Drive Controls
     	//ControllerMap.runIsaacMode();
     	ControllerMap.runPennMode();
+    	if(RobotMap.directionToggle == true){
+    		RobotMap.directionToggleCount ++;
+    		Timer.delay(.1);
+    	}
+    	System.out.println(RobotMap.directionToggleCount);
+    	if(RobotMap.directionToggleCount %2 > 0){
+    		RobotMap.directionMultiplier = 1;
+    	}else{
+        	RobotMap.directionMultiplier = -1;
 
+    	}
     	//Drive
     	if(motorMap.runningCompetitionBot == true){
     		RobotMap.RM1.set(RobotMap.RPower);
@@ -110,21 +122,7 @@ public class Robot extends IterativeRobot {
     		RobotMap.pClimber.set(0);
     	}
     	//Pneumatics
-    	//Pneumatics.air();
-    	if (RobotMap.onCompress == true){
-    		Pneumatics.startCompressor();
-    	}
-    	else if(RobotMap.trackLift == true) {
-    		BetterVision.trackGear((float) SmartDashboard.getNumber("ANGLE_TO_TURN"), SmartDashboard.getBoolean("IS_ALIGNED"));
-    	} else if(RobotMap.onTurbo == true) {
-    		Pneumatics.shiftReverse();
-    	} else if(RobotMap.onRPiston == true) {
-    		RobotMap.RPiston.set(DoubleSolenoid.Value.kReverse);
-    	}
-    	else{
-    		Pneumatics.shiftForward();
-    		Pneumatics.stopCompressor();  
-    	}
+    	Pneumatics.air();
     	//Shooter
     	if(RobotMap.onShootSys == true) {
     		Shooter.runSystemNoPID();
