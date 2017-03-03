@@ -34,14 +34,14 @@ public class RotatetoAngle extends Command {
     	if (turningDegreePublic > 0){
     		currentYaw = RobotMap.navx.getYaw();
     		// was 5
-    		if (currentYaw > turningDegreePublic - 2.5 && currentYaw < turningDegreePublic + 2.5){
+    		if (currentYaw > turningDegreePublic - .15 && currentYaw < turningDegreePublic + .015){
     			Drive.simpleArcade(0, 0, 0);
             	System.out.println(currentYaw+"done");
     			done = true;
     		} else if(currentYaw > turningDegreePublic) {
-    			Drive.simpleArcade(0, -0.25, 1);
+    			Drive.simpleArcade(0, -0.8, 1 - Math.abs((currentYaw / turningDegreePublic)) + .23);
     		} else if(currentYaw < turningDegreePublic) {
-    			Drive.simpleArcade(0, 0.25, 1);
+    			Drive.simpleArcade(0, 0.8, 1 - Math.abs((currentYaw / turningDegreePublic)) + .23);
 
     		}
     	} else {
