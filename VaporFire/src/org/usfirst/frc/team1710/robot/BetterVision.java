@@ -14,6 +14,11 @@ public class BetterVision extends Subsystem {
 	public static boolean rotated = false;
 	public static float angleToTarget;
 	public static float currentYaw;
+	static NetworkTable table;
+	public static double[] centerX;
+	public static double targetX;
+	static double error;
+	static boolean errorFound;
 	
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
@@ -43,6 +48,25 @@ public class BetterVision extends Subsystem {
     		}
     	}
     }
+    
+    public static void trackBoiler() {
+    	table = NetworkTable.getTable("GRIP/BoilerReport");
+    	centerX = table.getNumberArray("centerX");
+    	if(centerX.length > 0) {
+    		System.out.println("I see it " + error );
+    		if(targetX > 340) {
+    			Drive.simpleArcade(0, -0.1, 1);
+    		} else if(targetX < 290) {
+    			Drive.simpleArcade(0, 0.1 , 1);
+    		} else {
+    			Drive.simpleArcade(0, 0, 0);
+    		}
+    		targetX = centerX[0];
+    	} else {
+    		Drive.simpleArcade(0, 0.25, 1);
+    		System.out.println("I don't see anything");
+    	}
+    } 
     
 }
 

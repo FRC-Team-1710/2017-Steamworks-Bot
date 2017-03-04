@@ -74,7 +74,6 @@ public class EncoderDrive extends Command {
     	RobotMap.pLM1.set(RobotMap.LPower);
     	RobotMap.LM2.set(RobotMap.LPower);
     	RobotMap.LM3.set(RobotMap.LPower);
-    	System.out.println(rotations);
     }
     
     

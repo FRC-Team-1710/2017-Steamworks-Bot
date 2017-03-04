@@ -13,6 +13,7 @@ public class Drive extends Subsystem {
 	
 	static double flipMultiplier = 1;
 	public static boolean yawZeroed;
+	public static float currentYaw;
 	
     public void initDefaultCommand() {
         RobotMap.LPower = 0;
@@ -20,8 +21,8 @@ public class Drive extends Subsystem {
     }
     public static void arcadeDrive(double forwardP, double turnP, double multiplier, float currentYaw, boolean onSteg, boolean onTurbo, boolean neutral) {
     	if(onTurbo == true && neutral == false){
-    		RobotMap.LPower = (((forwardP*multiplier) * -1) -((RobotMap.navx.getYaw()/666) * -1));
-        	RobotMap.RPower = (((forwardP*multiplier) * -1) + ((RobotMap.navx.getYaw()/666)*multiplier * -1));    	
+    		RobotMap.LPower = (((forwardP*multiplier) * -1) -((RobotMap.navx.getYaw()/666) * 1));
+        	RobotMap.RPower = (((forwardP*multiplier) * -1) + ((RobotMap.navx.getYaw()/666)*multiplier * 1));    	
         	RobotMap.axisType = 2;
         	Pneumatics.shiftReverse();
         	
@@ -115,5 +116,42 @@ public class Drive extends Subsystem {
     public static void straightDrive(double forwardP, double multiplier) {
     	RobotMap.LPower = ((forwardP*multiplier) - (-RobotMap.navx.getYaw()/666));
     	RobotMap.RPower = ((forwardP*multiplier) + (-RobotMap.navx.getYaw()/666));
+    }
+    
+    public static boolean rotateToAngle(float turningDegreePublic) {
+    	if (turningDegreePublic > 0){
+    		currentYaw = RobotMap.navx.getYaw();
+    		// was 5
+    		if (currentYaw > turningDegreePublic - .5 && currentYaw < turningDegreePublic + .5  || (currentYaw / turningDegreePublic) > 0.94){
+    			Drive.simpleArcade(0, 0, 0);
+            	System.out.println(currentYaw+"done");
+            	return true;
+    		} else if(currentYaw > turningDegreePublic) {
+    			Drive.simpleArcade(0, -0.4, 1 - Math.abs((currentYaw / turningDegreePublic)));
+    		} else if(currentYaw < turningDegreePublic) {
+    			Drive.simpleArcade(0, 0.4, 1 - Math.abs((currentYaw / turningDegreePublic)));
+    		}
+    	} else {
+        	currentYaw = RobotMap.navx.getYaw();
+        	System.out.println(currentYaw);
+        	//wAS 5
+    		if (currentYaw > turningDegreePublic - .5 && currentYaw < turningDegreePublic + .5 || (currentYaw / turningDegreePublic) > 0.94){
+    			Drive.simpleArcade(0, 0, 0);
+            	System.out.println(currentYaw + "final");
+            	return true;
+        	} else if(currentYaw > turningDegreePublic) {
+    			Drive.simpleArcade(0, -0.4, 1 - Math.abs((currentYaw / turningDegreePublic)));
+    		} else if(currentYaw < turningDegreePublic) {
+    			Drive.simpleArcade(0, 0.4, 1 - Math.abs((currentYaw / turningDegreePublic)));
+    		}
+    	}
+		RobotMap.pLM1.set(RobotMap.LPower);
+		RobotMap.LM2.set(RobotMap.LPower);
+		RobotMap.LM3.set(RobotMap.LPower);
+
+		RobotMap.pRM1.set(RobotMap.RPower * -1);
+		RobotMap.RM2.set(RobotMap.RPower * -1);
+		RobotMap.RM3.set(RobotMap.RPower * -1);
+    	return false;
     }
 }

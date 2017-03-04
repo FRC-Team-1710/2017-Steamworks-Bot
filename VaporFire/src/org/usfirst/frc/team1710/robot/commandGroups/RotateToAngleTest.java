@@ -17,7 +17,5 @@ public class RotateToAngleTest extends CommandGroup {
     	
     	addSequential(new ZeroYaw());
     	addSequential(new RotatetoAngle(45));
-    	
-    	
     }
 }

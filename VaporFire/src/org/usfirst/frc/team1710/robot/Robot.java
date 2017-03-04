@@ -60,7 +60,7 @@ public class Robot extends IterativeRobot {
     	
     	//Auto stuff
     	autoChooser = new SendableChooser();
-        autoChooser.addDefault("Encoder Test", new RotateToAngleTest());
+        autoChooser.addDefault("Encoder Test", new HopperShoot());
         SmartDashboard.putData("Autonomous Mode Chooser", autoChooser);
         RobotMap.RPiston.set(DoubleSolenoid.Value.kOff);
         RobotMap.LPiston.set(DoubleSolenoid.Value.kOff);
@@ -86,7 +86,6 @@ public class Robot extends IterativeRobot {
     		RobotMap.directionToggleCount ++;
     		Timer.delay(.1);
     	}
-    	System.out.println(RobotMap.directionToggleCount);
     	if(RobotMap.directionToggleCount %2 > 0){
     		RobotMap.directionMultiplier = 1;
     	}else{
@@ -123,6 +122,11 @@ public class Robot extends IterativeRobot {
     	} else {
     		RobotMap.pClimber.set(0);
     	}
+    	
+    	if(RobotMap.mechStick.getRawButton(5)) {
+    		BetterVision.trackBoiler();
+    	}
+    	
     	//Pneumatics
     	Pneumatics.air();
     	//Shooter

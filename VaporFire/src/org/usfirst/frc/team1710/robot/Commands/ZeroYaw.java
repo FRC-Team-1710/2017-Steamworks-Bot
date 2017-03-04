@@ -20,7 +20,7 @@ public class ZeroYaw extends Command {
 
     protected void execute() {
     	RobotMap.navx.zeroYaw();
-    	Timer.delay(0.25);
+    	Timer.delay(0.1);
     	done = true;
     }
 
