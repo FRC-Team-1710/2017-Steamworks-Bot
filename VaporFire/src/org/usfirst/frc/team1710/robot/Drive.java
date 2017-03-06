@@ -21,8 +21,7 @@ public class Drive extends Subsystem {
     }
     public static void arcadeDrive(double forwardP, double turnP, double multiplier, float currentYaw, boolean onSteg, boolean onTurbo, boolean neutral) {
     	if(onTurbo == true && neutral == false){
-    		RobotMap.LPower = (((forwardP*multiplier) * -1) -((RobotMap.navx.getYaw()/666) * 1));
-        	RobotMap.RPower = (((forwardP*multiplier) * -1) + ((RobotMap.navx.getYaw()/666)*multiplier * 1));    	
+    		straightDrive(forwardP, multiplier);
         	RobotMap.axisType = 2;
         	Pneumatics.shiftReverse();
         	
