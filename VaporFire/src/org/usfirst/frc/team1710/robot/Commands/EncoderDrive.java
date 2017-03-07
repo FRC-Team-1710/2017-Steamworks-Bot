@@ -24,7 +24,7 @@ public class EncoderDrive extends Command {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     	goalVelocityPublic = goalVelocity;
-    	rotateToPublic = rotateTo;
+    	rotateToPublic = Math.ceil(rotateTo/3.14);
     	slowDownPublic = slowDown;
     }
 

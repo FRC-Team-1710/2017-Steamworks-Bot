@@ -2,6 +2,8 @@
 package org.usfirst.frc.team1710.robot;
 //other libraries
 import org.usfirst.frc.team1710.robot.commandGroups.EncoderTest;
+import org.usfirst.frc.team1710.robot.commandGroups.GearPlaceLeftShoot;
+import org.usfirst.frc.team1710.robot.commandGroups.GearPlaceRighShoot;
 import org.usfirst.frc.team1710.robot.commandGroups.HoppShootRedFarInside;
 import org.usfirst.frc.team1710.robot.commandGroups.HopperShoot;
 import org.usfirst.frc.team1710.robot.commandGroups.RotateToAngleTest;
@@ -60,7 +62,7 @@ public class Robot extends IterativeRobot {
     	
     	//Auto stuff
     	autoChooser = new SendableChooser();
-        autoChooser.addDefault("Encoder Test", new HopperShoot());
+        autoChooser.addDefault("Encoder Test", new GearPlaceRighShoot());
         SmartDashboard.putData("Autonomous Mode Chooser", autoChooser);
         RobotMap.RPiston.set(DoubleSolenoid.Value.kOff);
         RobotMap.LPiston.set(DoubleSolenoid.Value.kOff);

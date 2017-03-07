@@ -50,7 +50,7 @@ public class BetterVision extends Subsystem {
     }
     
     public static void trackBoiler() {
-    	table = NetworkTable.getTable("GRIP/BoilerReport");
+    	table = NetworkTable.getTable("Root/GRIP/BoilerReport");
     	centerX = table.getNumberArray("centerX");
     	if(centerX.length > 0) {
     		System.out.println("I see it " + error );
