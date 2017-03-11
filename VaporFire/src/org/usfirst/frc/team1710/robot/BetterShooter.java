@@ -16,9 +16,7 @@ public class BetterShooter extends Subsystem {
      // Put methods for controlling this subsystem
     // here. Call these from Commands.
 	static double speed;
-	static final double kP = 0.3;
-	static final double kI = 0.4;
-	static final double kD = 0.02;
+
 	
 	
 	public BetterShooter() {
@@ -34,21 +32,11 @@ public class BetterShooter extends Subsystem {
     	//i = 1.2kU/tU
     	//d = (3*kU*tU)/40
     	double targetSpeed = 20000;
-    	
-        RobotMap.Shooter1.setFeedbackDevice(FeedbackDevice.CtreMagEncoder_Absolute);
-        RobotMap.Shooter1.configNominalOutputVoltage(+0.0f, -0.0f);
-        RobotMap.Shooter1.configPeakOutputVoltage(+12.0f, -12.0f);
-        RobotMap.Shooter1.reverseSensor(false);
-    	RobotMap.Shooter1.setP(kP);
-    	RobotMap.Shooter1.setI(kI);
-    	//I don't think we will need this
-    	RobotMap.Shooter1.setD(0);
-    	
-    	RobotMap.Shooter1.changeControlMode(TalonControlMode.Speed);
-    	RobotMap.Shooter1.set(-targetSpeed);
+
+    	RobotMap.Shooter1.set(targetSpeed);
     	
     	SmartDashboard.putNumber("Velocity", RobotMap.Shooter1.getEncVelocity());
-    	if(RobotMap.Shooter1.getEncVelocity() > 18000){
+    	if(RobotMap.Shooter1.getEncVelocity() > 18000 && RobotMap.Shooter1.getEncVelocity() < 25000){
     		Shooter.runIndexer();
     	}else{
     		Shooter.stopIndexer();

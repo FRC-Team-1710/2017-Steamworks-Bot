@@ -14,11 +14,14 @@ public class GearPlaceLeftShoot extends CommandGroup {
 
     public GearPlaceLeftShoot() {
     	addSequential(new ZeroYaw());
-    	addSequential(new EncoderDrive(80, .4, false));
+    	addSequential(new EncoderDrive(75, .75, false));
     	addSequential(new ZeroYaw());
-    	addSequential(new RotatetoAngle(-30));
+    	addSequential(new RotatetoAngle(-81));
     	addSequential(new ZeroYaw());
-    	addSequential(new EncoderDrive(30, .4, false));
+    	addSequential(new EncoderDrive(35, .4, true));
+    	addSequential(new Delay(2));
+    	addSequential(new EncoderDrive(20, -.5, false));
+    	addSequential(new RotatetoAngle(10));
     	addSequential(new RunShooterAuto(10000));
     }
 }

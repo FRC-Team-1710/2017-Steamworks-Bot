@@ -9,6 +9,8 @@ import org.usfirst.frc.team1710.robot.commandGroups.HopperShoot;
 import org.usfirst.frc.team1710.robot.commandGroups.RotateToAngleTest;
 
 import com.ctre.CANTalon;
+import com.ctre.CANTalon.FeedbackDevice;
+import com.ctre.CANTalon.TalonControlMode;
 import com.kauailabs.navx.frc.AHRS;
 
 import edu.wpi.first.wpilibj.AnalogInput;
@@ -32,6 +34,10 @@ public class Robot extends IterativeRobot {
 	SendableChooser autoChooser;
 	
 	double angle, angleIncrease, anglePrevious, angleInitial, continuousAngle;
+	static final double kP = 100.00;
+	static final double kI = 0.00;
+	static final double kD = 0.00;
+	boolean PIDReady;
 	
     public void robotInit() {
     	RobotMap.directionMultiplier = 1;
@@ -59,7 +65,7 @@ public class Robot extends IterativeRobot {
         
         //Set defaults
         RobotMap.Compressor.setClosedLoopControl(false);
-    	
+
     	//Auto stuff
     	autoChooser = new SendableChooser();
         autoChooser.addDefault("Encoder Test", new GearPlaceRighShoot());
@@ -133,10 +139,25 @@ public class Robot extends IterativeRobot {
     	Pneumatics.air();
     	//Shooter
     	if(RobotMap.onShootSys == true) {
-    		Shooter.runSystemNoPID();
+    		BetterShooter.run();
     		//Shooter.demonstrationModeLowPower();
+    		if(PIDReady == false) {
+    			
+    	    	RobotMap.Shooter2.changeControlMode(TalonControlMode.Follower);
+    	    	RobotMap.Shooter2.set(RobotMap.Shooter1.getDeviceID());
+    	        RobotMap.Shooter1.setFeedbackDevice(FeedbackDevice.CtreMagEncoder_Relative);
+    	        RobotMap.Shooter1.configNominalOutputVoltage(+0.0f, -0.0f);
+    	        RobotMap.Shooter1.configPeakOutputVoltage(+12.0f, -12.0f);
+    	        RobotMap.Shooter1.reverseSensor(false);
+    	    	RobotMap.Shooter1.setP(kP);
+    	    	RobotMap.Shooter1.setI(kI);
+    	    	RobotMap.Shooter1.setD(kD);
+    	    	RobotMap.Shooter1.changeControlMode(TalonControlMode.Speed);
+    	        PIDReady = true;
+    		}
     		SmartDashboard.putNumber("Velocity", RobotMap.Shooter1.getEncVelocity());
     	} else {
+    		PIDReady = false;
     		Shooter.stopShooter();
     		Shooter.stopIndexer();
     	}

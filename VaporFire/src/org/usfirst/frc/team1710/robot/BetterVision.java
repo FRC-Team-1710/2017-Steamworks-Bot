@@ -50,18 +50,11 @@ public class BetterVision extends Subsystem {
     }
     
     public static void trackBoiler() {
-    	table = NetworkTable.getTable("Root/GRIP/BoilerReport");
+    	table = NetworkTable.getTable("GRIP/BoilerReport");
     	centerX = table.getNumberArray("centerX");
     	if(centerX.length > 0) {
-    		System.out.println("I see it " + error );
-    		if(targetX > 340) {
-    			Drive.simpleArcade(0, -0.1, 1);
-    		} else if(targetX < 290) {
-    			Drive.simpleArcade(0, 0.1 , 1);
-    		} else {
-    			Drive.simpleArcade(0, 0, 0);
-    		}
     		targetX = centerX[0];
+			Drive.simpleArcade(0, (targetX-320)/500, -0.3);
     	} else {
     		Drive.simpleArcade(0, 0.25, 1);
     		System.out.println("I don't see anything");
