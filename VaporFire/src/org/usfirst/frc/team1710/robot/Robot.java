@@ -34,7 +34,7 @@ public class Robot extends IterativeRobot {
 	SendableChooser autoChooser;
 	
 	double angle, angleIncrease, anglePrevious, angleInitial, continuousAngle;
-	static final double kP = 100.00;
+	static final double kP = .0000005;
 	static final double kI = 0.00;
 	static final double kD = 0.00;
 	boolean PIDReady;
@@ -145,7 +145,7 @@ public class Robot extends IterativeRobot {
     			
     	    	RobotMap.Shooter2.changeControlMode(TalonControlMode.Follower);
     	    	RobotMap.Shooter2.set(RobotMap.Shooter1.getDeviceID());
-    	        RobotMap.Shooter1.setFeedbackDevice(FeedbackDevice.CtreMagEncoder_Relative);
+    	        RobotMap.Shooter1.setFeedbackDevice(FeedbackDevice.CtreMagEncoder_Absolute);
     	        RobotMap.Shooter1.configNominalOutputVoltage(+0.0f, -0.0f);
     	        RobotMap.Shooter1.configPeakOutputVoltage(+12.0f, -12.0f);
     	        RobotMap.Shooter1.reverseSensor(false);

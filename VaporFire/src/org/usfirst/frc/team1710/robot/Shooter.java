@@ -39,9 +39,9 @@ public class Shooter extends Subsystem {
     public static void runIndexer(){
     	if(motorMap.runningCompetitionBot == true) {
     		//was 0.84
-    		RobotMap.Injector.set(0.7);
+    		RobotMap.Injector.set(0.4);
     	} else {
-    		RobotMap.pInjector.set(0.7);
+    		RobotMap.pInjector.set(0.4);
     	}
     }
     public static void stopIndexer(){

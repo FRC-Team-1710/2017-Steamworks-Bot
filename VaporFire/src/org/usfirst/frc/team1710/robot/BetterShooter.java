@@ -31,12 +31,12 @@ public class BetterShooter extends Subsystem {
     	//p = 0.6kU
     	//i = 1.2kU/tU
     	//d = (3*kU*tU)/40
-    	double targetSpeed = 20000;
+    	double targetSpeed = 2100;
 
     	RobotMap.Shooter1.set(targetSpeed);
     	
     	SmartDashboard.putNumber("Velocity", RobotMap.Shooter1.getEncVelocity());
-    	if(RobotMap.Shooter1.getEncVelocity() > 18000 && RobotMap.Shooter1.getEncVelocity() < 25000){
+    	if(RobotMap.Shooter1.getEncVelocity() > 25000 && RobotMap.Shooter1.getEncVelocity() < 30000){
     		Shooter.runIndexer();
     	}else{
     		Shooter.stopIndexer();
