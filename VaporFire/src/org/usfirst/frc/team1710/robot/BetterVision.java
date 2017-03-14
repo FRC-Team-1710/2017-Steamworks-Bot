@@ -15,8 +15,8 @@ public class BetterVision extends Subsystem {
 	public static float angleToTarget;
 	public static float currentYaw;
 	static NetworkTable table;
-	public static double[] centerX;
-	public static double targetX;
+	public static double[] centerX, centerY;
+	public static double targetX, targetY;
 	static double error;
 	static boolean errorFound;
 	
@@ -52,12 +52,19 @@ public class BetterVision extends Subsystem {
     public static void trackBoiler() {
     	table = NetworkTable.getTable("GRIP/BoilerReport");
     	centerX = table.getNumberArray("centerX");
+    	centerY = table.getNumberArray("centerY");
     	if(centerX.length > 0) {
     		targetX = centerX[0];
-			Drive.simpleArcade(0, (targetX-320)/500, -0.3);
+    		targetY = centerY[0];
+    		if(Math.abs((targetX-320))  > 40) {
+    			Drive.simpleArcade(0, (targetX-320)/500, -.5);
+    			System.out.println("turn speed " + (targetX-320)/500);
+    		} else if(Math.abs((targetY-140)) > 10) {
+    			Drive.simpleArcade((targetY-140)/225, 0, 0.75);
+        		System.out.println("forward speed" + (targetY-140)/225);
+    		}
     	} else {
     		Drive.simpleArcade(0, 0.25, 1);
-    		System.out.println("I don't see anything");
     	}
     } 
     

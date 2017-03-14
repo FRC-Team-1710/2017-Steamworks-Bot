@@ -34,7 +34,7 @@ public class Robot extends IterativeRobot {
 	SendableChooser autoChooser;
 	
 	double angle, angleIncrease, anglePrevious, angleInitial, continuousAngle;
-	static final double kP = .0000005;
+	static final double kP = 0.0000005;
 	static final double kI = 0.00;
 	static final double kD = 0.00;
 	boolean PIDReady;

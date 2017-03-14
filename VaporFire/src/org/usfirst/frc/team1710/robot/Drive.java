@@ -21,10 +21,10 @@ public class Drive extends Subsystem {
     }
     public static void arcadeDrive(double forwardP, double turnP, double multiplier, float currentYaw, boolean onSteg, boolean onTurbo, boolean neutral) {
     	if(onTurbo == true && neutral == false){
-    		straightDrive(forwardP, multiplier);
+    		RobotMap.LPower = (((forwardP*multiplier) * -1) - (turnP*multiplier * -1));    		
+    		RobotMap.RPower = (((forwardP*multiplier) * -1) + (turnP*multiplier * -1)); 
         	RobotMap.axisType = 2;
         	Pneumatics.shiftReverse();
-        	
     	}
     	else if (onTurbo == false && neutral == false){ 
     		RobotMap.LPower = (((forwardP*multiplier) * -1) - (turnP*multiplier * -1));    		
