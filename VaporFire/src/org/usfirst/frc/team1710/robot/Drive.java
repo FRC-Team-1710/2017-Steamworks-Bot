@@ -27,8 +27,13 @@ public class Drive extends Subsystem {
         	Pneumatics.shiftReverse();
     	}
     	else if (onTurbo == false && neutral == false){ 
-    		RobotMap.LPower = (((forwardP*multiplier) * -1) - (turnP*multiplier * -1));    		
-    		RobotMap.RPower = (((forwardP*multiplier) * -1) + (turnP*multiplier * -1));    		
+    		if(RobotMap.flipped = true) {
+    			RobotMap.LPower = (((forwardP*multiplier) * -1) - (turnP));    		
+    			RobotMap.RPower = (((forwardP*multiplier) * -1) + (turnP));  		
+    		} else {
+    			RobotMap.LPower = (((forwardP*multiplier) * -1) - (turnP));    		
+    			RobotMap.RPower = (((forwardP*multiplier) * -1) + (turnP)); 
+    		}
         	RobotMap.axisType = 0;
         	Pneumatics.shiftForward();
     	}
@@ -113,8 +118,8 @@ public class Drive extends Subsystem {
     }
     
     public static void straightDrive(double forwardP, double multiplier) {
-    	RobotMap.LPower = ((forwardP*multiplier) - (-RobotMap.navx.getYaw()/666));
-    	RobotMap.RPower = ((forwardP*multiplier) + (-RobotMap.navx.getYaw()/666));
+    	RobotMap.LPower = ((forwardP*multiplier) - (-(RobotMap.navx.getYaw())/450));
+    	RobotMap.RPower = ((forwardP*multiplier) + (-(RobotMap.navx.getYaw())/450));
     }
     
     public static boolean rotateToAngle(float turningDegreePublic) {

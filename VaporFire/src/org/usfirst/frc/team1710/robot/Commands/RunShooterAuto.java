@@ -24,9 +24,8 @@ public class RunShooterAuto extends Command {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	if(count < timePublic/20) {
-    		Shooter.runSystemNoPID();
+    		BetterShooter.run();
     		BetterVision.trackBoiler();
-    		//BetterShooter.run();
     		
         	RobotMap.pRM1.set(RobotMap.RPower*-1);
         	RobotMap.RM2.set(RobotMap.RPower*-1);

@@ -10,9 +10,9 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 /**
  *
  */
-public class GearPlaceRighShoot extends CommandGroup {
+public class GearPlaceRightShoot extends CommandGroup {
 
-    public GearPlaceRighShoot() {
+    public GearPlaceRightShoot() {
     	addSequential(new ZeroYaw());
     	addSequential(new EncoderDrive(75, .75, false));
     	addSequential(new ZeroYaw());
@@ -20,7 +20,9 @@ public class GearPlaceRighShoot extends CommandGroup {
     	addSequential(new ZeroYaw());
     	addSequential(new EncoderDrive(35, .4, true));
     	addSequential(new Delay(2));
+    	addSequential(new ZeroYaw());
     	addSequential(new EncoderDrive(20, -.5, false));
+    	addSequential(new ZeroYaw());
     	addSequential(new RotatetoAngle(-10));
     	addSequential(new RunShooterAuto(10000));
     }

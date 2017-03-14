@@ -20,7 +20,9 @@ public class GearPlaceLeftShoot extends CommandGroup {
     	addSequential(new ZeroYaw());
     	addSequential(new EncoderDrive(35, .4, true));
     	addSequential(new Delay(2));
+    	addSequential(new ZeroYaw());
     	addSequential(new EncoderDrive(20, -.5, false));
+    	addSequential(new ZeroYaw());
     	addSequential(new RotatetoAngle(10));
     	addSequential(new RunShooterAuto(10000));
     }

@@ -38,4 +38,6 @@ public class RobotMap {
 	public static double TurnP, ForwardP, Multiplier, LPower, RPower, ShooterP, ClimbP, ClimbDown;
 	
 	public static float currentYaw;
+	
+	public static boolean flipped;
 }

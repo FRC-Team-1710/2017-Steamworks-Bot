@@ -2,8 +2,11 @@
 package org.usfirst.frc.team1710.robot;
 //other libraries
 import org.usfirst.frc.team1710.robot.commandGroups.EncoderTest;
+import org.usfirst.frc.team1710.robot.commandGroups.GearPlaceCenter;
+import org.usfirst.frc.team1710.robot.commandGroups.GearPlaceLeft;
 import org.usfirst.frc.team1710.robot.commandGroups.GearPlaceLeftShoot;
-import org.usfirst.frc.team1710.robot.commandGroups.GearPlaceRighShoot;
+import org.usfirst.frc.team1710.robot.commandGroups.GearPlaceRightShoot;
+import org.usfirst.frc.team1710.robot.commandGroups.GearPlaceRight;
 import org.usfirst.frc.team1710.robot.commandGroups.HoppShootRedFarInside;
 import org.usfirst.frc.team1710.robot.commandGroups.HopperShoot;
 import org.usfirst.frc.team1710.robot.commandGroups.RotateToAngleTest;
@@ -34,8 +37,8 @@ public class Robot extends IterativeRobot {
 	SendableChooser autoChooser;
 	
 	double angle, angleIncrease, anglePrevious, angleInitial, continuousAngle;
-	static final double kP = 0.0000005;
-	static final double kI = 0.00;
+	static final double kP = 0.09;
+	static final double kI = 0.1;
 	static final double kD = 0.00;
 	boolean PIDReady;
 	
@@ -68,7 +71,9 @@ public class Robot extends IterativeRobot {
 
     	//Auto stuff
     	autoChooser = new SendableChooser();
-        autoChooser.addDefault("Encoder Test", new GearPlaceRighShoot());
+        autoChooser.addDefault("Gear Left", new GearPlaceRight());
+        autoChooser.addObject("Gear RIght", new GearPlaceLeft());
+        autoChooser.addObject("Gear Center", new GearPlaceCenter());
         SmartDashboard.putData("Autonomous Mode Chooser", autoChooser);
         RobotMap.RPiston.set(DoubleSolenoid.Value.kOff);
         RobotMap.LPiston.set(DoubleSolenoid.Value.kOff);
@@ -91,10 +96,10 @@ public class Robot extends IterativeRobot {
     	//ControllerMap.runIsaacMode();
     	ControllerMap.runPennMode();
     	if(RobotMap.directionToggle == true){
-    		RobotMap.directionToggleCount ++;
-    		Timer.delay(.1);
+    		RobotMap.directionToggleCount++;
+    		Timer.delay(0.25);
     	}
-    	if(RobotMap.directionToggleCount %2 > 0){
+    	if(RobotMap.directionToggleCount % 2 > 0){
     		RobotMap.directionMultiplier = 1;
     	}else{
         	RobotMap.directionMultiplier = -1;
@@ -140,9 +145,7 @@ public class Robot extends IterativeRobot {
     	//Shooter
     	if(RobotMap.onShootSys == true) {
     		BetterShooter.run();
-    		//Shooter.demonstrationModeLowPower();
     		if(PIDReady == false) {
-    			
     	    	RobotMap.Shooter2.changeControlMode(TalonControlMode.Follower);
     	    	RobotMap.Shooter2.set(RobotMap.Shooter1.getDeviceID());
     	        RobotMap.Shooter1.setFeedbackDevice(FeedbackDevice.CtreMagEncoder_Absolute);
