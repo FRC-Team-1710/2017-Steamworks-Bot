@@ -7,7 +7,7 @@ import org.usfirst.frc.team1710.robot.commandGroups.GearPlaceLeft;
 import org.usfirst.frc.team1710.robot.commandGroups.GearPlaceLeftShoot;
 import org.usfirst.frc.team1710.robot.commandGroups.GearPlaceRightShoot;
 import org.usfirst.frc.team1710.robot.commandGroups.GearPlaceRight;
-import org.usfirst.frc.team1710.robot.commandGroups.HoppShootRedFarInside;
+
 import org.usfirst.frc.team1710.robot.commandGroups.HopperShoot;
 import org.usfirst.frc.team1710.robot.commandGroups.RotateToAngleTest;
 
@@ -20,6 +20,7 @@ import edu.wpi.first.wpilibj.AnalogInput;
 //wpi libraries
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.Compressor;
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Joystick;
@@ -43,6 +44,8 @@ public class Robot extends IterativeRobot {
 	boolean PIDReady;
 	
     public void robotInit() {
+    	RobotMap.gearSensor = new DigitalInput(7);
+   
     	RobotMap.directionMultiplier = 1;
     	motorMap.practiceBot();
     	//motorMap.competitionBot();
@@ -92,6 +95,8 @@ public class Robot extends IterativeRobot {
     	Scheduler.getInstance().run();
     }
     public void teleopPeriodic() {
+     	SmartDashboard.putData("Gear Sensor", RobotMap.gearSensor);
+     	
     	//Drive Controls
     	//ControllerMap.runIsaacMode();
     	ControllerMap.runPennMode();
