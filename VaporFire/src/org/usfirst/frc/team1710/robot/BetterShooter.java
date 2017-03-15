@@ -31,7 +31,7 @@ public class BetterShooter extends Subsystem {
     	//p = 0.6kU
     	//i = 1.2kU/tU
     	//d = (3*kU*tU)/40
-    	double targetSpeed = 2100;
+    	double targetSpeed = -1500;
 
     	RobotMap.Shooter1.set(targetSpeed);
     	

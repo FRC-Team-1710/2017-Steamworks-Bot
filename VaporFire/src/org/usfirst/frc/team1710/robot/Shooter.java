@@ -59,10 +59,10 @@ public class Shooter extends Subsystem {
     }
     
     public static void stopShooter(){ 
-    	RobotMap.Shooter1.stopMotor();
-    	RobotMap.Shooter2.stopMotor();
     	RobotMap.Shooter1.set(0);
     	RobotMap.Shooter2.set(0);
+    	RobotMap.Shooter1.stopMotor();
+    	RobotMap.Shooter2.stopMotor();
     }
     public static void runSystem(){
     	currentVelocity = RobotMap.Shooter1.getEncVelocity();

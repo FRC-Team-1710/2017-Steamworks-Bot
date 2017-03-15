@@ -18,7 +18,7 @@ public class BetterVision extends Subsystem {
 	public static double[] centerX, centerY;
 	public static double targetX, targetY;
 	static double error;
-	static boolean errorFound, sideToSide, upAndDown;
+	public static boolean errorFound, sideToSide, upAndDown;
 	
     // Put methods for controlling this subsystem
     // here. Call these from Commands.

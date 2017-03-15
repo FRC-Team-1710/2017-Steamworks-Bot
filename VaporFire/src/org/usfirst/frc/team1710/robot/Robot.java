@@ -1,13 +1,13 @@
 
 package org.usfirst.frc.team1710.robot;
 //other libraries
+import org.usfirst.frc.team1710.robot.commandGroups.CrossBaseline;
 import org.usfirst.frc.team1710.robot.commandGroups.EncoderTest;
 import org.usfirst.frc.team1710.robot.commandGroups.GearPlaceCenter;
 import org.usfirst.frc.team1710.robot.commandGroups.GearPlaceLeft;
 import org.usfirst.frc.team1710.robot.commandGroups.GearPlaceLeftShoot;
 import org.usfirst.frc.team1710.robot.commandGroups.GearPlaceRightShoot;
 import org.usfirst.frc.team1710.robot.commandGroups.GearPlaceRight;
-
 import org.usfirst.frc.team1710.robot.commandGroups.HopperShoot;
 import org.usfirst.frc.team1710.robot.commandGroups.RotateToAngleTest;
 
@@ -38,13 +38,13 @@ public class Robot extends IterativeRobot {
 	SendableChooser autoChooser;
 	
 	double angle, angleIncrease, anglePrevious, angleInitial, continuousAngle;
-	static final double kP = 0.09;
-	static final double kI = 0.1;
-	static final double kD = 0.00;
+	static final double kP = 0.005;
+	static final double kI = 0.0025;
+	static final double kD = 0.01;
 	boolean PIDReady;
 	
     public void robotInit() {
-    	RobotMap.gearSensor = new DigitalInput(7);
+    	RobotMap.gearSensor = new DigitalInput(6);
    
     	RobotMap.directionMultiplier = 1;
     	motorMap.practiceBot();
@@ -74,10 +74,14 @@ public class Robot extends IterativeRobot {
 
     	//Auto stuff
     	autoChooser = new SendableChooser();
-        autoChooser.addDefault("Gear Left", new GearPlaceRight());
-        autoChooser.addObject("Gear RIght", new GearPlaceLeft());
-        autoChooser.addObject("Gear Center", new GearPlaceCenter());
-        SmartDashboard.putData("Autonomous Mode Chooser", autoChooser);
+        autoChooser.addObject("Gear Left", new GearPlaceRight());
+        autoChooser.addObject("Gear Right", new GearPlaceLeft());
+        autoChooser.addDefault("Gear Center", new GearPlaceCenter());
+        autoChooser.addObject("Gear Right Shoot", new GearPlaceLeftShoot());
+        autoChooser.addObject("Gear Left Shoot", new GearPlaceRightShoot());
+        autoChooser.addObject("HopperShoot", new HopperShoot());
+        autoChooser.addObject("Cross Baseline", new CrossBaseline());
+        SmartDashboard.putData("Meme Chooser", autoChooser);
         RobotMap.RPiston.set(DoubleSolenoid.Value.kOff);
         RobotMap.LPiston.set(DoubleSolenoid.Value.kOff);
         RobotMap.Shifter.set(DoubleSolenoid.Value.kOff);
@@ -96,7 +100,6 @@ public class Robot extends IterativeRobot {
     }
     public void teleopPeriodic() {
      	SmartDashboard.putData("Gear Sensor", RobotMap.gearSensor);
-     	
     	//Drive Controls
     	//ControllerMap.runIsaacMode();
     	ControllerMap.runPennMode();
@@ -141,8 +144,11 @@ public class Robot extends IterativeRobot {
     		RobotMap.pClimber.set(0);
     	}
     	
-    	if(RobotMap.mechStick.getRawButton(5)) {
+    	if(RobotMap.mechStick.getRawButton(5) == true) {
     		BetterVision.trackBoiler();
+    	} else {
+    		BetterVision.upAndDown = false;
+    		BetterVision.sideToSide = false;
     	}
     	
     	//Pneumatics

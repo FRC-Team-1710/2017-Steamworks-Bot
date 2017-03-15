@@ -19,7 +19,7 @@ public class GearPlaceRightShoot extends CommandGroup {
     	addSequential(new RotatetoAngle(81));
     	addSequential(new ZeroYaw());
     	addSequential(new EncoderDrive(35, .4, true));
-    	addSequential(new Delay(2));
+    	addSequential(new waitForPilot());
     	addSequential(new ZeroYaw());
     	addSequential(new EncoderDrive(20, -.5, false));
     	addSequential(new ZeroYaw());
