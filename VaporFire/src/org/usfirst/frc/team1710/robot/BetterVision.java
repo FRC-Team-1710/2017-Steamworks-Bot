@@ -18,7 +18,7 @@ public class BetterVision extends Subsystem {
 	public static double[] centerX, centerY;
 	public static double targetX, targetY;
 	static double error;
-	static boolean errorFound;
+	static boolean errorFound, sideToSide, upAndDown;
 	
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
@@ -56,12 +56,22 @@ public class BetterVision extends Subsystem {
     	if(centerX.length > 0) {
     		targetX = centerX[0];
     		targetY = centerY[0];
-    		if(Math.abs((targetX-320))  > 40) {
-    			Drive.simpleArcade(0, (targetX-320)/500, -.5);
-    			System.out.println("turn speed " + (targetX-320)/500);
-    		} else if(Math.abs((targetY-140)) > 10) {
-    			Drive.simpleArcade((targetY-140)/225, 0, 0.75);
-        		System.out.println("forward speed" + (targetY-140)/225);
+    		if(Math.abs((targetX-320))  > 40 && sideToSide == false) {
+    			if((targetX-320) <= 25) {
+    				upAndDown = false;
+    				sideToSide = true;
+    			} else {
+        			Drive.simpleArcade(0, (targetX-320)/500, -.5);
+        			System.out.println("turn speed " + (targetX-320)/500);
+    			}
+    		} else if(Math.abs((targetY-140)) > 40 && upAndDown == false) {
+        		if((targetY-140) <= 25) {
+        			upAndDown = true;
+        			sideToSide = false;
+        		} else {
+        			Drive.simpleArcade((targetY-140)/225, 0, 0.75);
+            		System.out.println("forward speed" + (targetY-140)/225);
+        		}
     		}
     	} else {
     		Drive.simpleArcade(0, 0.25, 1);
