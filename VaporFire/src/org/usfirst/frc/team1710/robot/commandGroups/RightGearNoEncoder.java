@@ -10,9 +10,13 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 /**
  *
  */
-public class GearPlaceCenter extends CommandGroup {
-	//for red alliance, would be left for the blue alliance
-    public GearPlaceCenter() {
+public class RightGearNoEncoder extends CommandGroup {
+
+    public RightGearNoEncoder() {
+    	addSequential(new ZeroYaw());
+    	addSequential(new DriveForTime(.5, 1500));
+    	addSequential(new ZeroYaw());
+    	addSequential(new RotatetoAngle(-35));
     	addSequential(new ZeroYaw());
     	addSequential(new DriveForTime(.5, 2000));
     }

@@ -30,7 +30,6 @@ public class EncoderDrive extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	System.out.println(startEncoder);
     	hiRotationAdded = false;
     	loRotationAdded = false;
     	startTime = System.nanoTime() / 1000000000;
@@ -38,7 +37,7 @@ public class EncoderDrive extends Command {
     	count = 0;
     	power = 0.8;
     	anglePrevious = 0;
-    	Pneumatics.shiftForward();
+    	Pneumatics.shiftReverse();
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -48,6 +47,7 @@ public class EncoderDrive extends Command {
     	percentageDone = (rotations/rotateToPublic);
     	angle = (RobotMap.REncoder.getVoltage() * 360/5);
     	if(rotations < rotateToPublic){
+    		System.out.println(rotations);
     		if(angle > 179 && hiRotationAdded == false) {
         		rotations += 0.5;
         		hiRotationAdded = true;
@@ -68,10 +68,10 @@ public class EncoderDrive extends Command {
     		Drive.simpleArcade(0, 0, 0);
     		done = true;
     	}    	
-    	RobotMap.pRM1.set(RobotMap.RPower*-1);
+    	RobotMap.RM1.set(RobotMap.RPower*-1);
     	RobotMap.RM2.set(RobotMap.RPower*-1);
     	RobotMap.RM3.set(RobotMap.RPower*-1);
-    	RobotMap.pLM1.set(RobotMap.LPower);
+    	RobotMap.LM1.set(RobotMap.LPower);
     	RobotMap.LM2.set(RobotMap.LPower);
     	RobotMap.LM3.set(RobotMap.LPower);
     }
@@ -85,6 +85,7 @@ public class EncoderDrive extends Command {
 
     // Called once after isFinished returns true
     protected void end() {
+    	done = false;
     }
 
     // Called when another command which requires one or more of the same

@@ -17,7 +17,8 @@ public class Shooter extends Subsystem {
 	static double power = 0;
 	static double error = 0;
 	static double goalVelocity = 29000;
-	static boolean moveAway, moveCloser;
+	static boolean moveAway, moveCloser, added, subtracted;
+	static double motorPower = 0.6;
 	
     public void initDefaultCommand() {
        power = 0;
@@ -39,9 +40,9 @@ public class Shooter extends Subsystem {
     public static void runIndexer(){
     	if(motorMap.runningCompetitionBot == true) {
     		//was 0.84
-    		RobotMap.Injector.set(0.835);
+    		RobotMap.Injector.set(0.58);
     	} else {
-    		RobotMap.pInjector.set(0.835);
+    		RobotMap.pInjector.set(0.65);
     	}
     }
     public static void stopIndexer(){
@@ -99,11 +100,11 @@ public class Shooter extends Subsystem {
     public static void runSystemNoPID() {
     	if(shooterAtSpeed == true) {
     		if(motorMap.runningCompetitionBot == true) {
-    			RobotMap.Shooter1.set(-0.71);
-        		RobotMap.Shooter2.set(0.71);
+    			RobotMap.Shooter1.set(-0.725);
+        		RobotMap.Shooter2.set(0.725);
     		} else {
-    			RobotMap.Shooter1.set(0.72);
-        		RobotMap.Shooter2.set(0.72);
+    			RobotMap.Shooter1.set(0.3);
+        		RobotMap.Shooter2.set(0.3);
     		}
         	if(RobotMap.Shooter1.getEncVelocity() > 15000) {
         		runIndexer();
@@ -118,22 +119,51 @@ public class Shooter extends Subsystem {
         			RobotMap.Shooter1.set(-0.5);
             		RobotMap.Shooter2.set(0.5);
         		} else {
-        			RobotMap.Shooter1.set(0.4);
-            		RobotMap.Shooter2.set(0.4);
+        			RobotMap.Shooter1.set(0.2);
+            		RobotMap.Shooter2.set(0.2);
         		}
     			Timer.delay(1);
     			firstInterval = true;
     		} else {
         		if(motorMap.runningCompetitionBot == true) {
-        			RobotMap.Shooter1.set(-0.75);
-            		RobotMap.Shooter2.set(0.75);
+        			RobotMap.Shooter1.set(-0.74);
+            		RobotMap.Shooter2.set(0.74);
         		} else {
-        			RobotMap.Shooter1.set(.72);
-            		RobotMap.Shooter2.set(.72);
+        			RobotMap.Shooter1.set(.2);
+            		RobotMap.Shooter2.set(.2);
         		}
     			Timer.delay(1);
     			shooterAtSpeed = true;
     		}
     	}
+    }
+    
+    public static void BestShooter() {
+    	double shooterVelocity = RobotMap.Shooter1.getEncVelocity();
+    	
+    	if(shooterVelocity > 24000) {
+    		//lower motor power
+    		stopIndexer();
+    		subtracted = true;
+    		if(subtracted == false) {
+    			motorPower -= 0.005;
+    			System.out.println("subtracted");
+    			subtracted = true;
+    		}
+    	} else if(shooterVelocity < 21000) {
+    		//increase motor power
+    		stopIndexer();
+    		added = false;
+    		if(added == false) {
+    			motorPower += 0.005;
+    			System.out.println("added");
+    			added = true;
+    		}
+    	} else {
+    		runIndexer();
+    	}
+    	RobotMap.Shooter1.set(-motorPower);
+    	RobotMap.Shooter2.set(motorPower);
+    	Timer.delay(0.1);
     }
 }

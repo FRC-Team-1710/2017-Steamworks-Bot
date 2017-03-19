@@ -3,12 +3,16 @@ package org.usfirst.frc.team1710.robot;
 //other libraries
 import org.usfirst.frc.team1710.robot.commandGroups.CrossBaseline;
 import org.usfirst.frc.team1710.robot.commandGroups.EncoderTest;
+import org.usfirst.frc.team1710.robot.commandGroups.GearCenterShoot;
+import org.usfirst.frc.team1710.robot.commandGroups.GearCenterShootRed;
 import org.usfirst.frc.team1710.robot.commandGroups.GearPlaceCenter;
 import org.usfirst.frc.team1710.robot.commandGroups.GearPlaceLeft;
 import org.usfirst.frc.team1710.robot.commandGroups.GearPlaceLeftShoot;
 import org.usfirst.frc.team1710.robot.commandGroups.GearPlaceRightShoot;
 import org.usfirst.frc.team1710.robot.commandGroups.GearPlaceRight;
 import org.usfirst.frc.team1710.robot.commandGroups.HopperShoot;
+import org.usfirst.frc.team1710.robot.commandGroups.HopperShootRed;
+import org.usfirst.frc.team1710.robot.commandGroups.RightGearNoEncoder;
 import org.usfirst.frc.team1710.robot.commandGroups.RotateToAngleTest;
 
 import com.ctre.CANTalon;
@@ -16,6 +20,7 @@ import com.ctre.CANTalon.FeedbackDevice;
 import com.ctre.CANTalon.TalonControlMode;
 import com.kauailabs.navx.frc.AHRS;
 
+import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.wpilibj.AnalogInput;
 //wpi libraries
 import edu.wpi.first.wpilibj.CameraServer;
@@ -44,11 +49,14 @@ public class Robot extends IterativeRobot {
 	boolean PIDReady;
 	
     public void robotInit() {
-    	RobotMap.gearSensor = new DigitalInput(6);
-   
+    	UsbCamera camera;
+    	camera = CameraServer.getInstance().startAutomaticCapture();
+    	camera.setResolution(640, 480);
+    	camera.setFPS(30);
+    	camera.setExposureManual(50);
     	RobotMap.directionMultiplier = 1;
-    	motorMap.practiceBot();
-    	//motorMap.competitionBot();
+    	//motorMap.practiceBot();
+    	motorMap.competitionBot();
         RobotMap.driveStick = new Joystick(0);
         RobotMap.mechStick = new Joystick(1);
         if(motorMap.runningPracticeBot == true) {
@@ -67,20 +75,24 @@ public class Robot extends IterativeRobot {
         //RobotMap.storedPressure = new AnalogInput(4);
         //RobotMap.workingPressure = new AnalogInput(1);
         
-        RobotMap.REncoder = new AnalogInput(0);
+        RobotMap.REncoder = new AnalogInput(3);
         
         //Set defaults
         RobotMap.Compressor.setClosedLoopControl(false);
 
     	//Auto stuff
     	autoChooser = new SendableChooser();
-        autoChooser.addObject("Gear Left", new GearPlaceRight());
-        autoChooser.addObject("Gear Right", new GearPlaceLeft());
+        autoChooser.addObject("Gear Left", new GearPlaceLeft());
+        autoChooser.addObject("Gear Right", new GearPlaceRight());
         autoChooser.addDefault("Gear Center", new GearPlaceCenter());
-        autoChooser.addObject("Gear Right Shoot", new GearPlaceLeftShoot());
-        autoChooser.addObject("Gear Left Shoot", new GearPlaceRightShoot());
-        autoChooser.addObject("HopperShoot", new HopperShoot());
+        autoChooser.addObject("Gear Left Shoot", new GearPlaceLeftShoot());
+        autoChooser.addObject("Gear Right Shoot Red", new GearPlaceRightShoot());
+        autoChooser.addObject("Gear Center Shoot Red", new GearCenterShootRed());
+        autoChooser.addObject("Gear Center Shoot Blue", new GearCenterShoot());
+        autoChooser.addObject("HopperShoot Blue", new HopperShoot());
+        autoChooser.addObject("HopperShoot Red", new HopperShootRed());
         autoChooser.addObject("Cross Baseline", new CrossBaseline());
+        autoChooser.addObject("Gear Right, time based", new RightGearNoEncoder());
         SmartDashboard.putData("Meme Chooser", autoChooser);
         RobotMap.RPiston.set(DoubleSolenoid.Value.kOff);
         RobotMap.LPiston.set(DoubleSolenoid.Value.kOff);
@@ -92,14 +104,14 @@ public class Robot extends IterativeRobot {
     }
     
     public void autonomousInit() {
-    	autonomousCommand = (Command) autoChooser.getSelected();	
+    	autonomousCommand = (Command)  autoChooser.getSelected();	
     	autonomousCommand.start();
     }
     public void autonomousPeriodic() {
     	Scheduler.getInstance().run();
     }
     public void teleopPeriodic() {
-     	SmartDashboard.putData("Gear Sensor", RobotMap.gearSensor);
+     	//SmartDashboard.putData("Gear Sensor", RobotMap.gearSensor);
     	//Drive Controls
     	//ControllerMap.runIsaacMode();
     	ControllerMap.runPennMode();
@@ -139,9 +151,9 @@ public class Robot extends IterativeRobot {
     	}
     	//Climber
     	if(RobotMap.mechStick.getRawButton(2) == true) {
-    		RobotMap.pClimber.set(RobotMap.mechStick.getRawAxis(1));
+    		RobotMap.Climber.set(Math.abs(RobotMap.mechStick.getRawAxis(1)));
     	} else {
-    		RobotMap.pClimber.set(0);
+    		RobotMap.Climber.set(0);
     	}
     	
     	if(RobotMap.mechStick.getRawButton(5) == true) {
@@ -155,25 +167,17 @@ public class Robot extends IterativeRobot {
     	Pneumatics.air();
     	//Shooter
     	if(RobotMap.onShootSys == true) {
-    		BetterShooter.run();
-    		if(PIDReady == false) {
-    	    	RobotMap.Shooter2.changeControlMode(TalonControlMode.Follower);
-    	    	RobotMap.Shooter2.set(RobotMap.Shooter1.getDeviceID());
-    	        RobotMap.Shooter1.setFeedbackDevice(FeedbackDevice.CtreMagEncoder_Absolute);
-    	        RobotMap.Shooter1.configNominalOutputVoltage(+0.0f, -0.0f);
-    	        RobotMap.Shooter1.configPeakOutputVoltage(+12.0f, -12.0f);
-    	        RobotMap.Shooter1.reverseSensor(false);
-    	    	RobotMap.Shooter1.setP(kP);
-    	    	RobotMap.Shooter1.setI(kI);
-    	    	RobotMap.Shooter1.setD(kD);
-    	    	RobotMap.Shooter1.changeControlMode(TalonControlMode.Speed);
-    	        PIDReady = true;
-    		}
+    		Shooter.BestShooter();
     		SmartDashboard.putNumber("Velocity", RobotMap.Shooter1.getEncVelocity());
-    	} else {
-    		PIDReady = false;
+    	} else if(RobotMap.mechStick.getRawButton(7) == true) {
+    		BetterShooter.ShootLow();
+    	}
+    	else {
     		Shooter.stopShooter();
     		Shooter.stopIndexer();
+    		Shooter.firstInterval = false;
+    		Shooter.secondInterval = false;
+    		Shooter.shooterAtSpeed = false;
     	}
     	
     	//RobotMap.Injector.set(RobotMap.mechStick.getRawAxis(2));
@@ -182,6 +186,7 @@ public class Robot extends IterativeRobot {
     	angle = anglePrevious + angleIncrease;
     	anglePrevious = angle;*/
     	SmartDashboard.putNumber("encoder", angle);
+
     }
 
     public void testPeriodic() {

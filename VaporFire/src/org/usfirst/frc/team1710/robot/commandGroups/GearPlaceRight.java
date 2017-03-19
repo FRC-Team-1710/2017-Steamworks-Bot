@@ -13,10 +13,10 @@ public class GearPlaceRight extends CommandGroup {
 	//for red alliance, would be left for the blue alliance
     public GearPlaceRight() {
     	addSequential(new ZeroYaw());
-    	addSequential(new EncoderDrive(80, 0.5, false));
+    	addSequential(new EncoderDrive(90, .8, false));
     	addSequential(new ZeroYaw());
-    	addSequential(new RotatetoAngle(30));
+    	addSequential(new RotatetoAngle(-70));
     	addSequential(new ZeroYaw());
-    	addSequential(new EncoderDrive(32, .4, false));
+    	addSequential(new EncoderDrive(36, .4, true));
     }
 }

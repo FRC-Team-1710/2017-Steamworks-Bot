@@ -42,5 +42,11 @@ public class BetterShooter extends Subsystem {
     		Shooter.stopIndexer();
     	}
     }
+    
+    public static void ShootLow() {
+    	RobotMap.Shooter1.set(0.25);
+    	RobotMap.Shooter2.set(-0.25);
+    	Shooter.runIndexer();
+    }
 }
 

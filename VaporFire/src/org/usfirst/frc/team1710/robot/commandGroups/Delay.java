@@ -7,12 +7,12 @@ import edu.wpi.first.wpilibj.command.Command;
  */
 public class Delay extends Command {
 
-	int secondsPublic;
+	double secondsPublic;
 	boolean done;
 	int count;
 	
-    public Delay(int seconds) {
-    	secondsPublic = seconds;
+    public Delay(double d) {
+    	secondsPublic = d;
     }
 
     // Called just before this Command runs the first time
@@ -21,7 +21,7 @@ public class Delay extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	if(count / 20 < (secondsPublic * 1000)){
+    	if(count < (secondsPublic * 1000)/20){
     		count ++;
     	}else{
     		done = true;

@@ -5,6 +5,7 @@ import org.usfirst.frc.team1710.robot.BetterVision;
 import org.usfirst.frc.team1710.robot.RobotMap;
 import org.usfirst.frc.team1710.robot.Shooter;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
@@ -23,26 +24,12 @@ public class RunShooterAuto extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	if(count < timePublic/20) {
-    		BetterShooter.run();
-    		BetterVision.trackBoiler();
-    		
-        	RobotMap.pRM1.set(RobotMap.RPower*-1);
-        	RobotMap.RM2.set(RobotMap.RPower*-1);
-        	RobotMap.RM3.set(RobotMap.RPower*-1);
-        	RobotMap.pLM1.set(RobotMap.LPower);
-        	RobotMap.LM2.set(RobotMap.LPower);
-        	RobotMap.LM3.set(RobotMap.LPower);
-    		
+    	//Timer.getmatchtime
+    	if(count< timePublic/20) {
+    		Shooter.BestShooter();
+    		count ++;
     	} else {
     		done = true;
-    		
-        	RobotMap.pRM1.set(RobotMap.RPower*0);
-        	RobotMap.RM2.set(RobotMap.RPower*0);
-        	RobotMap.RM3.set(RobotMap.RPower*0);
-        	RobotMap.pLM1.set(RobotMap.LPower * 0);
-        	RobotMap.LM2.set(RobotMap.LPower * 0);
-        	RobotMap.LM3.set(RobotMap.LPower * 0);
     	}
     }
 

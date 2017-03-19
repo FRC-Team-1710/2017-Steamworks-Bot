@@ -61,15 +61,15 @@ public class BetterVision extends Subsystem {
     				upAndDown = false;
     				sideToSide = true;
     			} else {
-        			Drive.simpleArcade(0, (targetX-320)/500, -.5);
+        			Drive.simpleArcade(0, (targetX-320)/350, -.5);
         			System.out.println("turn speed " + (targetX-320)/500);
-    			}
-    		} else if(Math.abs((targetY-140)) > 40 && upAndDown == false) {
-        		if((targetY-140) <= 25) {
+    			} //Change to 140 before competition
+    		} else if(Math.abs((targetY-240)) > 40 && upAndDown == false) {
+        		if((targetY-240) <= 25) {
         			upAndDown = true;
         			sideToSide = false;
         		} else {
-        			Drive.simpleArcade((targetY-140)/225, 0, 0.75);
+        			Drive.simpleArcade((targetY-240)/225, 0, 0.75);
             		System.out.println("forward speed" + (targetY-140)/225);
         		}
     		}

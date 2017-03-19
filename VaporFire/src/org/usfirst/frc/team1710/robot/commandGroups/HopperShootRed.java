@@ -15,9 +15,9 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 /**
  *
  */
-public class HopperShoot extends CommandGroup {
+public class HopperShootRed extends CommandGroup {
 
-    public HopperShoot() {
+    public HopperShootRed() {
     	//start of actual auto from alliance wall
     	/*addSequential(new ZeroYaw());
     	addSequential(new RotatetoAngle(-5));*/
@@ -25,18 +25,17 @@ public class HopperShoot extends CommandGroup {
 
     	
     	//end showcase thing
-    	//blue lliance
     	addSequential(new ZeroYaw());
     	addSequential(new EncoderDrive(2.5, .6, false));
     	addSequential(new ZeroYaw());
-    	addSequential(new RotatetoAngle((float) -18));
+    	addSequential(new RotatetoAngle((float) 19));
     	addSequential(new ZeroYaw());
-    	addSequential(new EncoderDrive(110, 0.8, false));
+    	addSequential(new EncoderDrive(110, 0.7, false));
     	addSequential(new ZeroYaw());
-    	addSequential(new RotatetoAngle((float) 30));
+    	addSequential(new RotatetoAngle((float) -30));
     	addSequential(new ZeroYaw());
     	addSequential(new EncoderDrive(20, -.69, false));
-    	addSequential(new RunShooterAuto(7500));
+    	addSequential(new RunShooterAuto(7000));
 
     }
     

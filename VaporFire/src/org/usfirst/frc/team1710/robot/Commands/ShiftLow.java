@@ -1,23 +1,18 @@
 package org.usfirst.frc.team1710.robot.Commands;
 
-import org.usfirst.frc.team1710.robot.BetterVision;
-import org.usfirst.frc.team1710.robot.Drive;
+import org.usfirst.frc.team1710.robot.Pneumatics;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.networktables.NetworkTable;
 
 /**
  *
  */
-public class TrackBoiler extends Command {
-
-	int timePublic, count;
+public class ShiftLow extends Command {
 	boolean done;
-	
-	static NetworkTable table;
-	
-    public TrackBoiler(int time) {
-    	timePublic = time;
+    public ShiftLow() {
+        // Use requires() here to declare subsystem dependencies
+        // eg. requires(chassis);
     }
 
     // Called just before this Command runs the first time
@@ -26,12 +21,9 @@ public class TrackBoiler extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-        if(timePublic < count/20) {
-        	BetterVision.trackBoiler();
-        	count ++;
-        } else {
-        	done = true;
-        }
+    	Pneumatics.shiftReverse();
+    	Timer.delay(0.2);
+    	done = true;
     }
 
     // Make this return true when this Command no longer needs to run execute()

@@ -1,6 +1,7 @@
 package org.usfirst.frc.team1710.robot.Commands;
 
 import org.usfirst.frc.team1710.robot.Drive;
+import org.usfirst.frc.team1710.robot.RobotMap;
 
 import edu.wpi.first.wpilibj.command.Command;
 
@@ -21,7 +22,13 @@ public class DriveForTime extends Command {
 
     protected void execute() {
     	if(timePublic/20 > count) {
-    		Drive.simpleArcade(speedPublic, 0, 1);
+    		Drive.straightDrive(speedPublic, 1);
+        	RobotMap.RM1.set(RobotMap.RPower*-1);
+        	RobotMap.RM2.set(RobotMap.RPower*-1);
+        	RobotMap.RM3.set(RobotMap.RPower*-1);
+        	RobotMap.LM1.set(RobotMap.LPower);
+        	RobotMap.LM2.set(RobotMap.LPower);
+        	RobotMap.LM3.set(RobotMap.LPower);
     		count++;
     	} else {
     		done = true;
