@@ -36,7 +36,13 @@ public class Shooter extends Subsystem {
     	SmartDashboard.putNumber("Motor Power", power);
     	SmartDashboard.putNumber("Velocity", currentVelocity);
     }
-
+    
+    public static void ShootLow() {
+    	RobotMap.Shooter1.set(0.25);
+    	RobotMap.Shooter2.set(-0.25);
+    	Shooter.runIndexer();
+    }
+    
     public static void runIndexer(){
     	if(motorMap.runningCompetitionBot == true) {
     		//was 0.84
@@ -91,53 +97,6 @@ public class Shooter extends Subsystem {
     	}
     }
     
-    public static void demonstrationModeLowPower() {
-		RobotMap.Shooter1.set(0.5);
-		RobotMap.Shooter2.set(0.5);
-		runIndexer();
-    }
-    
-    public static void runSystemNoPID() {
-    	if(shooterAtSpeed == true) {
-    		if(motorMap.runningCompetitionBot == true) {
-    			RobotMap.Shooter1.set(-0.725);
-        		RobotMap.Shooter2.set(0.725);
-    		} else {
-    			RobotMap.Shooter1.set(0.3);
-        		RobotMap.Shooter2.set(0.3);
-    		}
-        	if(RobotMap.Shooter1.getEncVelocity() > 15000) {
-        		runIndexer();
-        	} else {
-        		stopIndexer();
-        	}
-    		System.out.println("pew pew");
-    	} else {
-    		stopIndexer();
-    		if(firstInterval == false) {
-        		if(motorMap.runningCompetitionBot == true) {
-        			RobotMap.Shooter1.set(-0.5);
-            		RobotMap.Shooter2.set(0.5);
-        		} else {
-        			RobotMap.Shooter1.set(0.2);
-            		RobotMap.Shooter2.set(0.2);
-        		}
-    			Timer.delay(1);
-    			firstInterval = true;
-    		} else {
-        		if(motorMap.runningCompetitionBot == true) {
-        			RobotMap.Shooter1.set(-0.74);
-            		RobotMap.Shooter2.set(0.74);
-        		} else {
-        			RobotMap.Shooter1.set(.2);
-            		RobotMap.Shooter2.set(.2);
-        		}
-    			Timer.delay(1);
-    			shooterAtSpeed = true;
-    		}
-    	}
-    }
-    
     public static void BestShooter() {
     	double shooterVelocity = RobotMap.Shooter1.getEncVelocity();
     	
@@ -164,6 +123,6 @@ public class Shooter extends Subsystem {
     	}
     	RobotMap.Shooter1.set(-motorPower);
     	RobotMap.Shooter2.set(motorPower);
-    	Timer.delay(0.1);
+    	Timer.delay(0.01);
     }
 }

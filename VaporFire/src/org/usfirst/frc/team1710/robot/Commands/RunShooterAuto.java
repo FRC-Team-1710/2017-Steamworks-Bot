@@ -2,6 +2,7 @@ package org.usfirst.frc.team1710.robot.Commands;
 
 import org.usfirst.frc.team1710.robot.BetterShooter;
 import org.usfirst.frc.team1710.robot.BetterVision;
+import org.usfirst.frc.team1710.robot.Processing;
 import org.usfirst.frc.team1710.robot.RobotMap;
 import org.usfirst.frc.team1710.robot.Shooter;
 
@@ -26,6 +27,7 @@ public class RunShooterAuto extends Command {
     protected void execute() {
     	//Timer.getmatchtime
     	if(count< timePublic/20) {
+    		Processing.DoTheThing();
     		Shooter.BestShooter();
     		count ++;
     	} else {

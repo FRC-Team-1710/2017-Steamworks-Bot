@@ -170,7 +170,7 @@ public class Robot extends IterativeRobot {
     		Shooter.BestShooter();
     		SmartDashboard.putNumber("Velocity", RobotMap.Shooter1.getEncVelocity());
     	} else if(RobotMap.mechStick.getRawButton(7) == true) {
-    		BetterShooter.ShootLow();
+    		Shooter.ShootLow();
     	}
     	else {
     		Shooter.stopShooter();

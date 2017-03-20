@@ -53,32 +53,6 @@ public class Drive extends Subsystem {
     	RobotMap.navx.zeroYaw();
     }
     
-    public static void StegDrive(double forwardP, float currentYaw, double multiplier) {
-    	if(yawZeroed == true) { 
-    		if(forwardP > 0) {
-    			if(currentYaw < (-5)) {
-    				simpleArcade(forwardP, -0.1, multiplier);
-    			} else if(currentYaw > (5)) {
-    				simpleArcade(forwardP, 0.1, multiplier);
-					} else {
-						simpleArcade(forwardP, 0.0, multiplier);
-					}	
-    		} else {
-    			if(currentYaw > (-5)) {
-    				simpleArcade(forwardP, 0.1, multiplier);
-    			} else if(currentYaw < (5)) {
-    				simpleArcade(forwardP, -0.1, multiplier);
-    			} else {
-    				simpleArcade(forwardP, 0.0, multiplier);
-    			}
-    		}
-    	} else {
-    		RobotMap.navx.zeroYaw();
-    		Timer.delay(0.2);
-    		yawZeroed = true;
-    	}
-    }
-    
     public static void RotateToAngle(float angleToTurn) {
     	float currentYaw = RobotMap.navx.getYaw();
 
