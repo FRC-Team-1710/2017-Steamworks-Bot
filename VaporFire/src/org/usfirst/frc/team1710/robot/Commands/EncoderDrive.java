@@ -20,11 +20,11 @@ public class EncoderDrive extends Command {
 	long startTime, endTime, timeElapsed, currentEncoder, startEncoder, rotationVal;
 	/*@param the amount of rotations you want the robot to do
 	@param the starting velocity of the robot*/
-    public EncoderDrive(double rotateTo, double goalVelocity, boolean slowDown) {
+    public EncoderDrive(double distance, double goalVelocity, boolean slowDown) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     	goalVelocityPublic = goalVelocity;
-    	rotateToPublic = Math.ceil(rotateTo/3.14);
+    	rotateToPublic = Math.ceil(distance/3.14);
     	slowDownPublic = slowDown;
     }
 
