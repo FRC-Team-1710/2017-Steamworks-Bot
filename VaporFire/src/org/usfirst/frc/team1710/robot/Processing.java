@@ -130,6 +130,7 @@ public class Processing {
 		double[] defaultValue = new double[0];
 			// This is the center value returned by GRIP thank WPI
 		if(!ayy.filterContoursOutput.isEmpty()){
+			System.out.println("hey");
 			if(ayy.filterContoursOutput.size() == 2){
 				//System.out.println("I see two of the targets");
 				Rect r1 = Imgproc.boundingRect(ayy.filterContoursOutput.get(1));

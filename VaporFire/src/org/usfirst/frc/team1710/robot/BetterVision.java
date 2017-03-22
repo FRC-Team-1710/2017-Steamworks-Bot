@@ -41,10 +41,9 @@ public class BetterVision extends Subsystem {
     		}
     	} else {
     		if(rotated == false) {
-    			Drive.RotateToAngle(angleToTurn);
+    			Drive.rotateToAngle(angleToTurn);
     		} else {
     			currentYaw = RobotMap.navx.getYaw();
-    			Drive.StegDrive(-0.5, currentYaw, 1);
     		}
     	}
     }
@@ -53,26 +52,11 @@ public class BetterVision extends Subsystem {
     	table = NetworkTable.getTable("GRIP/BoilerReport");
     	centerX = table.getNumberArray("centerX");
     	centerY = table.getNumberArray("centerY");
+    	System.out.println(centerX.length);
     	if(centerX.length > 0) {
     		targetX = centerX[0];
     		targetY = centerY[0];
-    		if(Math.abs((targetX-320))  > 40 && sideToSide == false) {
-    			if((targetX-320) <= 25) {
-    				upAndDown = false;
-    				sideToSide = true;
-    			} else {
-        			Drive.simpleArcade(0, (targetX-320)/350, -.5);
-        			System.out.println("turn speed " + (targetX-320)/500);
-    			} //Change to 140 before competition
-    		} else if(Math.abs((targetY-240)) > 40 && upAndDown == false) {
-        		if((targetY-240) <= 25) {
-        			upAndDown = true;
-        			sideToSide = false;
-        		} else {
-        			Drive.simpleArcade((targetY-240)/225, 0, 0.75);
-            		System.out.println("forward speed" + (targetY-140)/225);
-        		}
-    		}
+			Drive.simpleArcade((targetY-240)/225, -(targetX-320)/400, .5);
     	} else {
     		Drive.simpleArcade(0, 0.25, 1);
     	}

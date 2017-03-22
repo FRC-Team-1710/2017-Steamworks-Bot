@@ -45,7 +45,7 @@ public class Robot extends IterativeRobot {
 	double angle, angleIncrease, anglePrevious, angleInitial, continuousAngle;
 	static final double kP = 0.005;
 	static final double kI = 0.0025;
-	static final double kD = 0.01;
+	static final double kD = 0.0;
 	boolean PIDReady;
 	
     public void robotInit() {
@@ -53,10 +53,11 @@ public class Robot extends IterativeRobot {
     	camera = CameraServer.getInstance().startAutomaticCapture();
     	camera.setResolution(640, 480);
     	camera.setFPS(30);
-    	camera.setExposureManual(50);
+    	camera.setExposureManual(0);
+    	camera.setBrightness(10);
     	RobotMap.directionMultiplier = 1;
-    	//motorMap.practiceBot();
-    	motorMap.competitionBot();
+    	motorMap.practiceBot();
+    	//motorMap.competitionBot();
         RobotMap.driveStick = new Joystick(0);
         RobotMap.mechStick = new Joystick(1);
         if(motorMap.runningPracticeBot == true) {
@@ -143,7 +144,7 @@ public class Robot extends IterativeRobot {
     	}
     	    	
     	if(RobotMap.onSteg == true) {
-    		Drive.StegDrive(RobotMap.ForwardP, RobotMap.navx.getYaw(), RobotMap.Multiplier);
+    		//Drive.StegDrive(RobotMap.ForwardP, RobotMap.navx.getYaw(), RobotMap.Multiplier);
     		System.out.println("running steg");
     	} else {
     		Drive.yawZeroed = false;
@@ -151,9 +152,9 @@ public class Robot extends IterativeRobot {
     	}
     	//Climber
     	if(RobotMap.mechStick.getRawButton(2) == true) {
-    		RobotMap.Climber.set(Math.abs(RobotMap.mechStick.getRawAxis(1)));
+    		RobotMap.pClimber.set(Math.abs(RobotMap.mechStick.getRawAxis(1)));
     	} else {
-    		RobotMap.Climber.set(0);
+    		RobotMap.pClimber.set(0);
     	}
     	
     	if(RobotMap.mechStick.getRawButton(5) == true) {

@@ -39,7 +39,7 @@ public class Drive extends Subsystem {
         	Pneumatics.shiftReverse();
     	}
     	else if(onTurbo == true && onSteg == true) {
-    		StegDrive(forwardP, currentYaw, multiplier);
+    		//StegDrive(forwardP, currentYaw, multiplier);
         	Pneumatics.shiftForward();
     	}
     	else {
@@ -96,11 +96,11 @@ public class Drive extends Subsystem {
     			Drive.simpleArcade(0, 0.4, 1 - Math.abs((currentYaw / turningDegreePublic)));
     		}
     	}
-		RobotMap.LM1.set(RobotMap.LPower);
+		RobotMap.pLM1.set(RobotMap.LPower);
 		RobotMap.LM2.set(RobotMap.LPower);
 		RobotMap.LM3.set(RobotMap.LPower);
 
-		RobotMap.RM1.set(RobotMap.RPower * -1);
+		RobotMap.pRM1.set(RobotMap.RPower * -1);
 		RobotMap.RM2.set(RobotMap.RPower * -1);
 		RobotMap.RM3.set(RobotMap.RPower * -1);
     	return false;

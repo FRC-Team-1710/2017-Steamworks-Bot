@@ -68,10 +68,10 @@ public class EncoderDrive extends Command {
     		Drive.simpleArcade(0, 0, 0);
     		done = true;
     	}    	
-    	RobotMap.RM1.set(RobotMap.RPower*-1);
+    	RobotMap.pRM1.set(RobotMap.RPower*-1);
     	RobotMap.RM2.set(RobotMap.RPower*-1);
     	RobotMap.RM3.set(RobotMap.RPower*-1);
-    	RobotMap.LM1.set(RobotMap.LPower);
+    	RobotMap.pLM1.set(RobotMap.LPower);
     	RobotMap.LM2.set(RobotMap.LPower);
     	RobotMap.LM3.set(RobotMap.LPower);
     }
