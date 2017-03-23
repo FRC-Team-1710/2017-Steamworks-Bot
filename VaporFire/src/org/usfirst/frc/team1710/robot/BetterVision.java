@@ -19,6 +19,7 @@ public class BetterVision extends Subsystem {
 	public static double targetX, targetY;
 	static double error;
 	public static boolean errorFound, sideToSide, upAndDown;
+	public static int count;
 	
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
@@ -56,11 +57,11 @@ public class BetterVision extends Subsystem {
     	if(centerX.length > 0) {
     		targetX = centerX[0];
     		targetY = centerY[0];
-			Drive.simpleArcade((targetY-240)/225, -(targetX-320)/400, .5);
+			Drive.simpleArcade((targetY-340)/500, -(targetX-320)/650, 1);
     	} else {
     		Drive.simpleArcade(0, 0.25, 1);
     	}
-    } 
+    }
     
 }
 

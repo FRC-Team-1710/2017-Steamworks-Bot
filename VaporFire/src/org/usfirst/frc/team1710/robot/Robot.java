@@ -162,6 +162,7 @@ public class Robot extends IterativeRobot {
     	} else {
     		BetterVision.upAndDown = false;
     		BetterVision.sideToSide = false;
+    		BetterVision.count = 0;
     	}
     	
     	//Pneumatics
