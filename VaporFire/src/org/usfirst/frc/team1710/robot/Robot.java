@@ -76,7 +76,7 @@ public class Robot extends IterativeRobot {
         //RobotMap.storedPressure = new AnalogInput(4);
         //RobotMap.workingPressure = new AnalogInput(1);
         
-        RobotMap.REncoder = new AnalogInput(3);
+        RobotMap.REncoder = new AnalogInput(0);
         
         //Set defaults
         RobotMap.Compressor.setClosedLoopControl(false);
