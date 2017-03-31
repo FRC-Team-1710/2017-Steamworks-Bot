@@ -18,21 +18,21 @@ public class Pneumatics extends Subsystem {
     	RobotMap.RPiston.set(DoubleSolenoid.Value.kOff);
     }
     public static void air(){
-    	if(RobotMap.onLPiston == true && RobotMap.neutral == false){
+    	if(RobotMap.onLPiston == true){
     		Pneumatics.LPistonForward();
     	}
-    	else if(RobotMap.onLPiston == false && RobotMap.neutral == false){
+    	else if(RobotMap.onLPiston == false){
     		Pneumatics.LPistonReverse();
     	}
     	else{
     		Pneumatics.neutralPistons();
     	}
     	//****
-    	if(RobotMap.onRPiston == true && RobotMap.neutral == false){
-    		Pneumatics.RPistonForward();
-    	}
-    	else if (RobotMap.onRPiston == false && RobotMap.neutral == false){
+    	if(RobotMap.onRPiston == true){
     		Pneumatics.RPistonReverse();
+    	}
+    	else if (RobotMap.onRPiston == false){
+    		Pneumatics.RPistonForward();
     	}
     	else{
     		Pneumatics.neutralPistons();
@@ -44,8 +44,6 @@ public class Pneumatics extends Subsystem {
     	else{
     		Pneumatics.stopCompressor();
     	}
-    	SmartDashboard.putNumber("Working Pressure", RobotMap.workingPressure.getValue());
-    	SmartDashboard.putNumber("Stored Pressure", RobotMap.storedPressure.getValue());
     }
     
     //hella useful functions

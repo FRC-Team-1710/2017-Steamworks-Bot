@@ -25,8 +25,8 @@ public class RotatetoAngle extends Command {
 	double initialTurningSpeed = .5;
 	float currentYaw;
 	boolean done;
-    public RotatetoAngle(float turningDegree) {
-    	turningDegreePublic = turningDegree;
+    public RotatetoAngle(float d) {
+    	turningDegreePublic = d;
     }
     protected void initialize() {
     }
@@ -34,28 +34,25 @@ public class RotatetoAngle extends Command {
     	if (turningDegreePublic > 0){
     		currentYaw = RobotMap.navx.getYaw();
     		// was 5
-    		if (currentYaw > turningDegreePublic - 2.5 && currentYaw < turningDegreePublic + 2.5){
+    		if (currentYaw > turningDegreePublic - .5 && currentYaw < turningDegreePublic + .5  || (currentYaw / turningDegreePublic) > 0.78){
     			Drive.simpleArcade(0, 0, 0);
-            	System.out.println(currentYaw+"done");
     			done = true;
     		} else if(currentYaw > turningDegreePublic) {
-    			Drive.simpleArcade(0, -0.4, Math.abs(1-(currentYaw / turningDegreePublic)) + .2);
+    			Drive.simpleArcade(0, -0.65, 1 - Math.abs((currentYaw / turningDegreePublic)));
     		} else if(currentYaw < turningDegreePublic) {
-    			Drive.simpleArcade(0, 0.4, Math.abs(1-(currentYaw / turningDegreePublic)) + .2);
-
+    			Drive.simpleArcade(0, 0.65, 1 - Math.abs((currentYaw / turningDegreePublic)));
     		}
     	} else {
         	currentYaw = RobotMap.navx.getYaw();
         	System.out.println(currentYaw);
         	//wAS 5
-    		if (currentYaw > turningDegreePublic - 1 && currentYaw < turningDegreePublic + 1){
+    		if (currentYaw > turningDegreePublic - .5 & currentYaw < turningDegreePublic + .5 || (currentYaw / turningDegreePublic) > 0.78){
     			Drive.simpleArcade(0, 0, 0);
-            	System.out.println(currentYaw + "final");
         		done = true;
         	} else if(currentYaw > turningDegreePublic) {
-    			Drive.simpleArcade(0, -0.4, Math.abs(1-(currentYaw / turningDegreePublic)) + .2);
+    			Drive.simpleArcade(0, -0.65, 1 - Math.abs((currentYaw / turningDegreePublic)));
     		} else if(currentYaw < turningDegreePublic) {
-    			Drive.simpleArcade(0, 0.4, Math.abs(1-(currentYaw / turningDegreePublic)) + .2);
+    			Drive.simpleArcade(0, 0.65, 1 - Math.abs((currentYaw / turningDegreePublic)));
     		}
     	}
 		RobotMap.pLM1.set(RobotMap.LPower);

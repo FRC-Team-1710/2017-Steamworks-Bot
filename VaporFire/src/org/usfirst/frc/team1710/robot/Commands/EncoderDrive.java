@@ -20,17 +20,16 @@ public class EncoderDrive extends Command {
 	long startTime, endTime, timeElapsed, currentEncoder, startEncoder, rotationVal;
 	/*@param the amount of rotations you want the robot to do
 	@param the starting velocity of the robot*/
-    public EncoderDrive(double rotateTo, double goalVelocity, boolean slowDown) {
+    public EncoderDrive(double distance, double goalVelocity, boolean slowDown) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     	goalVelocityPublic = goalVelocity;
-    	rotateToPublic = rotateTo;
+    	rotateToPublic = Math.ceil(distance/3.14);
     	slowDownPublic = slowDown;
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	System.out.println(startEncoder);
     	hiRotationAdded = false;
     	loRotationAdded = false;
     	startTime = System.nanoTime() / 1000000000;
@@ -38,7 +37,7 @@ public class EncoderDrive extends Command {
     	count = 0;
     	power = 0.8;
     	anglePrevious = 0;
-    	Pneumatics.shiftForward();
+    	Pneumatics.shiftReverse();
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -48,6 +47,7 @@ public class EncoderDrive extends Command {
     	percentageDone = (rotations/rotateToPublic);
     	angle = (RobotMap.REncoder.getVoltage() * 360/5);
     	if(rotations < rotateToPublic){
+    		System.out.println(rotations);
     		if(angle > 179 && hiRotationAdded == false) {
         		rotations += 0.5;
         		hiRotationAdded = true;
@@ -60,9 +60,9 @@ public class EncoderDrive extends Command {
         		endTime = System.nanoTime()/1000000000;
         	}
     		if(slowDownPublic == true) {
-    			Drive.simpleArcade(goalVelocityPublic, RobotMap.navx.getYaw()/10000, (1 - percentageDone) + 0.35);
+    			Drive.straightDrive(goalVelocityPublic, (1 - percentageDone) + 0.35);
     		} else {
-    			Drive.simpleArcade(goalVelocityPublic, RobotMap.navx.getYaw()/10000, 1);
+    			Drive.straightDrive(goalVelocityPublic, 1);
     		}
     	}else{
     		Drive.simpleArcade(0, 0, 0);
@@ -74,7 +74,6 @@ public class EncoderDrive extends Command {
     	RobotMap.pLM1.set(RobotMap.LPower);
     	RobotMap.LM2.set(RobotMap.LPower);
     	RobotMap.LM3.set(RobotMap.LPower);
-    	System.out.println(rotations);
     }
     
     
@@ -86,6 +85,7 @@ public class EncoderDrive extends Command {
 
     // Called once after isFinished returns true
     protected void end() {
+    	done = false;
     }
 
     // Called when another command which requires one or more of the same

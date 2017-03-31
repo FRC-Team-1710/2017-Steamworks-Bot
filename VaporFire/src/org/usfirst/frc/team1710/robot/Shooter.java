@@ -7,6 +7,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
+ *This is not Penn, not my CTO
  *
  */
 public class Shooter extends Subsystem {
@@ -17,7 +18,8 @@ public class Shooter extends Subsystem {
 	static double power = 0;
 	static double error = 0;
 	static double goalVelocity = 29000;
-	static boolean moveAway, moveCloser;
+	static boolean moveAway, moveCloser, added, subtracted;
+	static double motorPower = 0.6;
 	
     public void initDefaultCommand() {
        power = 0;
@@ -35,13 +37,19 @@ public class Shooter extends Subsystem {
     	SmartDashboard.putNumber("Motor Power", power);
     	SmartDashboard.putNumber("Velocity", currentVelocity);
     }
-
+    
+    public static void ShootLow() {
+    	RobotMap.Shooter1.set(0.25);
+    	RobotMap.Shooter2.set(-0.25);
+    	Shooter.runIndexer();
+    }
+    
     public static void runIndexer(){
     	if(motorMap.runningCompetitionBot == true) {
     		//was 0.84
-    		RobotMap.Injector.set(0.7);
+    		RobotMap.Injector.set(0.58);
     	} else {
-    		RobotMap.pInjector.set(0.835);
+    		RobotMap.pInjector.set(0.65);
     	}
     }
     public static void stopIndexer(){
@@ -59,10 +67,10 @@ public class Shooter extends Subsystem {
     }
     
     public static void stopShooter(){ 
-    	RobotMap.Shooter1.stopMotor();
-    	RobotMap.Shooter2.stopMotor();
     	RobotMap.Shooter1.set(0);
     	RobotMap.Shooter2.set(0);
+    	RobotMap.Shooter1.stopMotor();
+    	RobotMap.Shooter2.stopMotor();
     }
     public static void runSystem(){
     	currentVelocity = RobotMap.Shooter1.getEncVelocity();
@@ -90,50 +98,32 @@ public class Shooter extends Subsystem {
     	}
     }
     
-    public static void demonstrationModeLowPower() {
-		RobotMap.Shooter1.set(0.5);
-		RobotMap.Shooter2.set(0.5);
-		runIndexer();
-    }
-    
-    public static void runSystemNoPID() {
-    	if(shooterAtSpeed == true) {
-    		if(motorMap.runningCompetitionBot == true) {
-    			RobotMap.Shooter1.set(-0.71);
-        		RobotMap.Shooter2.set(0.71);
-    		} else {
-    			RobotMap.Shooter1.set(0.9);
-        		RobotMap.Shooter2.set(0.9);
-    		}
-        	if(RobotMap.Shooter1.getEncVelocity() > 15000) {
-        		runIndexer();
-        	} else {
-        		stopIndexer();
-        	}
-    		System.out.println("pew pew");
-    	} else {
+    public static void BestShooter() {
+    	double shooterVelocity = RobotMap.Shooter1.getEncVelocity();
+    	
+    	if(shooterVelocity > 24000) {
+    		//lower motor power
     		stopIndexer();
-    		if(firstInterval == false) {
-        		if(motorMap.runningCompetitionBot == true) {
-        			RobotMap.Shooter1.set(-0.5);
-            		RobotMap.Shooter2.set(0.5);
-        		} else {
-        			RobotMap.Shooter1.set(0.6);
-            		RobotMap.Shooter2.set(0.6);
-        		}
-    			Timer.delay(1);
-    			firstInterval = true;
-    		} else {
-        		if(motorMap.runningCompetitionBot == true) {
-        			RobotMap.Shooter1.set(-0.75);
-            		RobotMap.Shooter2.set(0.75);
-        		} else {
-        			RobotMap.Shooter1.set(1);
-            		RobotMap.Shooter2.set(1);
-        		}
-    			Timer.delay(1);
-    			shooterAtSpeed = true;
+    		subtracted = true;
+    		if(subtracted == false) {
+    			motorPower -= 0.005;
+    			System.out.println("subtracted");
+    			subtracted = true;
     		}
+    	} else if(shooterVelocity < 21000) {
+    		//increase motor power
+    		stopIndexer();
+    		added = false;
+    		if(added == false) {
+    			motorPower += 0.005;
+    			System.out.println("added");
+    			added = true;
+    		}
+    	} else {
+    		runIndexer();
     	}
+    	RobotMap.Shooter1.set(motorPower);
+    	RobotMap.Shooter2.set(motorPower);
+    	Timer.delay(0.01);
     }
 }

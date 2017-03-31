@@ -5,6 +5,7 @@ import com.kauailabs.navx.frc.AHRS;
 
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.Compressor;
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.Talon;
@@ -31,11 +32,15 @@ public class RobotMap {
 	
 	public static AnalogInput storedPressure, workingPressure, REncoder, LEncoder ;
 	
-	public static int axisType;
+	public static int axisType, directionToggleCount, directionMultiplier;
 	
-	public static boolean onShootSys, onTurbo, onCompress, climb, neutral, onRPiston, onLPiston, onSteg, zeroYaw, flipDir, trackLift;
+	public static boolean onShootSys, onTurbo, onCompress, climb, neutral, onRPiston, onLPiston, onSteg, zeroYaw, flipDir, trackLift, directionToggle;
 	
 	public static double TurnP, ForwardP, Multiplier, LPower, RPower, ShooterP, ClimbP, ClimbDown;
 	
 	public static float currentYaw;
+	
+	public static boolean flipped;
+	
+	public static DigitalInput gearSensor;
 }
