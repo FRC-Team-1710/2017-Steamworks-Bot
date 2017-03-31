@@ -24,14 +24,11 @@ public class HopperShoot extends CommandGroup {
     	
     	//end showcase thing
     	addSequential(new ZeroYaw());
-    	addSequential(new EncoderDrive(3, .5, false));
+    	addSequential(new EncoderDrive(47, .85, true));
     	addSequential(new ZeroYaw());
-    	addSequential(new RotatetoAngle(-6));
-    	addSequential(new EncoderDrive(35, .5, false));
-    	addSequential(new ZeroYaw());
-    	addSequential(new RotatetoAngle(20));
-    	//addSequential(new EncoderDrive(15, -.5, false));
-    	//addSequential(new RunShooterAuto(10000));
+    	addSequential(new RotatetoAngle(17));
+    	addSequential(new EncoderDrive(7, -.68, false));
+    	addSequential(new RunShooterAuto(10000));
     	//TODO: this is where the piston will activate
     	//addSequential(new AutoHighGoalTrack());
     	//TODO: spin up shooter, then run indexer once shooter is at the right speed

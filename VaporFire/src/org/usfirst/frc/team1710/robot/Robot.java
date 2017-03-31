@@ -110,7 +110,21 @@ public class Robot extends IterativeRobot {
     		RobotMap.pClimber.set(0);
     	}
     	//Pneumatics
-    //	Pneumatics.air();
+    	//Pneumatics.air();
+    	if (RobotMap.onCompress == true){
+    		Pneumatics.startCompressor();
+    	}
+    	else if(RobotMap.trackLift == true) {
+    		BetterVision.trackGear((float) SmartDashboard.getNumber("ANGLE_TO_TURN"), SmartDashboard.getBoolean("IS_ALIGNED"));
+    	} else if(RobotMap.onTurbo == true) {
+    		Pneumatics.shiftReverse();
+    	} else if(RobotMap.onRPiston == true) {
+    		RobotMap.RPiston.set(DoubleSolenoid.Value.kReverse);
+    	}
+    	else{
+    		Pneumatics.shiftForward();
+    		Pneumatics.stopCompressor();  
+    	}
     	//Shooter
     	if(RobotMap.onShootSys == true) {
     		Shooter.runSystemNoPID();

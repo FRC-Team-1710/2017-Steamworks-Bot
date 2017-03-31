@@ -39,9 +39,9 @@ public class RotatetoAngle extends Command {
             	System.out.println(currentYaw+"done");
     			done = true;
     		} else if(currentYaw > turningDegreePublic) {
-    			Drive.simpleArcade(0, -0.3, Math.abs(1-(currentYaw / turningDegreePublic)) + .2);
+    			Drive.simpleArcade(0, -0.4, Math.abs(1-(currentYaw / turningDegreePublic)) + .2);
     		} else if(currentYaw < turningDegreePublic) {
-    			Drive.simpleArcade(0, 0.3, Math.abs(1-(currentYaw / turningDegreePublic)) + .2);
+    			Drive.simpleArcade(0, 0.4, Math.abs(1-(currentYaw / turningDegreePublic)) + .2);
 
     		}
     	} else {
@@ -53,9 +53,9 @@ public class RotatetoAngle extends Command {
             	System.out.println(currentYaw + "final");
         		done = true;
         	} else if(currentYaw > turningDegreePublic) {
-    			Drive.simpleArcade(0, -0.3, Math.abs(1-(currentYaw / turningDegreePublic)) + .2);
+    			Drive.simpleArcade(0, -0.4, Math.abs(1-(currentYaw / turningDegreePublic)) + .2);
     		} else if(currentYaw < turningDegreePublic) {
-    			Drive.simpleArcade(0, 0.3, Math.abs(1-(currentYaw / turningDegreePublic)) + .2);
+    			Drive.simpleArcade(0, 0.4, Math.abs(1-(currentYaw / turningDegreePublic)) + .2);
     		}
     	}
 		RobotMap.pLM1.set(RobotMap.LPower);
