@@ -7,6 +7,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
+ *This is not Penn, not my CTO
  *
  */
 public class Shooter extends Subsystem {
