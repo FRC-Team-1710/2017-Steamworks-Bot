@@ -49,12 +49,12 @@ public class Robot extends IterativeRobot {
 	boolean PIDReady;
 	
     public void robotInit() {
-    	UsbCamera camera;
+    	/*UsbCamera camera;
     	camera = CameraServer.getInstance().startAutomaticCapture();
     	camera.setResolution(640, 480);
     	camera.setFPS(30);
     	camera.setExposureManual(0);
-    	camera.setBrightness(10);
+    	camera.setBrightness(10);*/
     	RobotMap.directionMultiplier = 1;
     	motorMap.practiceBot();
     	//motorMap.competitionBot();
@@ -85,7 +85,7 @@ public class Robot extends IterativeRobot {
     	autoChooser = new SendableChooser();
         autoChooser.addObject("Gear Left", new GearPlaceLeft());
         autoChooser.addObject("Gear Right", new GearPlaceRight());
-        autoChooser.addDefault("Gear Center", new GearPlaceCenter());
+        autoChooser.addDefault("Encoder Test", new EncoderTest());
         autoChooser.addObject("Gear Left Shoot", new GearPlaceLeftShoot());
         autoChooser.addObject("Gear Right Shoot Red", new GearPlaceRightShoot());
         autoChooser.addObject("Gear Center Shoot Red", new GearCenterShootRed());
