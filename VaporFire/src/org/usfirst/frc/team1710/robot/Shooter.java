@@ -7,6 +7,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
+ *This is not Penn, not my CTO
  *
  */
 public class Shooter extends Subsystem {
@@ -121,7 +122,7 @@ public class Shooter extends Subsystem {
     	} else {
     		runIndexer();
     	}
-    	RobotMap.Shooter1.set(-motorPower);
+    	RobotMap.Shooter1.set(motorPower);
     	RobotMap.Shooter2.set(motorPower);
     	Timer.delay(0.01);
     }

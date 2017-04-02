@@ -57,7 +57,7 @@ public class BetterVision extends Subsystem {
     	if(centerX.length > 0) {
     		targetX = centerX[0];
     		targetY = centerY[0];
-			Drive.simpleArcade((targetY-340)/500, -(targetX-320)/650, 1);
+			Drive.simpleArcade((targetY-230)/500, -(targetX-320)/650, 1);
     	} else {
     		Drive.simpleArcade(0, 0.25, 1);
     	}
