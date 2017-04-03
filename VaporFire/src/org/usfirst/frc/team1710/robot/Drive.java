@@ -69,8 +69,8 @@ public class Drive extends Subsystem {
     }
     
     public static void straightDrive(double forwardP, double multiplier) {
-    	RobotMap.LPower = ((forwardP*multiplier) - (-(RobotMap.navx.getYaw())/450));
-    	RobotMap.RPower = ((forwardP*multiplier) + (-(RobotMap.navx.getYaw())/450));
+    	RobotMap.LPower = ((forwardP*multiplier) - ((RobotMap.navx.getYaw())/666));
+    	RobotMap.RPower = ((forwardP*multiplier) + ((RobotMap.navx.getYaw())/666));
     }
     
     public static boolean rotateToAngle(float turningDegreePublic) {

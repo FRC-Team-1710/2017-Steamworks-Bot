@@ -111,6 +111,7 @@ public class Robot extends IterativeRobot {
     public void autonomousPeriodic() {
     	Scheduler.getInstance().run();
     }
+    
     public void teleopPeriodic() {
      	//SmartDashboard.putData("Gear Sensor", RobotMap.gearSensor);
     	//Drive Controls

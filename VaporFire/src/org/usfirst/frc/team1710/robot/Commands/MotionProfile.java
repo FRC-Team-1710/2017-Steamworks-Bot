@@ -26,7 +26,7 @@ public class MotionProfile extends Command {
 
 	class PeriodicRunnable implements java.lang.Runnable {
 		public void run() { 
-			RobotMap.RM2.processMotionProfileBuffer();
+			//RobotMap.RM2.processMotionProfileBuffer();
 			RobotMap.LM3.processMotionProfileBuffer();
 		}
 	}
@@ -38,23 +38,22 @@ public class MotionProfile extends Command {
     	Pneumatics.shiftForward();
     	RobotMap.LM3.clearMotionProfileTrajectories();
     	RobotMap.RM2.clearMotionProfileTrajectories();
-    	RobotMap.RM2.changeControlMode(TalonControlMode.MotionProfile);
+    	RobotMap.RM2.changeControlMode(TalonControlMode.Follower);
     	RobotMap.LM3.changeControlMode(TalonControlMode.MotionProfile);
     	RobotMap.RM3.changeControlMode(TalonControlMode.Follower);
     	RobotMap.LM2.changeControlMode(TalonControlMode.Follower);
+    	RobotMap.RM2.set(RobotMap.LM3.getDeviceID());
     	RobotMap.RM3.set(RobotMap.RM2.getDeviceID());
     	RobotMap.LM2.set(RobotMap.LM3.getDeviceID());
-    	RobotMap.RM2.changeMotionControlFramePeriod(5);
-    	RobotMap.LM3.changeMotionControlFramePeriod(5);
-    	RobotMap.LM3.reverseOutput(true);
-    	RobotMap.RM2.setFeedbackDevice(CANTalon.FeedbackDevice.AnalogEncoder);
-    	RobotMap.LM3.setFeedbackDevice(CANTalon.FeedbackDevice.AnalogEncoder);
-    	RobotMap.RM2.setF(0.03);
-    	RobotMap.LM3.setF(0.03);
+    	RobotMap.RM2.changeMotionControlFramePeriod(10);
+    	RobotMap.LM3.changeMotionControlFramePeriod(10);
+    	RobotMap.LM3.reverseOutput(false);
+    	RobotMap.RM2.reverseOutput(true);
+    	//RobotMap.RM2.setFeedbackDevice(CANTalon.FeedbackDevice.QuadEncoder);
+    	RobotMap.LM3.setFeedbackDevice(CANTalon.FeedbackDevice.QuadEncoder);
     	
     	_setValue = CANTalon.SetValueMotionProfile.Disable;
-    	_notifier.startPeriodic(0.005);
-    	
+    	_notifier.startPeriodic(0.0005);
 		CANTalon.TrajectoryPoint pointleft = new CANTalon.TrajectoryPoint();
 		CANTalon.TrajectoryPoint pointright = new CANTalon.TrajectoryPoint();
 		for(int i = 0; i < cntPublic; i++) {
@@ -75,7 +74,7 @@ public class MotionProfile extends Command {
 			System.out.println("yuh");
 		}
 		//fills right profile
-		for(int i = 0; i < cntPublic; i++) {
+		/*for(int i = 0; i < cntPublic; i++) {
 			pointright.position = rightProfilePublic[i][0];
 			pointright.velocity = rightProfilePublic[i][1];
 			pointright.timeDurMs =(int) rightProfilePublic[i][2];
@@ -91,16 +90,16 @@ public class MotionProfile extends Command {
 		
 			RobotMap.RM2.pushMotionProfileTrajectory(pointright);
 			System.out.println("oi");
-		}
+		}*/
 		
 		System.out.println("done");
 		_setValue = CANTalon.SetValueMotionProfile.Enable;
+    	RobotMap.LM3.set(_setValue.value);
+
 	}
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	RobotMap.RM2.set(getSetValue().value);
-    	RobotMap.LM3.set(getSetValue().value);
     	SmartDashboard.putNumber("Right Velocity", RobotMap.RM2.getEncVelocity());
     	SmartDashboard.putNumber("Left Velocity", RobotMap.LM3.getEncVelocity());
     }
