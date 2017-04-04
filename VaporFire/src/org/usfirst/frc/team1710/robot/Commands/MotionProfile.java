@@ -29,6 +29,7 @@ public class MotionProfile extends Command {
 	class PeriodicRunnable implements java.lang.Runnable {
 		public void run() { 
 			RobotMap.LM3.processMotionProfileBuffer();
+			System.out.println("going");
 		}
 	}
 	
@@ -46,6 +47,7 @@ public class MotionProfile extends Command {
     	RobotMap.LM3.changeControlMode(TalonControlMode.MotionProfile);
     	RobotMap.RM3.changeControlMode(TalonControlMode.Follower);
     	RobotMap.LM2.changeControlMode(TalonControlMode.Follower);
+    	//sets the specific talon ID to follow
     	RobotMap.RM2.set(RobotMap.LM3.getDeviceID());
     	RobotMap.RM3.set(RobotMap.RM2.getDeviceID());
     	RobotMap.LM2.set(RobotMap.LM3.getDeviceID());
@@ -56,7 +58,7 @@ public class MotionProfile extends Command {
     	//output of right side is reversed b/c we want to move straight and it's following the left
     	RobotMap.RM2.reverseOutput(true);
     	//grayhill 63r's are quadrature encoders
-    	//RobotMap.RM2.setFeedbackDevice(CANTalon.FeedbackDevice.QuadEncoder);
+    	RobotMap.RM2.setFeedbackDevice(CANTalon.FeedbackDevice.QuadEncoder);
     	RobotMap.LM3.setFeedbackDevice(CANTalon.FeedbackDevice.QuadEncoder);
     	
     	_setValue = CANTalon.SetValueMotionProfile.Disable;
