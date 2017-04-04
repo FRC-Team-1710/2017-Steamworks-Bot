@@ -18,15 +18,16 @@ public class MotionProfile extends Command {
 	int cntPublic;
 	private CANTalon.SetValueMotionProfile _setValue;
 	boolean pointsFilled;
+	CANTalon.MotionProfileStatus _status = new CANTalon.MotionProfileStatus();
 	public MotionProfile(double[][] leftProfile, double[][] rightProfile, int cnt) {
 		leftProfilePublic = leftProfile;
 		rightProfilePublic = rightProfile;
 		cntPublic = cnt;
+		
     }
 
 	class PeriodicRunnable implements java.lang.Runnable {
 		public void run() { 
-			//RobotMap.RM2.processMotionProfileBuffer();
 			RobotMap.LM3.processMotionProfileBuffer();
 		}
 	}
