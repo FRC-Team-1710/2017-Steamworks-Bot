@@ -28,7 +28,9 @@ public class MotionProfile extends Command {
 
 	class PeriodicRunnable implements java.lang.Runnable {
 		public void run() { 
+			RobotMap.RM2.getMotionProfileStatus(_status);
 			RobotMap.RM2.processMotionProfileBuffer();
+			System.out.println(_status.activePoint);
 		}
 	}
 	
@@ -69,7 +71,7 @@ public class MotionProfile extends Command {
     	_setValue = CANTalon.SetValueMotionProfile.Disable;
 		CANTalon.TrajectoryPoint pointleft = new CANTalon.TrajectoryPoint();
 		CANTalon.TrajectoryPoint pointright = new CANTalon.TrajectoryPoint();
-		for(int i = 0; i < cntPublic; i++) {
+		for(int i = 0; i < cntPublic; ++i) {
 			//sets values of each point object to the corresponding point in profiles.java
 			pointleft.position = leftProfilePublic[i][0];
 			pointleft.velocity = leftProfilePublic[i][1];
@@ -89,7 +91,7 @@ public class MotionProfile extends Command {
 			System.out.println("yuh");
 		}
 		//fills right profile
-		/*for(int i = 0; i < cntPublic; i++) {
+		/*for(int i = 0; i < cntPublic; ++i) {
 			pointright.position = rightProfilePublic[i][0];
 			pointright.velocity = rightProfilePublic[i][1];
 			pointright.timeDurMs =(int) rightProfilePublic[i][2];
