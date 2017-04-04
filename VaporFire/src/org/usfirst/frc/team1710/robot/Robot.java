@@ -112,6 +112,7 @@ public class Robot extends IterativeRobot {
     	Scheduler.getInstance().run();
     }
     
+    
     public void teleopPeriodic() {
      	//SmartDashboard.putData("Gear Sensor", RobotMap.gearSensor);
     	//Drive Controls
@@ -165,6 +166,7 @@ public class Robot extends IterativeRobot {
     		BetterVision.sideToSide = false;
     		BetterVision.count = 0;
     	}
+    	
     	
     	//Pneumatics
     	Pneumatics.air();

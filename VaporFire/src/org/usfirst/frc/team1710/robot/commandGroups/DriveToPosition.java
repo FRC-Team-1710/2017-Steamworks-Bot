@@ -13,10 +13,10 @@ import edu.wpi.first.wpilibj.command.Command;
  *
  */
 public class DriveToPosition extends Command {
-	int positionPublic, currentPosition;
+	double positionPublic, currentPosition;
 	boolean done;
-    public DriveToPosition(int position) {
-    	positionPublic = position;
+    public DriveToPosition(int inches) {
+    	positionPublic = inches * 400;
     }
 
     // Called just before this Command runs the first time
@@ -40,9 +40,8 @@ public class DriveToPosition extends Command {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	currentPosition = RobotMap.LM3.getEncPosition();
-    	System.out.println(1 - (currentPosition/positionPublic));
     	if (currentPosition < positionPublic) {
-    		Drive.straightDrive(0.5, 1);
+    		Drive.straightDrive(1 - (currentPosition/positionPublic), 1);
     		System.out.println("gogogo");
     		RobotMap.pRM1.set(RobotMap.RPower);
     		RobotMap.RM2.set(RobotMap.RPower);
@@ -52,6 +51,7 @@ public class DriveToPosition extends Command {
     		RobotMap.LM3.set(RobotMap.LPower*-1);
     	} else {
     		done = true;
+    		System.out.println("done");
     		RobotMap.pRM1.set(0);
     		RobotMap.RM2.set(0);
     		RobotMap.RM3.set(0);

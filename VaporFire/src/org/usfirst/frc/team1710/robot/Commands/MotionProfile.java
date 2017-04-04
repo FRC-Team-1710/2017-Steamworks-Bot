@@ -28,8 +28,7 @@ public class MotionProfile extends Command {
 
 	class PeriodicRunnable implements java.lang.Runnable {
 		public void run() { 
-			RobotMap.LM3.processMotionProfileBuffer();
-			System.out.println("going");
+			RobotMap.RM2.processMotionProfileBuffer();
 		}
 	}
 	
@@ -37,29 +36,35 @@ public class MotionProfile extends Command {
 	
     // Called just before this Command runs the first time
     protected void initialize() {
-    	//shifts into low gear
+    	//shifts into high gear
     	Pneumatics.shiftForward();
     	//resets any profiles on the srx's
     	RobotMap.LM3.clearMotionProfileTrajectories();
     	RobotMap.RM2.clearMotionProfileTrajectories();
     	//makes it so one left motor is in MP mode and every other motor is a slave to it
-    	RobotMap.RM2.changeControlMode(TalonControlMode.Follower);
-    	RobotMap.LM3.changeControlMode(TalonControlMode.MotionProfile);
+    	RobotMap.RM2.setFeedbackDevice(CANTalon.FeedbackDevice.QuadEncoder);
+    	RobotMap.LM3.setFeedbackDevice(CANTalon.FeedbackDevice.QuadEncoder);
+    	RobotMap.LM3.configEncoderCodesPerRev(24);
+    	RobotMap.RM2.configEncoderCodesPerRev(24);
+    	RobotMap.RM2.changeControlMode(TalonControlMode.MotionProfile);
+    	RobotMap.RM2.setP(0.75);
+    	RobotMap.RM2.setI(1);
+    	RobotMap.RM2.setD(0);
+    	RobotMap.RM2.setF(0.03);
+    	RobotMap.LM3.changeControlMode(TalonControlMode.Follower);
     	RobotMap.RM3.changeControlMode(TalonControlMode.Follower);
     	RobotMap.LM2.changeControlMode(TalonControlMode.Follower);
     	//sets the specific talon ID to follow
-    	RobotMap.RM2.set(RobotMap.LM3.getDeviceID());
     	RobotMap.RM3.set(RobotMap.RM2.getDeviceID());
+    	RobotMap.LM3.set(RobotMap.RM2.getDeviceID());
     	RobotMap.LM2.set(RobotMap.LM3.getDeviceID());
     	//sets resolution of profile (each trajectory is run for 10 ms)
-    	RobotMap.RM2.changeMotionControlFramePeriod(10);
-    	RobotMap.LM3.changeMotionControlFramePeriod(10);
-    	RobotMap.LM3.reverseOutput(false);
+    	RobotMap.RM2.changeMotionControlFramePeriod(20);
+    	RobotMap.LM3.changeMotionControlFramePeriod(20);
+    	RobotMap.LM3.reverseOutput(true);
     	//output of right side is reversed b/c we want to move straight and it's following the left
-    	RobotMap.RM2.reverseOutput(true);
+    	RobotMap.RM2.reverseOutput(false);
     	//grayhill 63r's are quadrature encoders
-    	RobotMap.RM2.setFeedbackDevice(CANTalon.FeedbackDevice.QuadEncoder);
-    	RobotMap.LM3.setFeedbackDevice(CANTalon.FeedbackDevice.QuadEncoder);
     	
     	_setValue = CANTalon.SetValueMotionProfile.Disable;
 		CANTalon.TrajectoryPoint pointleft = new CANTalon.TrajectoryPoint();
@@ -80,7 +85,7 @@ public class MotionProfile extends Command {
 			if((i+1) == cntPublic)
 				pointleft.isLastPoint = true;
 			//saves point to srx
-			RobotMap.LM3.pushMotionProfileTrajectory(pointleft);
+			RobotMap.RM2.pushMotionProfileTrajectory(pointleft);
 			System.out.println("yuh");
 		}
 		//fills right profile
@@ -105,9 +110,9 @@ public class MotionProfile extends Command {
 		System.out.println("done");
 		//tell LM3 to begin reading from buffer
 		_setValue = CANTalon.SetValueMotionProfile.Enable;
-    	RobotMap.LM3.set(_setValue.value);
+    	_notifier.startPeriodic(0.005);
+    	RobotMap.RM2.set(getSetValue().value);
     	//starts the buffer
-    	_notifier.startPeriodic(0.0005);
 	}
 
     // Called repeatedly when this Command is scheduled to run

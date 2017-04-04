@@ -14,7 +14,7 @@ public class Shooter extends Subsystem {
 
 	static double currentVelocity;
 	static double inc = 0.4;
-	public static boolean shooterAtSpeed, firstInterval, secondInterval;
+	public static boolean shooterAtSpeed, firstInterval, secondInterval, runIndexer;
 	static double power = 0;
 	static double error = 0;
 	static double goalVelocity = 29000;
@@ -101,29 +101,36 @@ public class Shooter extends Subsystem {
     public static void BestShooter() {
     	double shooterVelocity = RobotMap.Shooter1.getEncVelocity();
     	
-    	if(shooterVelocity > 24000) {
+    	
+    	if(shooterVelocity > 20000) {
     		//lower motor power
     		stopIndexer();
     		subtracted = true;
     		if(subtracted == false) {
-    			motorPower -= 0.005;
+    			motorPower -= 0.05;
     			System.out.println("subtracted");
     			subtracted = true;
     		}
-    	} else if(shooterVelocity < 21000) {
+    	} else if(shooterVelocity < 17500) {
     		//increase motor power
     		stopIndexer();
     		added = false;
     		if(added == false) {
-    			motorPower += 0.005;
+    			motorPower += 0.05;
     			System.out.println("added");
     			added = true;
     		}
     	} else {
+    		runIndexer = true;
+    	}
+    	
+    	if(runIndexer == true) {
     		runIndexer();
+    	} else {
+    		stopIndexer();
     	}
     	RobotMap.Shooter1.set(motorPower);
     	RobotMap.Shooter2.set(motorPower);
-    	Timer.delay(0.01);
+    	Timer.delay(0.001);
     }
 }
