@@ -1,4 +1,4 @@
-package org.usfirst.frc.team1710.robot.commandGroups;
+package org.usfirst.frc.team1710.robot.Commands;
 
 import org.usfirst.frc.team1710.robot.Drive;
 import org.usfirst.frc.team1710.robot.Pneumatics;
@@ -40,19 +40,28 @@ public class DriveToPosition extends Command {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	currentPosition = RobotMap.LM3.getEncPosition();
-    	if (currentPosition < positionPublic) {
+    	if (currentPosition < positionPublic && positionPublic > 0) {
     		Drive.straightDrive(1 - (currentPosition/positionPublic), 1);
     		System.out.println("gogogo");
-    		RobotMap.pRM1.set(RobotMap.RPower);
+    		RobotMap.RM1.set(RobotMap.RPower);
     		RobotMap.RM2.set(RobotMap.RPower);
     		RobotMap.RM3.set(RobotMap.RPower);
-    		RobotMap.pLM1.set(RobotMap.LPower*-1);
+    		RobotMap.LM1.set(RobotMap.LPower*-1);
     		RobotMap.LM2.set(RobotMap.LPower*-1);
     		RobotMap.LM3.set(RobotMap.LPower*-1);
+    	} else if(currentPosition < Math.abs(positionPublic) && positionPublic < 0) {
+    		Drive.straightDrive(1 + (currentPosition/positionPublic), 1);
+    		System.out.println("gogogo");
+    		RobotMap.RM1.set(RobotMap.RPower*-1);
+    		RobotMap.RM2.set(RobotMap.RPower*-1);
+    		RobotMap.RM3.set(RobotMap.RPower*-1);
+    		RobotMap.LM1.set(RobotMap.LPower*1);
+    		RobotMap.LM2.set(RobotMap.LPower*1);
+    		RobotMap.LM3.set(RobotMap.LPower*1);
     	} else {
     		done = true;
     		System.out.println("done");
-    		RobotMap.pRM1.set(0);
+    		RobotMap.RM1.set(0);
     		RobotMap.RM2.set(0);
     		RobotMap.RM3.set(0);
     		RobotMap.pLM1.set(0);
