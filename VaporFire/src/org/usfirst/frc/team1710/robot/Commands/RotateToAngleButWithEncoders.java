@@ -34,9 +34,9 @@ public class RotateToAngleButWithEncoders extends Command {
     		RobotMap.RM1.set(RobotMap.RPower);
     		RobotMap.RM2.set(RobotMap.RPower);
     		RobotMap.RM3.set(RobotMap.RPower);
-    		RobotMap.LM1.set(RobotMap.LPower*1);
-    		RobotMap.LM2.set(RobotMap.LPower*1);
-    		RobotMap.LM3.set(RobotMap.LPower*1);
+    		RobotMap.LM1.set(RobotMap.LPower*-1);
+    		RobotMap.LM2.set(RobotMap.LPower*-1);
+    		RobotMap.LM3.set(RobotMap.LPower*-1);
     	} else if(Math.abs(rightPosition) < anglePublic && anglePublic < 0) {
     		Drive.simpleArcade(1 + ((Math.abs(rightPosition) * -1)/anglePublic),0, 1);
     		System.out.println("gogogo");

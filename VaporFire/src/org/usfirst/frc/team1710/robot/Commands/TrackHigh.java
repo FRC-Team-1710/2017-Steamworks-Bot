@@ -42,10 +42,10 @@ public class TrackHigh extends Command {
     	} else {
     		Drive.simpleArcade(0, 0.25, 1);
     	}
-   		RobotMap.pRM1.set(RobotMap.RPower);
+   		RobotMap.RM1.set(RobotMap.RPower);
     	RobotMap.RM2.set(RobotMap.RPower);
     	RobotMap.RM3.set(RobotMap.RPower);
-    	RobotMap.pLM1.set(RobotMap.LPower * -1);
+    	RobotMap.LM1.set(RobotMap.LPower * -1);
     	RobotMap.LM2.set(RobotMap.LPower * -1);
     	RobotMap.LM3.set(RobotMap.LPower * -1);
     }

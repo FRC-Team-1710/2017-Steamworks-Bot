@@ -52,12 +52,12 @@ public class DriveToPosition extends Command {
     	} else if(currentPosition < Math.abs(positionPublic) && positionPublic < 0) {
     		Drive.straightDrive(1 + (currentPosition/positionPublic), 1);
     		System.out.println("gogogo");
-    		RobotMap.RM1.set(RobotMap.RPower*-1);
-    		RobotMap.RM2.set(RobotMap.RPower*-1);
-    		RobotMap.RM3.set(RobotMap.RPower*-1);
-    		RobotMap.LM1.set(RobotMap.LPower*1);
-    		RobotMap.LM2.set(RobotMap.LPower*1);
-    		RobotMap.LM3.set(RobotMap.LPower*1);
+    		RobotMap.RM1.set(RobotMap.RPower*1);
+    		RobotMap.RM2.set(RobotMap.RPower*1);
+    		RobotMap.RM3.set(RobotMap.RPower*1);
+    		RobotMap.LM1.set(RobotMap.LPower*-1);
+    		RobotMap.LM2.set(RobotMap.LPower*-1);
+    		RobotMap.LM3.set(RobotMap.LPower*-1);
     	} else {
     		done = true;
     		System.out.println("done");
