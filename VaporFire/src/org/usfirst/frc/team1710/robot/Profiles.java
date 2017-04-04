@@ -1,6 +1,7 @@
 package org.usfirst.frc.team1710.robot;
 
 public class Profiles {
+	//TODO: eliminate some points (like everything except the first) and see if the robot follows that point
 	public static double[][] leftProfile = {
 		{0,	0	,10},
 		{4.76190476190476E-05,	0.571428571	,10},
