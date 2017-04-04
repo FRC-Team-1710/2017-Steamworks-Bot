@@ -35,9 +35,12 @@ public class MotionProfile extends Command {
 	
     // Called just before this Command runs the first time
     protected void initialize() {
+    	//shifts into low gear
     	Pneumatics.shiftForward();
+    	//resets any profiles on the srx's
     	RobotMap.LM3.clearMotionProfileTrajectories();
     	RobotMap.RM2.clearMotionProfileTrajectories();
+    	//makes it so one left motor is in MP mode and every other motor is a slave to it
     	RobotMap.RM2.changeControlMode(TalonControlMode.Follower);
     	RobotMap.LM3.changeControlMode(TalonControlMode.MotionProfile);
     	RobotMap.RM3.changeControlMode(TalonControlMode.Follower);
@@ -45,31 +48,35 @@ public class MotionProfile extends Command {
     	RobotMap.RM2.set(RobotMap.LM3.getDeviceID());
     	RobotMap.RM3.set(RobotMap.RM2.getDeviceID());
     	RobotMap.LM2.set(RobotMap.LM3.getDeviceID());
+    	//sets resolution of profile (each trajectory is run for 10 ms)
     	RobotMap.RM2.changeMotionControlFramePeriod(10);
     	RobotMap.LM3.changeMotionControlFramePeriod(10);
     	RobotMap.LM3.reverseOutput(false);
+    	//output of right side is reversed b/c we want to move straight and it's following the left
     	RobotMap.RM2.reverseOutput(true);
+    	//grayhill 63r's are quadrature encoders
     	//RobotMap.RM2.setFeedbackDevice(CANTalon.FeedbackDevice.QuadEncoder);
     	RobotMap.LM3.setFeedbackDevice(CANTalon.FeedbackDevice.QuadEncoder);
     	
     	_setValue = CANTalon.SetValueMotionProfile.Disable;
-    	_notifier.startPeriodic(0.0005);
 		CANTalon.TrajectoryPoint pointleft = new CANTalon.TrajectoryPoint();
 		CANTalon.TrajectoryPoint pointright = new CANTalon.TrajectoryPoint();
 		for(int i = 0; i < cntPublic; i++) {
+			//sets values of each point object to the corresponding point in profiles.java
 			pointleft.position = leftProfilePublic[i][0];
 			pointleft.velocity = leftProfilePublic[i][1];
 			pointleft.timeDurMs =(int) leftProfilePublic[i][2];
 			pointleft.profileSlotSelect = 0;
 			pointleft.velocityOnly = false;
 		
+			//first position
 			pointleft.zeroPos = false;
 			if(i==0)
 				pointleft.zeroPos = true;
-		
+			//last position
 			if((i+1) == cntPublic)
 				pointleft.isLastPoint = true;
-		
+			//saves point to srx
 			RobotMap.LM3.pushMotionProfileTrajectory(pointleft);
 			System.out.println("yuh");
 		}
@@ -93,13 +100,16 @@ public class MotionProfile extends Command {
 		}*/
 		
 		System.out.println("done");
+		//tell LM3 to begin reading from buffer
 		_setValue = CANTalon.SetValueMotionProfile.Enable;
     	RobotMap.LM3.set(_setValue.value);
-
+    	//starts the buffer
+    	_notifier.startPeriodic(0.0005);
 	}
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
+    	//puts velocity on dashboard
     	SmartDashboard.putNumber("Right Velocity", RobotMap.RM2.getEncVelocity());
     	SmartDashboard.putNumber("Left Velocity", RobotMap.LM3.getEncVelocity());
     }
