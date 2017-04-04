@@ -61,8 +61,8 @@ public class MotionProfile extends Command {
     	RobotMap.LM3.set(RobotMap.RM2.getDeviceID());
     	RobotMap.LM2.set(RobotMap.LM3.getDeviceID());
     	//sets resolution of profile (each trajectory is run for 10 ms)
-    	RobotMap.RM2.changeMotionControlFramePeriod(20);
-    	RobotMap.LM3.changeMotionControlFramePeriod(20);
+    	RobotMap.RM2.changeMotionControlFramePeriod(5);
+    	RobotMap.LM3.changeMotionControlFramePeriod(5);
     	RobotMap.LM3.reverseOutput(true);
     	//output of right side is reversed b/c we want to move straight and it's following the left
     	RobotMap.RM2.reverseOutput(false);
@@ -113,13 +113,13 @@ public class MotionProfile extends Command {
 		//tell LM3 to begin reading from buffer
 		_setValue = CANTalon.SetValueMotionProfile.Enable;
     	_notifier.startPeriodic(0.005);
-    	RobotMap.RM2.set(getSetValue().value);
     	//starts the buffer
 	}
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	//puts velocity on dashboard
+    	RobotMap.RM2.set(getSetValue().value);
     	SmartDashboard.putNumber("Right Velocity", RobotMap.RM2.getEncVelocity());
     	SmartDashboard.putNumber("Left Velocity", RobotMap.LM3.getEncVelocity());
     }
