@@ -2,7 +2,9 @@ package org.usfirst.frc.team1710.robot.commandGroups;
 
 import org.usfirst.frc.team1710.robot.RobotMap;
 import org.usfirst.frc.team1710.robot.Shooter;
+import org.usfirst.frc.team1710.robot.Commands.DriveToPosition;
 import org.usfirst.frc.team1710.robot.Commands.EncoderDrive;
+import org.usfirst.frc.team1710.robot.Commands.MotionExperiment;
 import org.usfirst.frc.team1710.robot.Commands.RotatetoAngle;
 import org.usfirst.frc.team1710.robot.Commands.RunShooterAuto;
 import org.usfirst.frc.team1710.robot.Commands.ShiftLow;
@@ -17,25 +19,26 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 public class HopperShootRed extends CommandGroup {
 
     public HopperShootRed() {
-    	//start of actual auto from alliance wall
-    	/*addSequential(new ZeroYaw());
-    	addSequential(new RotatetoAngle(-5));*/
-    	//was 46
-
-    	
-    	//end showcase thing
     	addSequential(new ZeroYaw());
-    	addSequential(new EncoderDrive(2.5, .6, false));
+    	addSequential(new DriveToPosition(15));
     	addSequential(new ZeroYaw());
-    	addSequential(new RotatetoAngle((float) 19));
+    	addSequential(new RotatetoAngle((float) 45));
     	addSequential(new ZeroYaw());
-    	addSequential(new EncoderDrive(110, 0.7, false));
+    	addSequential(new DriveToPosition(30));
     	addSequential(new ZeroYaw());
-    	addSequential(new RotatetoAngle((float) -30));
+    	addSequential(new RotatetoAngle((float) -43));
     	addSequential(new ZeroYaw());
-    	addSequential(new EncoderDrive(20, -.69, false));
-    	addSequential(new RunShooterAuto(7000));
-
+    	addSequential(new DriveToPosition(48));
+    	addSequential(new ZeroYaw());
+    	addSequential(new DriveToPosition(-15));
+    	addSequential(new RunShooterAuto(7500, 2));
+    	/*double[][] leftProfile = {
+    			{12500, 0.6}, {15000, 0.6}, {5000, 0.75}
+    	};
+    	double[][] rightProfile = {
+    			{15000, 0.6}, {12500, 0.6}, {5000, 0.75}
+    	};
+    	addSequential(new MotionExperiment(leftProfile, rightProfile));*/
     }
     
     protected void interrupted() {

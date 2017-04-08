@@ -38,9 +38,9 @@ public class RotatetoAngle extends Command {
     			Drive.simpleArcade(0, 0, 0);
     			done = true;
     		} else if(currentYaw > turningDegreePublic) {
-    			Drive.simpleArcade(0, -0.65, 1 - Math.abs((currentYaw / turningDegreePublic)));
+    			Drive.simpleArcade(0, -0.7, 1 - Math.abs((currentYaw / turningDegreePublic)));
     		} else if(currentYaw < turningDegreePublic) {
-    			Drive.simpleArcade(0, 0.65, 1 - Math.abs((currentYaw / turningDegreePublic)));
+    			Drive.simpleArcade(0, 0.7, 1 - Math.abs((currentYaw / turningDegreePublic)));
     		}
     	} else {
         	currentYaw = RobotMap.navx.getYaw();
@@ -50,16 +50,16 @@ public class RotatetoAngle extends Command {
     			Drive.simpleArcade(0, 0, 0);
         		done = true;
         	} else if(currentYaw > turningDegreePublic) {
-    			Drive.simpleArcade(0, -0.65, 1 - Math.abs((currentYaw / turningDegreePublic)));
+    			Drive.simpleArcade(0, -0.7, 1 - Math.abs((currentYaw / turningDegreePublic)));
     		} else if(currentYaw < turningDegreePublic) {
-    			Drive.simpleArcade(0, 0.65, 1 - Math.abs((currentYaw / turningDegreePublic)));
+    			Drive.simpleArcade(0, 0.7, 1 - Math.abs((currentYaw / turningDegreePublic)));
     		}
     	}
-		RobotMap.pLM1.set(RobotMap.LPower);
+		RobotMap.LM1.set(RobotMap.LPower);
 		RobotMap.LM2.set(RobotMap.LPower);
 		RobotMap.LM3.set(RobotMap.LPower);
 
-		RobotMap.pRM1.set(RobotMap.RPower * -1);
+		RobotMap.RM1.set(RobotMap.RPower * -1);
 		RobotMap.RM2.set(RobotMap.RPower * -1);
 		RobotMap.RM3.set(RobotMap.RPower * -1);
     }

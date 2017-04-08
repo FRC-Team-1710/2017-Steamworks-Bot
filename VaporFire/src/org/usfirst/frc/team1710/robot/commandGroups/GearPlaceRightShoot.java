@@ -24,6 +24,6 @@ public class GearPlaceRightShoot extends CommandGroup {
     	addSequential(new EncoderDrive(23.5, -.5, false));
     	addSequential(new ZeroYaw());
     	addSequential(new RotatetoAngle(12));
-    	addSequential(new RunShooterAuto(5000));
+    	addSequential(new RunShooterAuto(5000, 3));
     }
 }

@@ -49,14 +49,14 @@ public class Robot extends IterativeRobot {
 	boolean PIDReady;
 	
     public void robotInit() {
-    	/*UsbCamera camera;
+    	UsbCamera camera;
     	camera = CameraServer.getInstance().startAutomaticCapture();
     	camera.setResolution(640, 480);
     	camera.setFPS(30);
+    	camera.setBrightness(25);
     	camera.setExposureManual(0);
-    	camera.setBrightness(10);*/
     	RobotMap.directionMultiplier = 1;
-    	motorMap.practiceBot();
+    	motorMap.competitionBot();
     	//motorMap.competitionBot();
         RobotMap.driveStick = new Joystick(0);
         RobotMap.mechStick = new Joystick(1);
@@ -85,7 +85,7 @@ public class Robot extends IterativeRobot {
     	autoChooser = new SendableChooser();
         autoChooser.addObject("Gear Left", new GearPlaceLeft());
         autoChooser.addObject("Gear Right", new GearPlaceRight());
-        autoChooser.addDefault("Encoder Test", new EncoderTest());
+        autoChooser.addDefault("Center Gear", new HopperShootRed());
         autoChooser.addObject("Gear Left Shoot", new GearPlaceLeftShoot());
         autoChooser.addObject("Gear Right Shoot Red", new GearPlaceRightShoot());
         autoChooser.addObject("Gear Center Shoot Red", new GearCenterShootRed());
@@ -154,13 +154,13 @@ public class Robot extends IterativeRobot {
     	}
     	//Climber
     	if(RobotMap.mechStick.getRawButton(2) == true) {
-    		RobotMap.pClimber.set(Math.abs(RobotMap.mechStick.getRawAxis(1)));
+    		RobotMap.Climber.set(Math.abs(RobotMap.mechStick.getRawAxis(1)));
     	} else {
-    		RobotMap.pClimber.set(0);
+    		RobotMap.Climber.set(0);
     	}
     	
     	if(RobotMap.mechStick.getRawButton(5) == true) {
-    		BetterVision.trackBoiler();
+    		BetterVision.trackBoiler(3);
     	} else {
     		BetterVision.upAndDown = false;
     		BetterVision.sideToSide = false;
@@ -183,6 +183,7 @@ public class Robot extends IterativeRobot {
     		Shooter.firstInterval = false;
     		Shooter.secondInterval = false;
     		Shooter.shooterAtSpeed = false;
+    		Shooter.runIndexer = false;
     	}
     	
     	//RobotMap.Injector.set(RobotMap.mechStick.getRawAxis(2));
@@ -190,7 +191,9 @@ public class Robot extends IterativeRobot {
     	/*angleIncrease = angleInitial - anglePrevious;
     	angle = anglePrevious + angleIncrease;
     	anglePrevious = angle;*/
-    	SmartDashboard.putNumber("encoder", angle);
+    	SmartDashboard.putNumber("encoder", RobotMap.RM1.getEncPosition());
+    	SmartDashboard.putNumber("encoder2", RobotMap.RM2.getEncPosition());
+    	SmartDashboard.putNumber("encoder3", RobotMap.RM3.getEncPosition());
 
     }
 

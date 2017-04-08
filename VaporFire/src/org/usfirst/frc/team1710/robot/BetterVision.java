@@ -49,17 +49,47 @@ public class BetterVision extends Subsystem {
     	}
     }
     
-    public static void trackBoiler() {
+    public static void trackBoiler(int config) {
     	table = NetworkTable.getTable("GRIP/BoilerReport");
     	centerX = table.getNumberArray("centerX");
     	centerY = table.getNumberArray("centerY");
     	System.out.println(centerX.length);
-    	if(centerX.length > 0) {
-    		targetX = centerX[0];
-    		targetY = centerY[0];
-			Drive.simpleArcade((targetY-230)/500, -(targetX-320)/650, 1);
+    	if(config == 1) {
+    		if(centerX.length > 0) {
+    			targetX = centerX[0];
+    			targetY = centerY[0];
+				Drive.simpleArcade(0, -(targetX-290)/750, .9);
+    		} else {
+    			//red side
+    			Drive.simpleArcade(0, 0.25, 1);
+    		}
+    	} else if(config == 2) {
+    		if(centerX.length > 0) {
+    			targetX = centerX[0];
+    			targetY = centerY[0];
+				Drive.simpleArcade((targetY-300)/500, -(targetX-290)/750, .9);
+    		} else {
+    			//red side
+    			Drive.simpleArcade(0, 0.25, 1);
+    		}
+    	} else if(config == 3) {
+    		if(centerX.length > 0) {
+    			targetX = centerX[0];
+    			targetY = centerY[0];
+				Drive.simpleArcade((targetY-300)/500, -(targetX-290)/750, .9);
+    		} else {
+    			//blue side
+    			Drive.simpleArcade(0, -0.25, 1);
+    		}
     	} else {
-    		Drive.simpleArcade(0, 0.25, 1);
+    		if(centerX.length > 0) {
+    			targetX = centerX[0];
+    			targetY = centerY[0];
+				Drive.simpleArcade(0, -(targetX-290)/750, .9);
+    		} else {
+    			//blue side
+    			Drive.simpleArcade(0, -0.25, 1);
+    		}
     	}
     }
     

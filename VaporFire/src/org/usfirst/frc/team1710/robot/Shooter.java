@@ -47,7 +47,7 @@ public class Shooter extends Subsystem {
     public static void runIndexer(){
     	if(motorMap.runningCompetitionBot == true) {
     		//was 0.84
-    		RobotMap.Injector.set(0.58);
+    		RobotMap.Injector.set(0.80);
     	} else {
     		RobotMap.pInjector.set(0.65);
     	}
@@ -102,21 +102,19 @@ public class Shooter extends Subsystem {
     	double shooterVelocity = RobotMap.Shooter1.getEncVelocity();
     	
     	
-    	if(shooterVelocity > 20000) {
+    	if(shooterVelocity > 25500) {
     		//lower motor power
-    		stopIndexer();
-    		subtracted = true;
+    		subtracted = false;
     		if(subtracted == false) {
-    			motorPower -= 0.05;
+    			motorPower -= 0.015;
     			System.out.println("subtracted");
     			subtracted = true;
     		}
-    	} else if(shooterVelocity < 17500) {
+    	} else if(shooterVelocity < 23000) {
     		//increase motor power
-    		stopIndexer();
     		added = false;
     		if(added == false) {
-    			motorPower += 0.05;
+    			motorPower += 0.009;
     			System.out.println("added");
     			added = true;
     		}
@@ -124,13 +122,13 @@ public class Shooter extends Subsystem {
     		runIndexer = true;
     	}
     	
-    	if(runIndexer == true) {
+    	if(runIndexer == true && Math.abs((BetterVision.targetX-300)/500) < .25) {
     		runIndexer();
     	} else {
     		stopIndexer();
     	}
-    	RobotMap.Shooter1.set(motorPower);
+    	RobotMap.Shooter1.set(-motorPower);
     	RobotMap.Shooter2.set(motorPower);
-    	Timer.delay(0.001);
+    	Timer.delay(0.25);
     }
 }

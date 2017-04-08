@@ -12,10 +12,11 @@ import edu.wpi.first.wpilibj.command.Command;
  *
  */
 public class RunShooterAuto extends Command {
-	int timePublic, count;
+	int timePublic, count, _config;
 	boolean done;
-    public RunShooterAuto(int time) {
+    public RunShooterAuto(int time, int visionConfig) {
 		timePublic = time;
+		_config = visionConfig;
     }
 
     // Called just before this Command runs the first time
@@ -24,14 +25,14 @@ public class RunShooterAuto extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-   		BetterVision.trackBoiler();
+   		BetterVision.trackBoiler(_config);
+    	Shooter.BestShooter();
    		RobotMap.RM1.set(RobotMap.RPower);
     	RobotMap.RM2.set(RobotMap.RPower);
     	RobotMap.RM3.set(RobotMap.RPower);
     	RobotMap.LM1.set(RobotMap.LPower * -1);
     	RobotMap.LM2.set(RobotMap.LPower * -1);
     	RobotMap.LM3.set(RobotMap.LPower * -1);
-    	Shooter.BestShooter();
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -41,6 +42,7 @@ public class RunShooterAuto extends Command {
 
     // Called once after isFinished returns true
     protected void end() {
+    	Shooter.stopShooter();
     }
 
     // Called when another command which requires one or more of the same
