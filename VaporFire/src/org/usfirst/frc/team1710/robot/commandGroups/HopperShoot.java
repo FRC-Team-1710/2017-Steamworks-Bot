@@ -18,16 +18,25 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 public class HopperShoot extends CommandGroup {
 
     public HopperShoot() {
-    	addSequential(new ZeroYaw());
-    	addSequential(new DriveToPosition(15));
+    	/*addSequential(new ZeroYaw());
+    	addSequential(new DriveToPosition(20));
     	addSequential(new ZeroYaw());
     	addSequential(new RotatetoAngle((float) -45));
     	addSequential(new ZeroYaw());
-    	addSequential(new DriveToPosition(30));
+    	addSequential(new DriveToPosition(25));
     	addSequential(new ZeroYaw());
     	addSequential(new RotatetoAngle((float) 43));
     	addSequential(new ZeroYaw());
     	addSequential(new DriveToPosition(38));
+    	addSequential(new ZeroYaw());
+    	addSequential(new RunShooterAuto(7500, 4));*/
+    	addSequential(new ZeroYaw());
+    	addSequential(new DriveToPosition(127));
+    	addSequential(new ZeroYaw());
+    	addSequential(new RotatetoAngle((float) 25));
+    	addSequential(new DriveToPosition(-60));
+    	addSequential(new ZeroYaw());
+    	addSequential(new RotatetoAngle((float) -35));
     	addSequential(new ZeroYaw());
     	addSequential(new RunShooterAuto(7500, 4));
 

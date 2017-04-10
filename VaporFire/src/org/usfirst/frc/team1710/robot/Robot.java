@@ -12,6 +12,7 @@ import org.usfirst.frc.team1710.robot.commandGroups.GearPlaceRightShoot;
 import org.usfirst.frc.team1710.robot.commandGroups.GearPlaceRight;
 import org.usfirst.frc.team1710.robot.commandGroups.HopperShoot;
 import org.usfirst.frc.team1710.robot.commandGroups.HopperShootRed;
+import org.usfirst.frc.team1710.robot.commandGroups.JustShoot;
 import org.usfirst.frc.team1710.robot.commandGroups.RightGearNoEncoder;
 import org.usfirst.frc.team1710.robot.commandGroups.RotateToAngleTest;
 
@@ -52,7 +53,7 @@ public class Robot extends IterativeRobot {
     	UsbCamera camera;
     	camera = CameraServer.getInstance().startAutomaticCapture();
     	camera.setResolution(640, 480);
-    	camera.setFPS(30);
+    	camera.setFPS(20);
     	camera.setBrightness(25);
     	camera.setExposureManual(0);
     	RobotMap.directionMultiplier = 1;
@@ -94,6 +95,7 @@ public class Robot extends IterativeRobot {
         autoChooser.addObject("HopperShoot Red", new HopperShootRed());
         autoChooser.addObject("Cross Baseline", new CrossBaseline());
         autoChooser.addObject("Gear Right, time based", new RightGearNoEncoder());
+        autoChooser.addObject("Just Shoot", new JustShoot());
         SmartDashboard.putData("Meme Chooser", autoChooser);
         RobotMap.RPiston.set(DoubleSolenoid.Value.kOff);
         RobotMap.LPiston.set(DoubleSolenoid.Value.kOff);

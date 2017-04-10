@@ -122,7 +122,7 @@ public class Shooter extends Subsystem {
     		runIndexer = true;
     	}
     	
-    	if(runIndexer == true && Math.abs((BetterVision.targetX-300)/500) < .25) {
+    	if(runIndexer == true && Math.abs((BetterVision.targetX-300)/500) < .4) {
     		runIndexer();
     	} else {
     		stopIndexer();

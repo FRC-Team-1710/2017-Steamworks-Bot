@@ -14,24 +14,20 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.Scheduler;
 
 /**
- *
+ 
  */
 public class HopperShootRed extends CommandGroup {
 
     public HopperShootRed() {
     	addSequential(new ZeroYaw());
-    	addSequential(new DriveToPosition(15));
+    	addSequential(new DriveToPosition(127));
     	addSequential(new ZeroYaw());
-    	addSequential(new RotatetoAngle((float) 45));
+    	addSequential(new RotatetoAngle((float) -20));
+    	addSequential(new DriveToPosition(-60));
     	addSequential(new ZeroYaw());
-    	addSequential(new DriveToPosition(30));
+    	addSequential(new RotatetoAngle((float) 35));
     	addSequential(new ZeroYaw());
-    	addSequential(new RotatetoAngle((float) -43));
-    	addSequential(new ZeroYaw());
-    	addSequential(new DriveToPosition(48));
-    	addSequential(new ZeroYaw());
-    	addSequential(new DriveToPosition(-15));
-    	addSequential(new RunShooterAuto(7500, 2));
+    	addSequential(new RunShooterAuto(7500, 4));
     	/*double[][] leftProfile = {
     			{12500, 0.6}, {15000, 0.6}, {5000, 0.75}
     	};
