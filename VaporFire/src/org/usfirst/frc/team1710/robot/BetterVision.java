@@ -58,7 +58,7 @@ public class BetterVision extends Subsystem {
     		if(centerX.length > 0) {
     			targetX = centerX[0];
     			targetY = centerY[0];
-				Drive.simpleArcade(0, -(targetX-340)/750, .9);
+				Drive.simpleArcade(0, -(targetX-340), .008);
     		} else {
     			//red side
     			Drive.simpleArcade(0, 0.25, 1);
@@ -67,7 +67,7 @@ public class BetterVision extends Subsystem {
     		if(centerX.length > 0) {
     			targetX = centerX[0];
     			targetY = centerY[0];
-				Drive.simpleArcade((targetY-300)/500, -(targetX-340)/750, .8);
+				Drive.simpleArcade((targetY-300), -(targetX-340), .008);
     		} else {
     			//red side
     			Drive.simpleArcade(0, 0.25, 1);
@@ -76,7 +76,7 @@ public class BetterVision extends Subsystem {
     		if(centerX.length > 0) {
     			targetX = centerX[0];
     			targetY = centerY[0];
-				Drive.simpleArcade((targetY-300)/500, -(targetX-340)/750, .8);
+				Drive.simpleArcade((targetY-300), -(targetX-340), .008);
     		} else {
     			//blue side
     			Drive.simpleArcade(0, -0.25, 1);
@@ -85,7 +85,7 @@ public class BetterVision extends Subsystem {
     		if(centerX.length > 0) {
     			targetX = centerX[0];
     			targetY = centerY[0];
-				Drive.simpleArcade(0, -(targetX-340)/750, .9);
+				Drive.simpleArcade(0, -(targetX-340), .008);
     		} else {
     			//blue side
     			Drive.simpleArcade(0, -0.25, 1);

@@ -14,6 +14,7 @@ public class Drive extends Subsystem {
 	static double flipMultiplier = 1;
 	public static boolean yawZeroed;
 	public static float currentYaw;
+	public static double angleCorrection;
 	public static double rotateSpeed;
 	
     public void initDefaultCommand() {
@@ -69,40 +70,13 @@ public class Drive extends Subsystem {
     }
     
     public static void straightDrive(double forwardP, double multiplier) {
-    	RobotMap.LPower = ((forwardP*multiplier) - ((RobotMap.navx.getYaw())/666));
-    	RobotMap.RPower = ((forwardP*multiplier) + ((RobotMap.navx.getYaw())/666));
+    	angleCorrection = RobotMap.navx.getYaw() * 0.003;
+    	RobotMap.LPower = ((forwardP*multiplier) - (angleCorrection));
+    	RobotMap.RPower = ((forwardP*multiplier) + (angleCorrection));
     }
     
-    public static boolean rotateToAngle(float turningDegreePublic) {
-    	if (turningDegreePublic > 0){
-    		currentYaw = RobotMap.navx.getYaw();
-    		if (currentYaw > turningDegreePublic - .5 && currentYaw < turningDegreePublic + .5){
-    			Drive.simpleArcade(0, 0, 0);
-            	return true;
-    		} else if(currentYaw > turningDegreePublic) {
-    			Drive.simpleArcade(0, -0.4, 1 - Math.abs((currentYaw / turningDegreePublic)));
-    		} else if(currentYaw < turningDegreePublic) {
-    			Drive.simpleArcade(0, 0.4, 1 - Math.abs((currentYaw / turningDegreePublic)));
-    		}
-    	} else {
-        	currentYaw = RobotMap.navx.getYaw();
-        	System.out.println(currentYaw);
-    		if (currentYaw > turningDegreePublic - .5 && currentYaw < turningDegreePublic + .5){
-    			Drive.simpleArcade(0, 0, 0);
-            	return true;
-        	} else if(currentYaw > turningDegreePublic) {
-    			Drive.simpleArcade(0, -0.4, 1 - Math.abs((currentYaw / turningDegreePublic)));
-    		} else if(currentYaw < turningDegreePublic) {
-    			Drive.simpleArcade(0, 0.4, 1 - Math.abs((currentYaw / turningDegreePublic)));
-    		}
-    	}
-		RobotMap.pLM1.set(RobotMap.LPower);
-		RobotMap.LM2.set(RobotMap.LPower);
-		RobotMap.LM3.set(RobotMap.LPower);
-
-		RobotMap.pRM1.set(RobotMap.RPower * -1);
-		RobotMap.RM2.set(RobotMap.RPower * -1);
-		RobotMap.RM3.set(RobotMap.RPower * -1);
-    	return false;
+    public static void pidDrive() {
+    	
     }
+    
 }
