@@ -17,7 +17,7 @@ public class MotionProfile extends Command {
 	double[][] leftProfilePublic, rightProfilePublic;
 	int cntPublic;
 	private CANTalon.SetValueMotionProfile _setValue;
-	boolean pointsFilled;
+	boolean pointsFilled, done;
 	CANTalon.MotionProfileStatus _status = new CANTalon.MotionProfileStatus();
 	public MotionProfile(double[][] leftProfile, double[][] rightProfile, int cnt) {
 		leftProfilePublic = leftProfile;
@@ -30,15 +30,19 @@ public class MotionProfile extends Command {
 		public void run() { 
 			RobotMap.RM2.getMotionProfileStatus(_status);
 			RobotMap.RM2.processMotionProfileBuffer();
-			System.out.println(_status.activePoint);
+			System.out.println(_status.activePoint.isLastPoint);
+			if(_status.activePoint.isLastPoint == true) {
+				done = true;
+			}
 		}
 	}
 	
-	Notifier _notifier = new Notifier(new PeriodicRunnable());
+	public Notifier _notifier = new Notifier(new PeriodicRunnable());
 	
     // Called just before this Command runs the first time
     protected void initialize() {
     	//shifts into high gear
+    	_notifier.stop();
     	Pneumatics.shiftForward();
     	//resets any profiles on the srx's
     	RobotMap.LM3.clearMotionProfileTrajectories();
@@ -50,9 +54,9 @@ public class MotionProfile extends Command {
     	RobotMap.RM2.configEncoderCodesPerRev(24);
     	RobotMap.RM2.changeControlMode(TalonControlMode.MotionProfile);
     	RobotMap.RM2.setP(0.75);
-    	RobotMap.RM2.setI(1);
+    	RobotMap.RM2.setI(0.009);
     	RobotMap.RM2.setD(0);
-    	RobotMap.RM2.setF(0.03);
+    	RobotMap.RM2.setF(0.0);
     	RobotMap.LM3.changeControlMode(TalonControlMode.Follower);
     	RobotMap.RM3.changeControlMode(TalonControlMode.Follower);
     	RobotMap.LM2.changeControlMode(TalonControlMode.Follower);
@@ -126,16 +130,18 @@ public class MotionProfile extends Command {
     
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return false;
+        return done;
     }
 
     // Called once after isFinished returns true
     protected void end() {
+    	_notifier.stop();
     }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
+    	_notifier.stop();
     }
     
 	CANTalon.SetValueMotionProfile getSetValue() {

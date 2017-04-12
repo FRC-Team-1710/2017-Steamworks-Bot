@@ -17,8 +17,6 @@ public class EncoderTest extends CommandGroup {
     	//low gear is 4 to 1 so if it was 1 to 1, 9.5 would move us ten feet but 9.5 * 4 = 38 so 38 "rotations" get us 10 ft
     	//@param rotations
     	//@param velocity
-    	//addSequential(new MotionProfile(Profiles.leftProfile, Profiles.rightProfile, 2));
-    	addSequential(new ZeroYaw());
-    	addSequential(new RotateToAngleButWithEncoders(90));
+    	addSequential(new MotionProfile(Profiles.leftProfile, Profiles.rightProfile, 186));
     }
 }

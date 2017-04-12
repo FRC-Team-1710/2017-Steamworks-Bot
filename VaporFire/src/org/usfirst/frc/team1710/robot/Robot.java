@@ -1,6 +1,7 @@
 
 package org.usfirst.frc.team1710.robot;
 //other libraries
+import org.usfirst.frc.team1710.robot.Commands.MotionProfile;
 import org.usfirst.frc.team1710.robot.commandGroups.CrossBaseline;
 import org.usfirst.frc.team1710.robot.commandGroups.EncoderTest;
 import org.usfirst.frc.team1710.robot.commandGroups.GearCenterShoot;
@@ -57,7 +58,7 @@ public class Robot extends IterativeRobot {
     	camera.setBrightness(25);
     	camera.setExposureManual(0);
     	RobotMap.directionMultiplier = 1;
-    	motorMap.competitionBot();
+    	motorMap.practiceBot();
     	//motorMap.competitionBot();
         RobotMap.driveStick = new Joystick(0);
         RobotMap.mechStick = new Joystick(1);
@@ -86,7 +87,7 @@ public class Robot extends IterativeRobot {
     	autoChooser = new SendableChooser();
         autoChooser.addObject("Gear Left", new GearPlaceLeft());
         autoChooser.addObject("Gear Right", new GearPlaceRight());
-        autoChooser.addDefault("Center Gear", new HopperShootRed());
+        autoChooser.addDefault("Center Gear", new EncoderTest());
         autoChooser.addObject("Gear Left Shoot", new GearPlaceLeftShoot());
         autoChooser.addObject("Gear Right Shoot Red", new GearPlaceRightShoot());
         autoChooser.addObject("Gear Center Shoot Red", new GearCenterShootRed());
@@ -114,6 +115,8 @@ public class Robot extends IterativeRobot {
     	Scheduler.getInstance().run();
     }
     
+    public void teleopInit() {
+    }
     
     public void teleopPeriodic() {
      	//SmartDashboard.putData("Gear Sensor", RobotMap.gearSensor);
@@ -156,9 +159,9 @@ public class Robot extends IterativeRobot {
     	}
     	//Climber
     	if(RobotMap.mechStick.getRawButton(2) == true) {
-    		RobotMap.Climber.set(Math.abs(RobotMap.mechStick.getRawAxis(1)));
+    		RobotMap.pClimber.set(Math.abs(RobotMap.mechStick.getRawAxis(1)));
     	} else {
-    		RobotMap.Climber.set(0);
+    		RobotMap.pClimber.set(0);
     	}
     	
     	if(RobotMap.mechStick.getRawButton(5) == true) {
@@ -193,9 +196,7 @@ public class Robot extends IterativeRobot {
     	/*angleIncrease = angleInitial - anglePrevious;
     	angle = anglePrevious + angleIncrease;
     	anglePrevious = angle;*/
-    	SmartDashboard.putNumber("encoder", RobotMap.RM1.getEncPosition());
     	SmartDashboard.putNumber("encoder2", RobotMap.RM2.getEncPosition());
-    	SmartDashboard.putNumber("encoder3", RobotMap.RM3.getEncPosition());
 
     }
 

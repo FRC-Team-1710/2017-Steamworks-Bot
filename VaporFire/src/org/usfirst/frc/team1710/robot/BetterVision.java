@@ -29,26 +29,6 @@ public class BetterVision extends Subsystem {
         //setDefaultCommand(new MySpecialCommand());
     }
     
-    public static void trackGear(float angleToTurn, boolean aligned) {
-    	if(yawSet == false) {
-    		if(angleToTurn == 0) {
-    			//spins slowly until target is found
-    			Drive.simpleArcade(0, 0.3, 1);
-    		} else {
-    			angleToTarget = angleToTurn;
-    			Timer.delay(0.2);
-    			yawSet = true;
-    			System.out.println("yaw set");
-    		}
-    	} else {
-    		if(rotated == false) {
-    			Drive.rotateToAngle(angleToTurn);
-    		} else {
-    			currentYaw = RobotMap.navx.getYaw();
-    		}
-    	}
-    }
-    
     public static void trackBoiler(int config) {
     	table = NetworkTable.getTable("GRIP/BoilerReport");
     	centerX = table.getNumberArray("centerX");

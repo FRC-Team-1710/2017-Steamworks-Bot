@@ -1,7 +1,6 @@
 package org.usfirst.frc.team1710.robot.Commands;
 
 import org.usfirst.frc.team1710.robot.BetterVision;
-import org.usfirst.frc.team1710.robot.Processing;
 import org.usfirst.frc.team1710.robot.RobotMap;
 import org.usfirst.frc.team1710.robot.Shooter;
 
