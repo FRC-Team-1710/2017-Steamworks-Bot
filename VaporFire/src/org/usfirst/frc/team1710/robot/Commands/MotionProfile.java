@@ -126,7 +126,7 @@ public class MotionProfile extends Command {
     	RobotMap.RM2.set(getSetValue().value);
     	SmartDashboard.putNumber("Right Velocity", RobotMap.RM2.getEncVelocity());
     	SmartDashboard.putNumber("Left Velocity", RobotMap.LM3.getEncVelocity());
-    }
+    }  
     
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
@@ -136,6 +136,10 @@ public class MotionProfile extends Command {
     // Called once after isFinished returns true
     protected void end() {
     	_notifier.stop();
+    	RobotMap.LM3.changeControlMode(TalonControlMode.PercentVbus);
+    	RobotMap.RM3.changeControlMode(TalonControlMode.PercentVbus);
+    	RobotMap.LM2.changeControlMode(TalonControlMode.PercentVbus);
+    	RobotMap.RM2.changeControlMode(TalonControlMode.PercentVbus);
     }
 
     // Called when another command which requires one or more of the same
