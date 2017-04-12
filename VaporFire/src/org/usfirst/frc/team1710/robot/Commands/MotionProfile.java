@@ -50,8 +50,8 @@ public class MotionProfile extends Command {
     	//makes it so one left motor is in MP mode and every other motor is a slave to it
     	RobotMap.RM2.setFeedbackDevice(CANTalon.FeedbackDevice.QuadEncoder);
     	RobotMap.LM3.setFeedbackDevice(CANTalon.FeedbackDevice.QuadEncoder);
-    	RobotMap.LM3.configEncoderCodesPerRev(24);
-    	RobotMap.RM2.configEncoderCodesPerRev(24);
+    	RobotMap.LM3.configEncoderCodesPerRev(1024);
+    	RobotMap.RM2.configEncoderCodesPerRev(1024);
     	RobotMap.RM2.changeControlMode(TalonControlMode.MotionProfile);
     	RobotMap.RM2.setP(0.75);
     	RobotMap.RM2.setI(0.009);
