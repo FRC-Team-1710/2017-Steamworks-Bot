@@ -30,9 +30,9 @@ public class MotionProfile extends Command {
 		public void run() { 
 			RobotMap.RM2.getMotionProfileStatus(_status);
 			RobotMap.RM2.processMotionProfileBuffer();
-			System.out.println(_status.activePoint.isLastPoint);
+			System.out.println(_status.activePoint.velocity);
 			if(_status.activePoint.isLastPoint == true) {
-				done = true;
+				//done = true;
 			}
 		}
 	}
@@ -42,7 +42,6 @@ public class MotionProfile extends Command {
     // Called just before this Command runs the first time
     protected void initialize() {
     	//shifts into high gear
-    	_notifier.stop();
     	Pneumatics.shiftForward();
     	//resets any profiles on the srx's
     	RobotMap.LM3.clearMotionProfileTrajectories();
@@ -50,13 +49,13 @@ public class MotionProfile extends Command {
     	//makes it so one left motor is in MP mode and every other motor is a slave to it
     	RobotMap.RM2.setFeedbackDevice(CANTalon.FeedbackDevice.QuadEncoder);
     	RobotMap.LM3.setFeedbackDevice(CANTalon.FeedbackDevice.QuadEncoder);
-    	RobotMap.LM3.configEncoderCodesPerRev(1024);
-    	RobotMap.RM2.configEncoderCodesPerRev(1024);
+    	RobotMap.LM3.configEncoderCodesPerRev(10);
+    	RobotMap.RM2.configEncoderCodesPerRev(10);
     	RobotMap.RM2.changeControlMode(TalonControlMode.MotionProfile);
-    	RobotMap.RM2.setP(0.75);
-    	RobotMap.RM2.setI(0.009);
-    	RobotMap.RM2.setD(0);
-    	RobotMap.RM2.setF(0.0);
+    	RobotMap.RM2.setP(1);
+    	RobotMap.RM2.setI(0);
+    	RobotMap.RM2.setD(1);
+    	RobotMap.RM2.setF(1);
     	RobotMap.LM3.changeControlMode(TalonControlMode.Follower);
     	RobotMap.RM3.changeControlMode(TalonControlMode.Follower);
     	RobotMap.LM2.changeControlMode(TalonControlMode.Follower);
@@ -123,7 +122,7 @@ public class MotionProfile extends Command {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	//puts velocity on dashboard
-    	RobotMap.RM2.set(getSetValue().value);
+    	RobotMap.RM2.set(1);
     	SmartDashboard.putNumber("Right Velocity", RobotMap.RM2.getEncVelocity());
     	SmartDashboard.putNumber("Left Velocity", RobotMap.LM3.getEncVelocity());
     }  
@@ -140,6 +139,7 @@ public class MotionProfile extends Command {
     	RobotMap.RM3.changeControlMode(TalonControlMode.PercentVbus);
     	RobotMap.LM2.changeControlMode(TalonControlMode.PercentVbus);
     	RobotMap.RM2.changeControlMode(TalonControlMode.PercentVbus);
+    	done = false;
     }
 
     // Called when another command which requires one or more of the same
