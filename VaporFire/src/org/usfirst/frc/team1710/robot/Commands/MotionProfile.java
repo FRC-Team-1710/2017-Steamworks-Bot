@@ -9,21 +9,21 @@ import com.ctre.CANTalon.TalonControlMode;
 import edu.wpi.first.wpilibj.Notifier;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import jaci.pathfinder.Waypoint;
+import trajectoryGeneration.GenerateProfile;
 
 /**
  *
  */
 public class MotionProfile extends Command {
-	double[][] leftProfilePublic, rightProfilePublic;
-	int cntPublic;
+	double[][] leftProfile, rightProfile;
+	Waypoint[] _leftPoints, _rightPoints;
 	private CANTalon.SetValueMotionProfile _setValue;
 	boolean pointsFilled, done;
 	CANTalon.MotionProfileStatus _status = new CANTalon.MotionProfileStatus();
-	public MotionProfile(double[][] leftProfile, double[][] rightProfile, int cnt) {
-		leftProfilePublic = leftProfile;
-		rightProfilePublic = rightProfile;
-		cntPublic = cnt;
-		
+	public MotionProfile(Waypoint[] leftPoints, Waypoint[] rightPoints) {
+		_leftPoints = leftPoints;
+		_rightPoints = rightPoints;
     }
 
 	class PeriodicRunnable implements java.lang.Runnable {
@@ -32,7 +32,7 @@ public class MotionProfile extends Command {
 			RobotMap.RM2.processMotionProfileBuffer();
 			System.out.println(_status.activePoint.velocity);
 			if(_status.activePoint.isLastPoint == true) {
-				//done = true;
+				done = true;
 			}
 		}
 	}
@@ -42,6 +42,8 @@ public class MotionProfile extends Command {
     // Called just before this Command runs the first time
     protected void initialize() {
     	//shifts into high gear
+    	leftProfile = GenerateProfile.getLeftProfile(_leftPoints);
+    	rightProfile = GenerateProfile.getRightProfile(_rightPoints);
     	Pneumatics.shiftForward();
     	//resets any profiles on the srx's
     	RobotMap.LM3.clearMotionProfileTrajectories();
@@ -74,11 +76,11 @@ public class MotionProfile extends Command {
     	_setValue = CANTalon.SetValueMotionProfile.Disable;
 		CANTalon.TrajectoryPoint pointleft = new CANTalon.TrajectoryPoint();
 		CANTalon.TrajectoryPoint pointright = new CANTalon.TrajectoryPoint();
-		for(int i = 0; i < cntPublic; ++i) {
+		for(int i = 0; i < leftProfile.length; ++i) {
 			//sets values of each point object to the corresponding point in profiles.java
-			pointleft.position = leftProfilePublic[i][0];
-			pointleft.velocity = leftProfilePublic[i][1];
-			pointleft.timeDurMs =(int) leftProfilePublic[i][2];
+			pointleft.position = leftProfile[i][0];
+			pointleft.velocity = leftProfile[i][1];
+			pointleft.timeDurMs =(int) leftProfile[i][2];
 			pointleft.profileSlotSelect = 0;
 			pointleft.velocityOnly = false;
 		
@@ -87,17 +89,17 @@ public class MotionProfile extends Command {
 			if(i==0)
 				pointleft.zeroPos = true;
 			//last position
-			if((i+1) == cntPublic)
+			if((i+1) == leftProfile.length)
 				pointleft.isLastPoint = true;
 			//saves point to srx
 			RobotMap.RM2.pushMotionProfileTrajectory(pointleft);
 			System.out.println("yuh");
 		}
 		//fills right profile
-		/*for(int i = 0; i < cntPublic; ++i) {
-			pointright.position = rightProfilePublic[i][0];
-			pointright.velocity = rightProfilePublic[i][1];
-			pointright.timeDurMs =(int) rightProfilePublic[i][2];
+		/*for(int i = 0; i < rightProfile.length; ++i) {
+			pointright.position = rightProfile[i][0];
+			pointright.velocity = rightProfile[i][1];
+			pointright.timeDurMs =(int) rightProfile[i][2];
 			pointright.profileSlotSelect = 0;
 			pointright.velocityOnly = false;
 		
@@ -105,7 +107,7 @@ public class MotionProfile extends Command {
 			if(i==0)
 				pointright.zeroPos = true;
 		
-			if((i+1) == cntPublic)
+			if((i+1) == rightProfile.length)
 				pointright.isLastPoint = true;
 		
 			RobotMap.RM2.pushMotionProfileTrajectory(pointright);
@@ -122,7 +124,7 @@ public class MotionProfile extends Command {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	//puts velocity on dashboard
-    	RobotMap.RM2.set(1);
+    	RobotMap.RM2.set(getSetValue().value);
     	SmartDashboard.putNumber("Right Velocity", RobotMap.RM2.getEncVelocity());
     	SmartDashboard.putNumber("Left Velocity", RobotMap.LM3.getEncVelocity());
     }  

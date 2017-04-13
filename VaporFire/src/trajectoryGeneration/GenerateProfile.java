@@ -7,8 +7,8 @@ import jaci.pathfinder.Trajectory.Segment;
 import jaci.pathfinder.modifiers.TankModifier;
 
 public class GenerateProfile {
-	double wheelbase = .7116;
-	public double[][] getLeftProfile(Waypoint[] points) {
+	static double wheelbase = .7116;
+	public static double[][] getLeftProfile(Waypoint[] points) {
         Trajectory.Config config = new Trajectory.Config(Trajectory.FitMethod.HERMITE_CUBIC, Trajectory.Config.SAMPLES_HIGH, 0.05, 1.7, 2.0, 60.0);
         Trajectory trajectory = Pathfinder.generate(points, config);
 
@@ -29,7 +29,7 @@ public class GenerateProfile {
 		return leftProfile;
 	}
 	
-	public double[][] getRightProfile(Waypoint[] points) {
+	public static double[][] getRightProfile(Waypoint[] points) {
         Trajectory.Config config = new Trajectory.Config(Trajectory.FitMethod.HERMITE_CUBIC, Trajectory.Config.SAMPLES_HIGH, 0.05, 1.7, 2.0, 60.0);
         Trajectory trajectory = Pathfinder.generate(points, config);
 
