@@ -48,6 +48,8 @@ public class MotionProfile extends Command {
     	//resets any profiles on the srx's
     	RobotMap.LM3.clearMotionProfileTrajectories();
     	RobotMap.RM2.clearMotionProfileTrajectories();
+    	RobotMap.RM2.setEncPosition(0);
+    	RobotMap.LM3.setEncPosition(0);
     	//makes it so one left motor is in MP mode and every other motor is a slave to it
     	RobotMap.RM2.setFeedbackDevice(CANTalon.FeedbackDevice.QuadEncoder);
     	RobotMap.LM3.setFeedbackDevice(CANTalon.FeedbackDevice.QuadEncoder);
