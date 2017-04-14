@@ -1,10 +1,12 @@
 package org.usfirst.frc.team1710.robot.commandGroups;
 
 import org.usfirst.frc.team1710.robot.Profiles;
+import org.usfirst.frc.team1710.robot.Commands.DriveToPosition;
 import org.usfirst.frc.team1710.robot.Commands.EncoderDrive;
 import org.usfirst.frc.team1710.robot.Commands.MotionProfile;
 import org.usfirst.frc.team1710.robot.Commands.RotateToAngleButWithEncoders;
 import org.usfirst.frc.team1710.robot.Commands.ZeroYaw;
+import org.usfirst.frc.team1710.robot.Commands.followcurve;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import trajectoryGeneration.Waypoints;
@@ -18,6 +20,9 @@ public class EncoderTest extends CommandGroup {
     	//low gear is 4 to 1 so if it was 1 to 1, 9.5 would move us ten feet but 9.5 * 4 = 38 so 38 "rotations" get us 10 ft
     	//@param rotations
     	//@param velocity
-    	addSequential(new MotionProfile(Waypoints.testPoints, Waypoints.testPoints));
+    	//addSequential(new MotionProfile(Waypoints.testPoints, Waypoints.testPoints));
+    	addSequential(new ZeroYaw());
+    	addSequential(new followcurve(.5, .0013, 43));
+    	addSequential(new DriveToPosition(40));
     }
 }

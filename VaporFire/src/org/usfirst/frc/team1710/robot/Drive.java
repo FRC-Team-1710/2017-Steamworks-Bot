@@ -69,10 +69,22 @@ public class Drive extends Subsystem {
 		RobotMap.RPower = ((forwardP*multiplier) + (turnP*multiplier));
     }
     
-    public static void straightDrive(double forwardP, double multiplier) {
-    	angleCorrection = RobotMap.navx.getYaw() * 0.003;
+    public static void straightDrive(double forwardP, double multiplier, float goalAngle) {
+    	angleCorrection = (goalAngle - RobotMap.navx.getYaw()) * 0.003;
     	RobotMap.LPower = ((forwardP*multiplier) - (angleCorrection));
     	RobotMap.RPower = ((forwardP*multiplier) + (angleCorrection));
+    }
+    
+    public static void curve(double forwardP, double inc, float goalAngle) {
+    	angleCorrection = (goalAngle - RobotMap.navx.getYaw()) * inc;
+    	RobotMap.LPower = ((forwardP*1) - (angleCorrection));
+    	RobotMap.RPower = ((forwardP*1) + (angleCorrection));
+		RobotMap.pLM1.set(RobotMap.LPower * -1);
+		RobotMap.LM2.set(RobotMap.LPower * -1);
+		RobotMap.LM3.set(RobotMap.LPower * -1);
+		RobotMap.pRM1.set(RobotMap.RPower);
+		RobotMap.RM2.set(RobotMap.RPower);
+		RobotMap.RM3.set(RobotMap.RPower);
     }
     
     public static void pidDrive() {

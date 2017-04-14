@@ -32,7 +32,7 @@ public class MotionProfile extends Command {
 			RobotMap.RM2.processMotionProfileBuffer();
 			System.out.println(_status.activePoint.velocity);
 			if(_status.activePoint.isLastPoint == true) {
-				done = true;
+				//done = true;
 			}
 		}
 	}
@@ -80,7 +80,7 @@ public class MotionProfile extends Command {
 			//sets values of each point object to the corresponding point in profiles.java
 			pointleft.position = leftProfile[i][0];
 			pointleft.velocity = leftProfile[i][1];
-			pointleft.timeDurMs =(int) leftProfile[i][2];
+			pointleft.timeDurMs =(int) 20;
 			pointleft.profileSlotSelect = 0;
 			pointleft.velocityOnly = false;
 		
@@ -93,7 +93,6 @@ public class MotionProfile extends Command {
 				pointleft.isLastPoint = true;
 			//saves point to srx
 			RobotMap.RM2.pushMotionProfileTrajectory(pointleft);
-			System.out.println("yuh");
 		}
 		//fills right profile
 		/*for(int i = 0; i < rightProfile.length; ++i) {
