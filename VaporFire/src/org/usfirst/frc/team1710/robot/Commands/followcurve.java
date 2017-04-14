@@ -50,6 +50,7 @@ public static boolean done;
 		RobotMap.RM2.set(0);
 		RobotMap.RM3.set(0);
     	RobotMap.RM2.setEncPosition(0);
+    	done = false;
     }
 
     // Called when another command which requires one or more of the same
