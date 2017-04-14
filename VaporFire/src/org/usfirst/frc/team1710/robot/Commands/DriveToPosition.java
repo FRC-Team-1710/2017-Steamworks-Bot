@@ -43,28 +43,28 @@ public class DriveToPosition extends Command {
     	if (currentPosition < positionPublic && positionPublic > 0) {
     		Drive.straightDrive(1.25 - (currentPosition/positionPublic), 1);
     		System.out.println("gogogo");
-    		RobotMap.RM1.set(RobotMap.RPower*-1);
-    		RobotMap.RM2.set(RobotMap.RPower*-1);
-    		RobotMap.RM3.set(RobotMap.RPower*-1);
-    		RobotMap.LM1.set(RobotMap.LPower);
-    		RobotMap.LM2.set(RobotMap.LPower);
-    		RobotMap.LM3.set(RobotMap.LPower);
+    		RobotMap.pRM1.set(RobotMap.RPower);
+    		RobotMap.RM2.set(RobotMap.RPower);
+    		RobotMap.RM3.set(RobotMap.RPower);
+    		RobotMap.pLM1.set(RobotMap.LPower*-1);
+    		RobotMap.LM2.set(RobotMap.LPower*-1);
+    		RobotMap.LM3.set(RobotMap.LPower*-1);
     	} else if(Math.abs(currentPosition) < Math.abs(positionPublic) && positionPublic < 0) {
     		Drive.straightDrive(1.25 - (currentPosition/positionPublic), -1);
     		System.out.println("gogogo");
-    		RobotMap.RM1.set(RobotMap.RPower*-1);
-    		RobotMap.RM2.set(RobotMap.RPower*-1);
-    		RobotMap.RM3.set(RobotMap.RPower*-1);
-    		RobotMap.LM1.set(RobotMap.LPower);
-    		RobotMap.LM2.set(RobotMap.LPower);
-    		RobotMap.LM3.set(RobotMap.LPower);
+    		RobotMap.pRM1.set(RobotMap.RPower);
+    		RobotMap.RM2.set(RobotMap.RPower);
+    		RobotMap.RM3.set(RobotMap.RPower);
+    		RobotMap.pLM1.set(RobotMap.LPower*-1);
+    		RobotMap.LM2.set(RobotMap.LPower*-1);
+    		RobotMap.LM3.set(RobotMap.LPower*-1);
     	} else {
     		done = true;
     		System.out.println("done");
-    		RobotMap.RM1.set(0);
+    		RobotMap.pRM1.set(0);
     		RobotMap.RM2.set(0);
     		RobotMap.RM3.set(0);
-    		RobotMap.LM1.set(0);
+    		RobotMap.pLM1.set(0);
     		RobotMap.LM2.set(0);
     		RobotMap.LM3.set(0);
     	}
