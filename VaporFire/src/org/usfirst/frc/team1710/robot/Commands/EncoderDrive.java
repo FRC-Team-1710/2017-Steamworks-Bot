@@ -60,9 +60,9 @@ public class EncoderDrive extends Command {
         		endTime = System.nanoTime()/1000000000;
         	}
     		if(slowDownPublic == true) {
-    			Drive.straightDrive(goalVelocityPublic, (1 - percentageDone) + 0.35);
+    			Drive.straightDrive(goalVelocityPublic, (1 - percentageDone) + 0.35, 0);
     		} else {
-    			Drive.straightDrive(goalVelocityPublic, 1);
+    			Drive.straightDrive(goalVelocityPublic, 1, 0);
     		}
     	}else{
     		Drive.simpleArcade(0, 0, 0);

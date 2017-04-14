@@ -22,7 +22,7 @@ public class DriveForTime extends Command {
 
     protected void execute() {
     	if(timePublic/20 > count) {
-    		Drive.straightDrive(speedPublic, 1);
+    		Drive.straightDrive(speedPublic, 1, 0);
         	RobotMap.RM1.set(RobotMap.RPower*-1);
         	RobotMap.RM2.set(RobotMap.RPower*-1);
         	RobotMap.RM3.set(RobotMap.RPower*-1);

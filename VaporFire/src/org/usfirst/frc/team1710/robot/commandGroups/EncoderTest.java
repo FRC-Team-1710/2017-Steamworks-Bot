@@ -23,6 +23,7 @@ public class EncoderTest extends CommandGroup {
     	//addSequential(new MotionProfile(Waypoints.testPoints, Waypoints.testPoints));
     	addSequential(new ZeroYaw());
     	addSequential(new followcurve(.5, .0013, 43));
+    	addSequential(new ZeroYaw());
     	addSequential(new DriveToPosition(40));
     }
 }

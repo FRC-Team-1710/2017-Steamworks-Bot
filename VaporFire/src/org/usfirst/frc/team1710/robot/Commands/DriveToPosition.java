@@ -41,7 +41,7 @@ public class DriveToPosition extends Command {
     protected void execute() {
     	currentPosition = RobotMap.LM3.getEncPosition();
     	if (currentPosition < positionPublic && positionPublic > 0) {
-    		Drive.straightDrive(1.25 - (currentPosition/positionPublic), 1);
+    		Drive.straightDrive(1.25 - (currentPosition/positionPublic), 1, 0);
     		System.out.println("gogogo");
     		RobotMap.pRM1.set(RobotMap.RPower);
     		RobotMap.RM2.set(RobotMap.RPower);
@@ -50,7 +50,7 @@ public class DriveToPosition extends Command {
     		RobotMap.LM2.set(RobotMap.LPower*-1);
     		RobotMap.LM3.set(RobotMap.LPower*-1);
     	} else if(Math.abs(currentPosition) < Math.abs(positionPublic) && positionPublic < 0) {
-    		Drive.straightDrive(1.25 - (currentPosition/positionPublic), -1);
+    		Drive.straightDrive(1.25 - (currentPosition/positionPublic), -1, 0);
     		System.out.println("gogogo");
     		RobotMap.pRM1.set(RobotMap.RPower);
     		RobotMap.RM2.set(RobotMap.RPower);
