@@ -39,8 +39,14 @@ public class RotateToAngleButWithEncoders extends Command {
     		RobotMap.pLM1.set(RobotMap.LPower);
     		RobotMap.LM2.set(RobotMap.LPower);
     		RobotMap.LM3.set(RobotMap.LPower);
+    		RobotMap.pRM1.set(RobotMap.LPower);
+    		RobotMap.RM2.set(RobotMap.LPower);
+    		RobotMap.RM3.set(RobotMap.LPower);
     	} else if(_dir == false && _count > Math.abs(rightPosition)) {
-    		Drive.simpleArcade(_speed, 0, 1);
+    		Drive.simpleArcade(_speed, 0, -1);
+    		RobotMap.pLM1.set(RobotMap.LPower);
+    		RobotMap.LM2.set(RobotMap.LPower);
+    		RobotMap.LM3.set(RobotMap.LPower);
     		RobotMap.pRM1.set(RobotMap.LPower);
     		RobotMap.RM2.set(RobotMap.LPower);
     		RobotMap.RM3.set(RobotMap.LPower);
