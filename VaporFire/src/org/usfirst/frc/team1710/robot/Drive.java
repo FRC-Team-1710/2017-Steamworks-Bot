@@ -56,10 +56,10 @@ public class Drive extends Subsystem {
     }
     
     public static void stopDriving() {
-		RobotMap.LM1.set(0);
+		RobotMap.pLM1.set(0);
 		RobotMap.LM2.set(0);
 		RobotMap.LM3.set(0);
-		RobotMap.RM1.set(0);
+		RobotMap.pRM1.set(0);
 		RobotMap.RM2.set(0);
 		RobotMap.RM3.set(0);
     }
@@ -70,9 +70,9 @@ public class Drive extends Subsystem {
     }
     
     public static void straightDrive(double forwardP, double multiplier, float goalAngle) {
-    	angleCorrection = (goalAngle - RobotMap.navx.getYaw()) * 0.003;
-    	RobotMap.LPower = ((forwardP*multiplier) - (angleCorrection));
-    	RobotMap.RPower = ((forwardP*multiplier) + (angleCorrection));
+    	angleCorrection = (goalAngle + RobotMap.navx.getYaw()) * -0.0055;
+    	RobotMap.LPower = ((forwardP*multiplier) + (angleCorrection));
+    	RobotMap.RPower = ((forwardP*multiplier) - (angleCorrection));
     }
     
     public static void curve(double forwardP, double inc, float goalAngle) {

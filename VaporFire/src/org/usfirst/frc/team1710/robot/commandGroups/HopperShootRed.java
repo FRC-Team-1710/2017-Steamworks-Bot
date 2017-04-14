@@ -19,10 +19,10 @@ public class HopperShootRed extends CommandGroup {
 
     public HopperShootRed() {
     	addSequential(new ZeroYaw());
-    	addSequential(new DriveToPosition(127));
+    	addSequential(new DriveToPosition(127, 0));
     	addSequential(new ZeroYaw());
     	addSequential(new RotatetoAngle((float) -20));
-    	addSequential(new DriveToPosition(-60));
+    	addSequential(new DriveToPosition(-60, 0));
     	addSequential(new ZeroYaw());
     	addSequential(new RotatetoAngle((float) 35));
     	addSequential(new ZeroYaw());

@@ -16,6 +16,7 @@ public class ZeroYaw extends Command {
     }
 
     protected void initialize() {
+    	done = false;
     }
 
     protected void execute() {

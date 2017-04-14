@@ -1,5 +1,7 @@
 package org.usfirst.frc.team1710.robot.Commands;
 
+import java.util.Arrays;
+
 import org.usfirst.frc.team1710.robot.Pneumatics;
 import org.usfirst.frc.team1710.robot.RobotMap;
 
@@ -7,6 +9,7 @@ import com.ctre.CANTalon;
 import com.ctre.CANTalon.TalonControlMode;
 
 import edu.wpi.first.wpilibj.Notifier;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import jaci.pathfinder.Waypoint;
@@ -20,10 +23,10 @@ public class MotionProfile extends Command {
 	Waypoint[] _leftPoints, _rightPoints;
 	private CANTalon.SetValueMotionProfile _setValue;
 	boolean pointsFilled, done;
+	int cntPublic;
 	CANTalon.MotionProfileStatus _status = new CANTalon.MotionProfileStatus();
-	public MotionProfile(Waypoint[] leftPoints, Waypoint[] rightPoints) {
+	public MotionProfile(Waypoint[] leftPoints) {
 		_leftPoints = leftPoints;
-		_rightPoints = rightPoints;
     }
 
 	class PeriodicRunnable implements java.lang.Runnable {
@@ -42,19 +45,12 @@ public class MotionProfile extends Command {
     // Called just before this Command runs the first time
     protected void initialize() {
     	//shifts into high gear
-    	leftProfile = GenerateProfile.getLeftProfile(_leftPoints);
-    	rightProfile = GenerateProfile.getRightProfile(_rightPoints);
-    	Pneumatics.shiftForward();
     	//resets any profiles on the srx's
-    	RobotMap.LM3.clearMotionProfileTrajectories();
     	RobotMap.RM2.clearMotionProfileTrajectories();
-    	RobotMap.RM2.setEncPosition(0);
-    	RobotMap.LM3.setEncPosition(0);
+    	leftProfile = GenerateProfile.getLeftProfile(_leftPoints);
     	//makes it so one left motor is in MP mode and every other motor is a slave to it
     	RobotMap.RM2.setFeedbackDevice(CANTalon.FeedbackDevice.QuadEncoder);
-    	RobotMap.LM3.setFeedbackDevice(CANTalon.FeedbackDevice.QuadEncoder);
-    	RobotMap.LM3.configEncoderCodesPerRev(10);
-    	RobotMap.RM2.configEncoderCodesPerRev(10);
+    	RobotMap.RM2.configEncoderCodesPerRev(3094);
     	RobotMap.RM2.changeControlMode(TalonControlMode.MotionProfile);
     	RobotMap.RM2.setP(1);
     	RobotMap.RM2.setI(0);
@@ -68,30 +64,28 @@ public class MotionProfile extends Command {
     	RobotMap.LM3.set(RobotMap.RM2.getDeviceID());
     	RobotMap.LM2.set(RobotMap.LM3.getDeviceID());
     	//sets resolution of profile (each trajectory is run for 10 ms)
-    	RobotMap.RM2.changeMotionControlFramePeriod(5);
-    	RobotMap.LM3.changeMotionControlFramePeriod(5);
+    	RobotMap.RM2.changeMotionControlFramePeriod(20);
     	RobotMap.LM3.reverseOutput(true);
     	//output of right side is reversed b/c we want to move straight and it's following the left
     	RobotMap.RM2.reverseOutput(false);
     	//grayhill 63r's are quadrature encoders
     	
     	_setValue = CANTalon.SetValueMotionProfile.Disable;
-		CANTalon.TrajectoryPoint pointleft = new CANTalon.TrajectoryPoint();
 		CANTalon.TrajectoryPoint pointright = new CANTalon.TrajectoryPoint();
+		CANTalon.TrajectoryPoint pointleft = new CANTalon.TrajectoryPoint();
 		for(int i = 0; i < leftProfile.length; ++i) {
 			//sets values of each point object to the corresponding point in profiles.java
 			pointleft.position = leftProfile[i][0];
 			pointleft.velocity = leftProfile[i][1];
-			pointleft.timeDurMs =(int) 20;
+			pointleft.timeDurMs =(int) leftProfile[i][2];
 			pointleft.profileSlotSelect = 0;
 			pointleft.velocityOnly = false;
-		
 			//first position
 			pointleft.zeroPos = false;
 			if(i==0)
 				pointleft.zeroPos = true;
 			//last position
-			if((i+1) == leftProfile.length)
+			if((i+1) == leftProfile.length - 1)
 				pointleft.isLastPoint = true;
 			//saves point to srx
 			RobotMap.RM2.pushMotionProfileTrajectory(pointleft);

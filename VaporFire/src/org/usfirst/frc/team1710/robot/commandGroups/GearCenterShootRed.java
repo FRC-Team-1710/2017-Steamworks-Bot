@@ -15,10 +15,10 @@ public class GearCenterShootRed extends CommandGroup {
 
     public GearCenterShootRed() {
     	addSequential(new ZeroYaw());
-    	addSequential(new DriveToPosition(96));
+    	addSequential(new DriveToPosition(96, 0));
     	addSequential(new Delay(2.25));
     	addSequential(new ZeroYaw());
-    	addSequential(new DriveToPosition(-30));
+    	addSequential(new DriveToPosition(-30, 0));
     	addSequential(new ZeroYaw());
     	addSequential(new RotatetoAngle(-20));
     	addSequential(new RunShooterAuto(3000, 2));

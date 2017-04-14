@@ -15,7 +15,7 @@ public class GearPlaceLeftShoot extends CommandGroup {
 
     public GearPlaceLeftShoot() {
     	addSequential(new ZeroYaw());
-    	addSequential(new DriveToPosition(96));
+    	addSequential(new DriveToPosition(96, 0));
     	addSequential(new ZeroYaw());
     	addSequential(new RotatetoAngle(70));
     	addSequential(new ZeroYaw());

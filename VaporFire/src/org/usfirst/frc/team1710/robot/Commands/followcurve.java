@@ -13,20 +13,22 @@ public static double _forwardP;
 public static double _inc;
 public static float _goalAngle;
 public static boolean done;
-    public followcurve(double forwardP, double inc, float goalAngle) {
-    	_forwardP = forwardP;
+    public followcurve(double inc, float goalAngle) {
+    	_forwardP = 0.5;
     	_inc = inc;
     	_goalAngle = goalAngle;
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
+    	done = false;
+    	RobotMap.RM2.setEncPosition(0);
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	if(Math.abs(_goalAngle) > Math.abs(RobotMap.navx.getYaw())){
-    	Drive.curve(_forwardP, _inc, _goalAngle);
+    		Drive.curve(_forwardP, _inc, _goalAngle);
     	}
     	else{
     		done = true;
@@ -47,6 +49,7 @@ public static boolean done;
 		RobotMap.pRM1.set(0);
 		RobotMap.RM2.set(0);
 		RobotMap.RM3.set(0);
+    	RobotMap.RM2.setEncPosition(0);
     }
 
     // Called when another command which requires one or more of the same

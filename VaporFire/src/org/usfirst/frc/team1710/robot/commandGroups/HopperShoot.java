@@ -30,10 +30,10 @@ public class HopperShoot extends CommandGroup {
     	addSequential(new ZeroYaw());
     	addSequential(new RunShooterAuto(7500, 4));*/
     	addSequential(new ZeroYaw());
-    	addSequential(new DriveToPosition(127));
+    	addSequential(new DriveToPosition(127, 0));
     	addSequential(new ZeroYaw());
     	addSequential(new RotatetoAngle((float) 25));
-    	addSequential(new DriveToPosition(-60));
+    	addSequential(new DriveToPosition(-60, 0));
     	addSequential(new ZeroYaw());
     	addSequential(new RotatetoAngle((float) -35));
     	addSequential(new ZeroYaw());

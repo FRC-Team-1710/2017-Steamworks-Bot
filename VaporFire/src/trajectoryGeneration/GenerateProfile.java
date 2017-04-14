@@ -23,7 +23,7 @@ public class GenerateProfile {
             Segment s = left.segments[i];
             leftProfile[i][0] = s.position;
             leftProfile[i][1] = s.velocity * 60;
-            leftProfile[i][2] = s.dt;
+            leftProfile[i][2] = 20;
         }
         
 		return leftProfile;
@@ -44,7 +44,7 @@ public class GenerateProfile {
             Segment s = right.segments[i];
             rightProfile[i][0] = s.position;
             rightProfile[i][1] = s.velocity * 60;
-            rightProfile[i][2] = s.dt;
+            rightProfile[i][2] = 20;
         }
         
 		return rightProfile;

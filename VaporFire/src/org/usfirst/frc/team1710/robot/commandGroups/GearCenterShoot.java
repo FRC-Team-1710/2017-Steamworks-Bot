@@ -17,10 +17,10 @@ public class GearCenterShoot extends CommandGroup {
     public GearCenterShoot() {
     	//blue alliance
     	addSequential(new ZeroYaw());
-    	addSequential(new DriveToPosition(98));
+    	addSequential(new DriveToPosition(98, 0));
     	addSequential(new Delay(2.2));
     	addSequential(new ZeroYaw());
-    	addSequential(new DriveToPosition(-20));
+    	addSequential(new DriveToPosition(-20, 0));
     	addSequential(new RunShooterAuto(4000, 3));
      }
 }

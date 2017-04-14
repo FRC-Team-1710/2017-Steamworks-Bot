@@ -11,6 +11,8 @@ public class Waypoints {
     public static Waypoint[] testPoints = new Waypoint[] {
             new Waypoint(1, 0, 0),
             new Waypoint(2, 0, 0),
-            new Waypoint(3, 0, 0)
+            new Waypoint(3, 0, 0),
+            new Waypoint(4, 0, 0),
+            new Waypoint(5, 0, 0),
     };
 }
