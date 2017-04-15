@@ -25,14 +25,8 @@ public class HopperShootRed extends CommandGroup {
     	addSequential(new ZeroYaw());
     	addSequential(new DriveToPosition(20, 0));
     	addSequential(new RotateToAngleButWithEncoders(true, 2500, -0.5));
+    	addSequential(new RotateToAngleButWithEncoders(true, 2500, 0.5));
     	addSequential(new RunShooterAuto(7500, 4));
-    	/*double[][] leftProfile = {
-    			{12500, 0.6}, {15000, 0.6}, {5000, 0.75}
-    	};
-    	double[][] rightProfile = {
-    			{15000, 0.6}, {12500, 0.6}, {5000, 0.75}
-    	};
-    	addSequential(new MotionExperiment(leftProfile, rightProfile));*/
     }
     
     protected void interrupted() {

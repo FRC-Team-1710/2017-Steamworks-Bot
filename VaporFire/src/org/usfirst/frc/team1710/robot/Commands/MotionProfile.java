@@ -110,7 +110,7 @@ public class MotionProfile extends Command {
 		}*/
 		
 		System.out.println("done");
-		//tell LM3 to begin reading from buffer
+		//tell motor to begin reading from buffer
 		_setValue = CANTalon.SetValueMotionProfile.Enable;
     	_notifier.startPeriodic(0.005);
     	//starts the buffer
