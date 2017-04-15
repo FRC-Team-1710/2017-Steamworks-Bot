@@ -1,5 +1,7 @@
 package trajectoryGeneration;
 
+import java.io.File;
+
 import jaci.pathfinder.Pathfinder;
 import jaci.pathfinder.Trajectory;
 import jaci.pathfinder.Waypoint;
@@ -8,6 +10,14 @@ import jaci.pathfinder.modifiers.TankModifier;
 
 public class GenerateProfile {
 	static double wheelbase = .7116;
+	
+	public static void main(String[] args) {
+        Trajectory.Config config = new Trajectory.Config(Trajectory.FitMethod.HERMITE_CUBIC, Trajectory.Config.SAMPLES_HIGH, 0.05, 1.7, 2.0, 60.0);
+        Trajectory trajectory = Pathfinder.generate(Waypoints.testPoints, config);
+        File excel = new File("Traj.csv");
+		Pathfinder.writeToCSV(excel, trajectory);
+	}
+	
 	public static double[][] getLeftProfile(Waypoint[] points) {
         Trajectory.Config config = new Trajectory.Config(Trajectory.FitMethod.HERMITE_CUBIC, Trajectory.Config.SAMPLES_HIGH, 0.05, 1.7, 2.0, 60.0);
         Trajectory trajectory = Pathfinder.generate(points, config);
