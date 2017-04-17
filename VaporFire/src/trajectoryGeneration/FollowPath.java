@@ -4,6 +4,7 @@ import org.usfirst.frc.team1710.robot.Drive;
 import org.usfirst.frc.team1710.robot.RobotMap;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import jaci.pathfinder.Pathfinder;
 import jaci.pathfinder.Trajectory;
 import jaci.pathfinder.Waypoint;
@@ -28,7 +29,7 @@ public class FollowPath extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	Trajectory.Config config = new Trajectory.Config(Trajectory.FitMethod.HERMITE_CUBIC, Trajectory.Config.SAMPLES_HIGH, 0.05, 1.0, 2.0, 60.0);
+    	Trajectory.Config config = new Trajectory.Config(Trajectory.FitMethod.HERMITE_CUBIC, Trajectory.Config.SAMPLES_HIGH, 0.05, 2.4, 2.7, 60.0);
     	Trajectory trajectory = Pathfinder.generate(_points, config);
     	RobotMap.RM2.setEncPosition(0);
     	RobotMap.LM3.setEncPosition(0);
@@ -36,12 +37,12 @@ public class FollowPath extends Command {
     	right = new EncoderFollower(modifier.getRightTrajectory());
     	right.configureEncoder(rightEncPos, 1000, wheelDiameter);
     	//pid stuff
-    	right.configurePIDVA(.5, 0, 0, 1 / 1.0, 0);
+    	right.configurePIDVA(0.8, 0, 0, 1 / 2.4, 0);
     	
-    	left = new EncoderFollower(modifier.getRightTrajectory());
+    	left = new EncoderFollower(modifier.getLeftTrajectory());
     	left.configureEncoder(leftEncPos, 1000, wheelDiameter);
     	//pid stuff
-    	left.configurePIDVA(.5, 0, 0, 1 / 1.0, 0);
+    	left.configurePIDVA(0.8, 0, 0, 1 / 2.4, 0);
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -55,16 +56,17 @@ public class FollowPath extends Command {
     	angleDiff = Pathfinder.boundHalfDegrees(goalHeading - currentHeading);
     	turnVal = 0.8 * (-1.0/80.0) * angleDiff;
     	
-    	RobotMap.pRM1.set(rightOutput + turnVal);
-    	RobotMap.RM2.set(rightOutput + turnVal);
-    	RobotMap.RM3.set(rightOutput + turnVal);
+    	RobotMap.pRM1.set((rightOutput + turnVal) * 1);
+    	RobotMap.RM2.set((rightOutput + turnVal) * 1);
+    	RobotMap.RM3.set((rightOutput + turnVal) * 1);
 
-    	RobotMap.pLM1.set((leftOutput + turnVal) * -1);
-    	RobotMap.LM2.set((leftOutput + turnVal) * -1);
-    	RobotMap.LM3.set((leftOutput + turnVal) * -1);
+    	RobotMap.pLM1.set((leftOutput - turnVal) * -1);
+    	RobotMap.LM2.set((leftOutput - turnVal) * -1);
+    	RobotMap.LM3.set((leftOutput - turnVal) * -1);
     	
-    	System.out.println(rightOutput)
-;    }
+    	SmartDashboard.putNumber("RightOutput", rightOutput);
+    	SmartDashboard.putNumber("LeftOutput", leftOutput);
+    }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {

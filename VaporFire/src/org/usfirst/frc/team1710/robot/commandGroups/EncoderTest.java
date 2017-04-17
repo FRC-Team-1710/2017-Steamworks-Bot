@@ -25,11 +25,13 @@ public class EncoderTest extends CommandGroup {
     	//@param velocity
     	//addSequential(new ZeroYaw());
     	//radius, angle to stop at
-    	addSequential(new ZeroYaw());
+    	/*addSequential(new ZeroYaw());
     	addSequential(new followcurve(.0015, 40));
     	addSequential(new ZeroYaw());
     	addSequential(new DriveToPosition(20, 0));
-    	addSequential(new RotateToAngleButWithEncoders(true, 2500, -0.5));
+    	addSequential(new RotateToAngleButWithEncoders(true, 2500, -0.5));*/
     	//addSequential(new MotionProfile(Waypoints.testPoints));
+    	addSequential(new ZeroYaw());
+    	addSequential(new FollowPath(Waypoints.testPoints));
     }
 }

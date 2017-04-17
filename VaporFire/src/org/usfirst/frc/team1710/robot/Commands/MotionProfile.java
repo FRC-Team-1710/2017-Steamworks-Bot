@@ -20,22 +20,28 @@ import trajectoryGeneration.GenerateProfile;
  */
 public class MotionProfile extends Command {
 	double[][] leftProfile, rightProfile;
-	Waypoint[] _leftPoints, _rightPoints;
+	Waypoint[] _points;
 	private CANTalon.SetValueMotionProfile _setValue;
 	boolean pointsFilled, done;
 	int cntPublic;
-	CANTalon.MotionProfileStatus _status = new CANTalon.MotionProfileStatus();
-	public MotionProfile(Waypoint[] leftPoints) {
-		_leftPoints = leftPoints;
+	CANTalon.MotionProfileStatus _statusRight = new CANTalon.MotionProfileStatus();
+	CANTalon.MotionProfileStatus _statusLeft = new CANTalon.MotionProfileStatus();
+	
+	public MotionProfile(Waypoint[] points) {
+		_points = points;
     }
 
 	class PeriodicRunnable implements java.lang.Runnable {
 		public void run() { 
-			RobotMap.RM2.getMotionProfileStatus(_status);
-			RobotMap.RM2.processMotionProfileBuffer();
-			System.out.println(_status.activePoint.velocity);
-			if(_status.activePoint.isLastPoint == true) {
+			if(_statusRight.activePoint.isLastPoint == true && _statusLeft.activePoint.isLastPoint == true) {
 				//done = true;
+				//System.out.println("See Ya!");
+			} else {
+				RobotMap.RM2.getMotionProfileStatus(_statusRight);
+				RobotMap.LM3.getMotionProfileStatus(_statusLeft);
+				RobotMap.RM2.processMotionProfileBuffer();
+				RobotMap.LM3.processMotionProfileBuffer();
+				done = false;
 			}
 		}
 	}
@@ -47,30 +53,41 @@ public class MotionProfile extends Command {
     	//shifts into high gear
     	//resets any profiles on the srx's
     	RobotMap.RM2.clearMotionProfileTrajectories();
-    	leftProfile = GenerateProfile.getLeftProfile(_leftPoints);
-    	//makes it so one left motor is in MP mode and every other motor is a slave to it
+    	RobotMap.LM3.clearMotionProfileTrajectories();
+    	//translates a trajectory from Jaci's pathfinder into a motion profile that's readable by the srx's
+    	leftProfile = GenerateProfile.getLeftProfile(_points);
+    	rightProfile = GenerateProfile.getRightProfile(_points);
+    	//configure right side talons
     	RobotMap.RM2.setFeedbackDevice(CANTalon.FeedbackDevice.QuadEncoder);
     	RobotMap.RM2.configEncoderCodesPerRev(3094);
     	RobotMap.RM2.changeControlMode(TalonControlMode.MotionProfile);
+    	//pid stuff
     	RobotMap.RM2.setP(1);
     	RobotMap.RM2.setI(0);
     	RobotMap.RM2.setD(1);
     	RobotMap.RM2.setF(1);
-    	RobotMap.LM3.changeControlMode(TalonControlMode.Follower);
+    	//configures left side talons- using grayhill 63r's
+    	RobotMap.LM3.setFeedbackDevice(CANTalon.FeedbackDevice.QuadEncoder);
+    	RobotMap.LM3.configEncoderCodesPerRev(3094);
+    	RobotMap.LM3.changeControlMode(TalonControlMode.MotionProfile);
+    	//more PID stuff
+    	RobotMap.LM3.setP(1);
+    	RobotMap.LM3.setI(0);
+    	RobotMap.LM3.setD(1);
+    	RobotMap.LM3.setF(1);
+    	//makes other motors on right/left sides slaves to the ones in MP mode
     	RobotMap.RM3.changeControlMode(TalonControlMode.Follower);
     	RobotMap.LM2.changeControlMode(TalonControlMode.Follower);
     	//sets the specific talon ID to follow
     	RobotMap.RM3.set(RobotMap.RM2.getDeviceID());
-    	RobotMap.LM3.set(RobotMap.RM2.getDeviceID());
     	RobotMap.LM2.set(RobotMap.LM3.getDeviceID());
-    	//sets resolution of profile (each trajectory is run for 10 ms)
+    	//sets resolution of profile (each trajectory point is run for 20 ms)
+    	RobotMap.LM3.changeMotionControlFramePeriod(20);
     	RobotMap.RM2.changeMotionControlFramePeriod(20);
+    	//not sure if we need to reverse output... let's see
     	RobotMap.LM3.reverseOutput(true);
-    	//output of right side is reversed b/c we want to move straight and it's following the left
     	RobotMap.RM2.reverseOutput(false);
-    	//grayhill 63r's are quadrature encoders
     	
-    	_setValue = CANTalon.SetValueMotionProfile.Disable;
 		CANTalon.TrajectoryPoint pointright = new CANTalon.TrajectoryPoint();
 		CANTalon.TrajectoryPoint pointleft = new CANTalon.TrajectoryPoint();
 		for(int i = 0; i < leftProfile.length; ++i) {
@@ -88,10 +105,11 @@ public class MotionProfile extends Command {
 			if((i+1) == leftProfile.length - 1)
 				pointleft.isLastPoint = true;
 			//saves point to srx
-			RobotMap.RM2.pushMotionProfileTrajectory(pointleft);
+			RobotMap.LM3.pushMotionProfileTrajectory(pointleft);
+			System.out.println("oi");
 		}
 		//fills right profile
-		/*for(int i = 0; i < rightProfile.length; ++i) {
+		for(int i = 0; i < rightProfile.length; ++i) {
 			pointright.position = rightProfile[i][0];
 			pointright.velocity = rightProfile[i][1];
 			pointright.timeDurMs =(int) rightProfile[i][2];
@@ -102,16 +120,17 @@ public class MotionProfile extends Command {
 			if(i==0)
 				pointright.zeroPos = true;
 		
-			if((i+1) == rightProfile.length)
+			if((i+1) == rightProfile.length - 1)
 				pointright.isLastPoint = true;
 		
 			RobotMap.RM2.pushMotionProfileTrajectory(pointright);
 			System.out.println("oi");
-		}*/
+		}
 		
 		System.out.println("done");
 		//tell motor to begin reading from buffer
-		_setValue = CANTalon.SetValueMotionProfile.Enable;
+    	RobotMap.RM2.set(1);
+    	RobotMap.LM3.set(1);
     	_notifier.startPeriodic(0.005);
     	//starts the buffer
 	}
@@ -119,7 +138,6 @@ public class MotionProfile extends Command {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	//puts velocity on dashboard
-    	RobotMap.RM2.set(getSetValue().value);
     	SmartDashboard.putNumber("Right Velocity", RobotMap.RM2.getEncVelocity());
     	SmartDashboard.putNumber("Left Velocity", RobotMap.LM3.getEncVelocity());
     }  
@@ -131,6 +149,8 @@ public class MotionProfile extends Command {
 
     // Called once after isFinished returns true
     protected void end() {
+    	RobotMap.RM2.set(0);
+    	RobotMap.LM3.set(0);
     	_notifier.stop();
     	RobotMap.LM3.changeControlMode(TalonControlMode.PercentVbus);
     	RobotMap.RM3.changeControlMode(TalonControlMode.PercentVbus);

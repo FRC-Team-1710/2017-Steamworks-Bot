@@ -196,7 +196,10 @@ public class Robot extends IterativeRobot {
     	/*angleIncrease = angleInitial - anglePrevious;
     	angle = anglePrevious + angleIncrease;
     	anglePrevious = angle;*/
-    	SmartDashboard.putNumber("encoder2", RobotMap.RM2.getEncPosition());
+    	SmartDashboard.putNumber("encoder1", RobotMap.LM2.getEncPosition());
+    	SmartDashboard.putNumber("encoder2", RobotMap.LM3.getEncPosition());
+    	SmartDashboard.putNumber("encoder3", RobotMap.RM2.getEncPosition());
+    	SmartDashboard.putNumber("encoder4", RobotMap.RM3.getEncPosition());
 
     }
 
