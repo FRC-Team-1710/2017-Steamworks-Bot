@@ -33,16 +33,16 @@ public class MotionProfile extends Command {
 
 	class PeriodicRunnable implements java.lang.Runnable {
 		public void run() { 
-			if(_statusRight.activePoint.isLastPoint == true && _statusLeft.activePoint.isLastPoint == true) {
+			//if(_statusRight.activePoint.isLastPoint == true && _statusLeft.activePoint.isLastPoint == true) {
 				//done = true;
 				//System.out.println("See Ya!");
-			} else {
+			//} else {
 				RobotMap.RM2.getMotionProfileStatus(_statusRight);
 				RobotMap.LM3.getMotionProfileStatus(_statusLeft);
 				RobotMap.RM2.processMotionProfileBuffer();
 				RobotMap.LM3.processMotionProfileBuffer();
 				done = false;
-			}
+			//}
 		}
 	}
 	

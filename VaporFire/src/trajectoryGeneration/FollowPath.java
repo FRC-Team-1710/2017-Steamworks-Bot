@@ -29,20 +29,20 @@ public class FollowPath extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	Trajectory.Config config = new Trajectory.Config(Trajectory.FitMethod.HERMITE_CUBIC, Trajectory.Config.SAMPLES_HIGH, 0.05, 2.4, 2.7, 60.0);
+    	Trajectory.Config config = new Trajectory.Config(Trajectory.FitMethod.HERMITE_CUBIC, Trajectory.Config.SAMPLES_HIGH, 0.05, 1.7, 2, 60.0);
     	Trajectory trajectory = Pathfinder.generate(_points, config);
     	RobotMap.RM2.setEncPosition(0);
     	RobotMap.LM3.setEncPosition(0);
     	TankModifier modifier = new TankModifier(trajectory).modify(wheelBase);
     	right = new EncoderFollower(modifier.getRightTrajectory());
-    	right.configureEncoder(rightEncPos, 1000, wheelDiameter);
+    	right.configureEncoder(rightEncPos, 2000, wheelDiameter);
     	//pid stuff
-    	right.configurePIDVA(0.8, 0, 0, 1 / 2.4, 0);
+    	right.configurePIDVA(0.8, 0, 0, 1 / 1.7, 0);
     	
     	left = new EncoderFollower(modifier.getLeftTrajectory());
-    	left.configureEncoder(leftEncPos, 1000, wheelDiameter);
+    	left.configureEncoder(leftEncPos, 2000, wheelDiameter);
     	//pid stuff
-    	left.configurePIDVA(0.8, 0, 0, 1 / 2.4, 0);
+    	left.configurePIDVA(0.8, 0, 0, 1 / 1.7, 0);
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -52,7 +52,7 @@ public class FollowPath extends Command {
     	leftOutput = left.calculate(leftEncPos);
     	rightOutput = right.calculate(rightEncPos);
     	currentHeading = RobotMap.navx.getYaw();
-    	goalHeading = Pathfinder.r2d(right.getHeading());
+    	goalHeading = right.getHeading();
     	angleDiff = Pathfinder.boundHalfDegrees(goalHeading - currentHeading);
     	turnVal = 0.8 * (-1.0/80.0) * angleDiff;
     	

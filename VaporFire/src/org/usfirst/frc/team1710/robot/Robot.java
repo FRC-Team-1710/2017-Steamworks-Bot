@@ -51,12 +51,12 @@ public class Robot extends IterativeRobot {
 	boolean PIDReady;
 	
     public void robotInit() {
-    	/*UsbCamera camera;
+    	UsbCamera camera;
     	camera = CameraServer.getInstance().startAutomaticCapture();
-    	camera.setResolution(640, 480);
+    	camera.setResolution(320, 240);
     	camera.setFPS(20);
     	camera.setBrightness(25);
-    	camera.setExposureManual(0);*/
+    	camera.setExposureManual(0);
     	RobotMap.directionMultiplier = 1;
     	motorMap.practiceBot();
     	//motorMap.competitionBot();
