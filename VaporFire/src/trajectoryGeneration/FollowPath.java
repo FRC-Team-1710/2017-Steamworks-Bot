@@ -1,6 +1,7 @@
 package trajectoryGeneration;
 
 import org.usfirst.frc.team1710.robot.Drive;
+import org.usfirst.frc.team1710.robot.Pneumatics;
 import org.usfirst.frc.team1710.robot.RobotMap;
 
 import edu.wpi.first.wpilibj.command.Command;
@@ -29,7 +30,8 @@ public class FollowPath extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	Trajectory.Config config = new Trajectory.Config(Trajectory.FitMethod.HERMITE_CUBIC, Trajectory.Config.SAMPLES_HIGH, 0.05, 1.7, 2, 60.0);
+    	Pneumatics.shiftForward();
+    	Trajectory.Config config = new Trajectory.Config(Trajectory.FitMethod.HERMITE_CUBIC, Trajectory.Config.SAMPLES_HIGH, 0.05, 1.5, 2, 60.0);
     	Trajectory trajectory = Pathfinder.generate(_points, config);
     	RobotMap.RM2.setEncPosition(0);
     	RobotMap.LM3.setEncPosition(0);
@@ -37,12 +39,12 @@ public class FollowPath extends Command {
     	right = new EncoderFollower(modifier.getRightTrajectory());
     	right.configureEncoder(rightEncPos, 2000, wheelDiameter);
     	//pid stuff
-    	right.configurePIDVA(0.8, 0, 0, 1 / 1.7, 0);
+    	right.configurePIDVA(0.8, 0, 0, 1 / 1.5, 0);
     	
     	left = new EncoderFollower(modifier.getLeftTrajectory());
     	left.configureEncoder(leftEncPos, 2000, wheelDiameter);
     	//pid stuff
-    	left.configurePIDVA(0.8, 0, 0, 1 / 1.7, 0);
+    	left.configurePIDVA(0.8, 0, 0, 1 / 1.5, 0);
     }
 
     // Called repeatedly when this Command is scheduled to run

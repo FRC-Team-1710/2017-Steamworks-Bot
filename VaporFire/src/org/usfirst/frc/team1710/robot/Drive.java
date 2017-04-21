@@ -26,7 +26,7 @@ public class Drive extends Subsystem {
     		RobotMap.LPower = (((forwardP*multiplier) * -1) - (turnP*multiplier*-1));    		
     		RobotMap.RPower = (((forwardP*multiplier) * -1) + (turnP*multiplier*-1)); 
         	RobotMap.axisType = 2;
-        	Pneumatics.shiftForward();
+        	Pneumatics.shiftReverse();
     	}
     	else if (onTurbo == false && neutral == false){ 
     		if(RobotMap.flipped = true) {
@@ -37,7 +37,7 @@ public class Drive extends Subsystem {
     			RobotMap.RPower = (((forwardP*multiplier) * -1) + (turnP)); 
     		}
         	RobotMap.axisType = 0;
-        	Pneumatics.shiftReverse();
+        	Pneumatics.shiftForward();
     	}
     	else if(onTurbo == true && onSteg == true) {
     		//StegDrive(forwardP, currentYaw, multiplier);

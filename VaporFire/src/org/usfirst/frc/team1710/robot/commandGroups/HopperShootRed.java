@@ -11,6 +11,8 @@ import org.usfirst.frc.team1710.robot.Commands.ShiftLow;
 import org.usfirst.frc.team1710.robot.Commands.ZeroYaw;
 import org.usfirst.frc.team1710.robot.Commands.followcurve;
 
+import trajectoryGeneration.FollowPath;
+import trajectoryGeneration.Waypoints;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.Scheduler;
 
@@ -20,13 +22,15 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 public class HopperShootRed extends CommandGroup {
 
     public HopperShootRed() {
-    	addSequential(new ZeroYaw());
+   /* 	addSequential(new ZeroYaw());
     	addSequential(new followcurve(.0015, 40));
     	addSequential(new ZeroYaw());
     	addSequential(new DriveToPosition(20, 0));
     	addSequential(new RotateToAngleButWithEncoders(true, 2500, -0.5));
     	addSequential(new RotateToAngleButWithEncoders(true, 2500, 0.5));
-    	addSequential(new RunShooterAuto(7500, 4));
+    	addSequential(new RunShooterAuto(7500, 4)); */
+    	addSequential(new ZeroYaw());
+    	addSequential(new FollowPath(Waypoints.hopperShootRedSnek));
     }
     
     protected void interrupted() {

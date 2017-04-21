@@ -31,7 +31,7 @@ public class EncoderTest extends CommandGroup {
     	addSequential(new DriveToPosition(20, 0));
     	addSequential(new RotateToAngleButWithEncoders(true, 2500, -0.5));*/
     	//addSequential(new MotionProfile(Waypoints.testPoints));
-    	addSequential(new ZeroYaw());
-    	addSequential(new FollowPath(Waypoints.testPoints));
+      	addSequential(new ZeroYaw());
+    	addSequential(new FollowPath(Waypoints.hopperShootRedSnek));
     }
 }
