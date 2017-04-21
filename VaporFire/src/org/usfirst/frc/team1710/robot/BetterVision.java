@@ -38,7 +38,7 @@ public class BetterVision extends Subsystem {
     		if(centerX.length > 0) {
     			targetX = centerX[0];
     			targetY = centerY[0];
-				Drive.simpleArcade(0, -(targetX-340), .008);
+				Drive.simpleArcade(0, -(targetX-170), .003);
     		} else {
     			//red side
     			Drive.simpleArcade(0, 0.25, 1);

@@ -22,7 +22,7 @@ public class FollowPath extends Command {
 	//wheel diameter in meters
 	double wheelDiameter = 0.1016;
 	double rightOutput, leftOutput, turnVal, currentHeading, goalHeading, angleDiff;
-	int rightEncPos, leftEncPos;
+	int rightEncPos, leftEncPos, count;
 	EncoderFollower right, left;
     public FollowPath(Waypoint[] points) {
     	_points = points;
@@ -30,6 +30,7 @@ public class FollowPath extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
+    	count = 0;
     	Pneumatics.shiftForward();
     	Trajectory.Config config = new Trajectory.Config(Trajectory.FitMethod.HERMITE_CUBIC, Trajectory.Config.SAMPLES_HIGH, 0.05, 1.5, 2, 60.0);
     	Trajectory trajectory = Pathfinder.generate(_points, config);
@@ -68,15 +69,18 @@ public class FollowPath extends Command {
     	
     	SmartDashboard.putNumber("RightOutput", rightOutput);
     	SmartDashboard.putNumber("LeftOutput", leftOutput);
+    	count ++;
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return false;
+        return rightOutput == 0 && leftOutput == 0 && count > 5;
     }
 
     // Called once after isFinished returns true
     protected void end() {
+    	count = 0;
+    	Drive.stopDriving();
     }
 
     // Called when another command which requires one or more of the same

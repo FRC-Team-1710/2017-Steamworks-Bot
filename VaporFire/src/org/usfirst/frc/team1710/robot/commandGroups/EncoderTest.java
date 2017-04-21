@@ -7,11 +7,13 @@ import org.usfirst.frc.team1710.robot.Commands.LETLITRIP;
 import org.usfirst.frc.team1710.robot.Commands.MotionProfile;
 import org.usfirst.frc.team1710.robot.Commands.RotateToAngleButWithEncoders;
 import org.usfirst.frc.team1710.robot.Commands.RotatetoAngle;
+import org.usfirst.frc.team1710.robot.Commands.RunShooterAuto;
 import org.usfirst.frc.team1710.robot.Commands.ZeroYaw;
 import org.usfirst.frc.team1710.robot.Commands.followcurve;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import trajectoryGeneration.FollowPath;
+import trajectoryGeneration.FollowPathFromFile;
 import trajectoryGeneration.Waypoints;
 
 /**
@@ -32,6 +34,6 @@ public class EncoderTest extends CommandGroup {
     	addSequential(new RotateToAngleButWithEncoders(true, 2500, -0.5));*/
     	//addSequential(new MotionProfile(Waypoints.testPoints));
       	addSequential(new ZeroYaw());
-    	addSequential(new FollowPath(Waypoints.hopperShootRedSnek));
+    	addSequential(new FollowPath(Waypoints.gearRightRed));
     }
 }

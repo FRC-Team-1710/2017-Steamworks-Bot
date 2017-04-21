@@ -165,7 +165,7 @@ public class Robot extends IterativeRobot {
     	}
     	
     	if(RobotMap.mechStick.getRawButton(5) == true) {
-    		BetterVision.trackBoiler(3);
+    		BetterVision.trackBoiler(1);
     	} else {
     		BetterVision.upAndDown = false;
     		BetterVision.sideToSide = false;

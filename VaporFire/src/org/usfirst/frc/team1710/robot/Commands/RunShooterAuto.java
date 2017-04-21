@@ -24,12 +24,17 @@ public class RunShooterAuto extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-   		BetterVision.trackBoiler(_config);
-    	Shooter.BestShooter();
-   		RobotMap.RM1.set(RobotMap.RPower);
+    	count++;
+    	if(count > 50){
+    		Shooter.BestShooter();
+    	}
+    	else{
+    		BetterVision.trackBoiler(_config);
+    	}
+   		RobotMap.pRM1.set(RobotMap.RPower);
     	RobotMap.RM2.set(RobotMap.RPower);
     	RobotMap.RM3.set(RobotMap.RPower);
-    	RobotMap.LM1.set(RobotMap.LPower * -1);
+    	RobotMap.pLM1.set(RobotMap.LPower * -1);
     	RobotMap.LM2.set(RobotMap.LPower * -1);
     	RobotMap.LM3.set(RobotMap.LPower * -1);
     }

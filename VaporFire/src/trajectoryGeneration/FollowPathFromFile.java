@@ -18,15 +18,17 @@ public class FollowPathFromFile extends Command {
 	double wheelBase, wheelDiameter, turnVal, currentHeading, goalHeading, angleDiff, leftOutput, rightOutput;
 	int rightEncPos, leftEncPos;
 	EncoderFollower right, left;
+	String _fileName;
 	
 	Trajectory _trajectory;
     public FollowPathFromFile(String fileName) {
-    	File trajFile = new File(fileName + ".traj");
-    	_trajectory = Pathfinder.readFromFile(trajFile);
+    	_fileName = fileName;
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
+    	File trajFile = new File("HopperShootRed.csv");
+    	_trajectory = Pathfinder.readFromCSV(trajFile);
     	TankModifier modifier = new TankModifier(_trajectory).modify(wheelBase);
     	right = new EncoderFollower(modifier.getRightTrajectory());
     	right.configureEncoder(rightEncPos, 2000, wheelDiameter);

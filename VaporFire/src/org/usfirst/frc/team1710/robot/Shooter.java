@@ -127,7 +127,7 @@ public class Shooter extends Subsystem {
     	} else {
     		stopIndexer();
     	}
-    	RobotMap.Shooter1.set(-motorPower);
+    	RobotMap.Shooter1.set(motorPower);
     	RobotMap.Shooter2.set(motorPower);
     	Timer.delay(0.25);
     }
