@@ -27,7 +27,7 @@ public class FollowPathFromFile extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	File trajFile = new File("HopperShootRed.csv");
+    	File trajFile = new File(_fileName + ".csv");
     	_trajectory = Pathfinder.readFromCSV(trajFile);
     	TankModifier modifier = new TankModifier(_trajectory).modify(wheelBase);
     	right = new EncoderFollower(modifier.getRightTrajectory());
