@@ -20,14 +20,14 @@ public class FollowPathFromFile extends Command {
 	EncoderFollower right, left;
 	String _fileName;
 	
-	Trajectory _trajectory;
+	static Trajectory _trajectory;
     public FollowPathFromFile(String fileName) {
     	_fileName = fileName;
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	File trajFile = new File(_fileName + ".csv");
+    	File trajFile = new File(_fileName.toString() + ".csv");
     	_trajectory = Pathfinder.readFromCSV(trajFile);
     	TankModifier modifier = new TankModifier(_trajectory).modify(wheelBase);
     	right = new EncoderFollower(modifier.getRightTrajectory());
