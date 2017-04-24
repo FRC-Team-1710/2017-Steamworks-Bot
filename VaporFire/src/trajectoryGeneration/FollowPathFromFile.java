@@ -1,6 +1,8 @@
 package trajectoryGeneration;
 
 import java.io.File;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 import org.usfirst.frc.team1710.robot.RobotMap;
 
@@ -16,7 +18,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class FollowPathFromFile extends Command {
 	double wheelBase, wheelDiameter, turnVal, currentHeading, goalHeading, angleDiff, leftOutput, rightOutput;
-	int rightEncPos, leftEncPos;
+	int rightEncPos, leftEncPos, count;
 	EncoderFollower right, left;
 	String _fileName;
 	
@@ -27,7 +29,10 @@ public class FollowPathFromFile extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	File trajFile = new File(_fileName.toString() + ".csv");
+    	count = 0;
+    	Path path = Paths.get(_fileName.toString() + ".csv");
+    	File trajFile = path.toFile();
+    	System.out.println(trajFile.exists());
     	_trajectory = Pathfinder.readFromCSV(trajFile);
     	TankModifier modifier = new TankModifier(_trajectory).modify(wheelBase);
     	right = new EncoderFollower(modifier.getRightTrajectory());
@@ -62,11 +67,12 @@ public class FollowPathFromFile extends Command {
     	
     	SmartDashboard.putNumber("RightOutput", rightOutput);
     	SmartDashboard.putNumber("LeftOutput", leftOutput);
+    	count++;
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return false;
+        return count > 50 && rightOutput == 0 && leftOutput == 0;
     }
 
     // Called once after isFinished returns true

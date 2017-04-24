@@ -1,5 +1,7 @@
 package trajectoryGeneration;
 
+import java.io.File;
+
 import org.usfirst.frc.team1710.robot.Drive;
 import org.usfirst.frc.team1710.robot.Pneumatics;
 import org.usfirst.frc.team1710.robot.RobotMap;
@@ -35,7 +37,9 @@ public class FollowPath extends Command {
     	count = 0;
     	Pneumatics.shiftForward();
     	Trajectory.Config config = new Trajectory.Config(Trajectory.FitMethod.HERMITE_CUBIC, Trajectory.Config.SAMPLES_HIGH, 0.05, 1.5, 2, 60.0);
+		File trajectoryFile = new File("GearRightRed" + ".csv");
     	Trajectory trajectory = Pathfinder.generate(_points, config);
+		Pathfinder.writeToCSV(trajectoryFile, trajectory);
     	RobotMap.RM2.setEncPosition(0);
     	RobotMap.LM3.setEncPosition(0);
     	TankModifier modifier = new TankModifier(trajectory).modify(wheelBase);

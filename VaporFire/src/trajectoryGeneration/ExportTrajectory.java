@@ -8,7 +8,7 @@ import jaci.pathfinder.Waypoint;
 
 public class ExportTrajectory {
 	public static void main(String[] args) {
-		Export("HopperShootRed", Waypoints.hopperShootRedSnek);
+		Export("GearRightRed", Waypoints.gearRightRed);
 	}
 	
 	public static void Export(String fileName, Waypoint[] points) {

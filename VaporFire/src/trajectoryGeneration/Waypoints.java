@@ -44,8 +44,8 @@ public class Waypoints {
     };
     public static Waypoint[] gearRightRed = new Waypoint[] {
         new Waypoint(0, 0, 0),
-        new Waypoint(6, .8, 0),
-        new Waypoint(7, 1.6, 0),
+        new Waypoint(4.5, 0, 0),
+        new Waypoint(6, 1, 0),
     };
     
     public static Waypoint[] gearRightRedBackupAndShootPart = new Waypoint[] {

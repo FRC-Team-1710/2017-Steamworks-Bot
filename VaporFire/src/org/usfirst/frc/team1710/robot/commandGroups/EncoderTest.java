@@ -23,7 +23,6 @@ public class EncoderTest extends CommandGroup {
 
     public EncoderTest() {
       	addSequential(new ZeroYaw());
-    	addSequential(new FollowPath(Waypoints.gearRightRed, false));
-    	addSequential(new FollowPath(Waypoints.gearRightRedBackupAndShootPart, true));
+    	addSequential(new FollowPathFromFile("GearRightRed"));
     }
 }
