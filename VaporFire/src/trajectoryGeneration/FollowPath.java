@@ -23,9 +23,11 @@ public class FollowPath extends Command {
 	double wheelDiameter = 0.1016;
 	double rightOutput, leftOutput, turnVal, currentHeading, goalHeading, angleDiff;
 	int rightEncPos, leftEncPos, count;
+	boolean _reverse;
 	EncoderFollower right, left;
-    public FollowPath(Waypoint[] points) {
+    public FollowPath(Waypoint[] points, boolean reverse) {
     	_points = points;
+    	_reverse = reverse;
     }
 
     // Called just before this Command runs the first time
@@ -58,14 +60,23 @@ public class FollowPath extends Command {
     	goalHeading = right.getHeading();
     	angleDiff = Pathfinder.boundHalfDegrees(goalHeading - currentHeading);
     	turnVal = 0.8 * (-1.0/80.0) * angleDiff;
-    	
-    	RobotMap.pRM1.set((rightOutput + turnVal) * 1);
-    	RobotMap.RM2.set((rightOutput + turnVal) * 1);
-    	RobotMap.RM3.set((rightOutput + turnVal) * 1);
+    	if(_reverse == false) {
+    		RobotMap.pRM1.set((rightOutput + turnVal) * 1);
+    		RobotMap.RM2.set((rightOutput + turnVal) * 1);
+    		RobotMap.RM3.set((rightOutput + turnVal) * 1);
 
-    	RobotMap.pLM1.set((leftOutput - turnVal) * -1);
-    	RobotMap.LM2.set((leftOutput - turnVal) * -1);
-    	RobotMap.LM3.set((leftOutput - turnVal) * -1);
+    		RobotMap.pLM1.set((leftOutput - turnVal) * -1);
+    		RobotMap.LM2.set((leftOutput - turnVal) * -1);
+    		RobotMap.LM3.set((leftOutput - turnVal) * -1);
+    	} else {
+    		RobotMap.pRM1.set((rightOutput + turnVal) * -1);
+    		RobotMap.RM2.set((rightOutput + turnVal) * -1);
+    		RobotMap.RM3.set((rightOutput + turnVal) * -1);
+
+    		RobotMap.pLM1.set((leftOutput - turnVal) * 1);
+    		RobotMap.LM2.set((leftOutput - turnVal) * 1);
+    		RobotMap.LM3.set((leftOutput - turnVal) * 1);
+    	}
     	
     	SmartDashboard.putNumber("RightOutput", rightOutput);
     	SmartDashboard.putNumber("LeftOutput", leftOutput);

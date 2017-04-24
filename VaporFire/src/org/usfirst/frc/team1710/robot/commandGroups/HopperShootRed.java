@@ -30,7 +30,7 @@ public class HopperShootRed extends CommandGroup {
     	addSequential(new RotateToAngleButWithEncoders(true, 2500, 0.5));
     	addSequential(new RunShooterAuto(7500, 4)); */
       	addSequential(new ZeroYaw());
-    	addSequential(new FollowPath(Waypoints.hopperShootRedSnek));
+    	addSequential(new FollowPath(Waypoints.hopperShootRedSnek, false));
     	addSequential(new RunShooterAuto(3000, 1));
     }
     

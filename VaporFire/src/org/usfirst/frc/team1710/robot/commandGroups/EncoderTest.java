@@ -22,18 +22,8 @@ import trajectoryGeneration.Waypoints;
 public class EncoderTest extends CommandGroup {
 
     public EncoderTest() {
-    	//low gear is 4 to 1 so if it was 1 to 1, 9.5 would move us ten feet but 9.5 * 4 = 38 so 38 "rotations" get us 10 ft
-    	//@param rotations
-    	//@param velocity
-    	//addSequential(new ZeroYaw());
-    	//radius, angle to stop at
-    	/*addSequential(new ZeroYaw());
-    	addSequential(new followcurve(.0015, 40));
-    	addSequential(new ZeroYaw());
-    	addSequential(new DriveToPosition(20, 0));
-    	addSequential(new RotateToAngleButWithEncoders(true, 2500, -0.5));*/
-    	//addSequential(new MotionProfile(Waypoints.testPoints));
       	addSequential(new ZeroYaw());
-    	addSequential(new FollowPathFromFile("HopperShootRed"));
+    	addSequential(new FollowPath(Waypoints.gearRightRed, false));
+    	addSequential(new FollowPath(Waypoints.gearRightRedBackupAndShootPart, true));
     }
 }
