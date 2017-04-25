@@ -12,6 +12,7 @@ import org.usfirst.frc.team1710.robot.Commands.ZeroYaw;
 import org.usfirst.frc.team1710.robot.Commands.followcurve;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
+import trajectoryGeneration.FileGen;
 import trajectoryGeneration.FollowPath;
 import trajectoryGeneration.FollowPathFromFile;
 import trajectoryGeneration.Waypoints;
@@ -22,7 +23,8 @@ import trajectoryGeneration.Waypoints;
 public class EncoderTest extends CommandGroup {
 
     public EncoderTest() {
-      	addSequential(new ZeroYaw());
-    	addSequential(new FollowPathFromFile("GearRightRed"));
+    	//addSequential( new FileGen(Waypoints.hopperShootRedSnek));
+    	addSequential(new ZeroYaw());
+    	addSequential(new FollowPath(false));
     }
 }

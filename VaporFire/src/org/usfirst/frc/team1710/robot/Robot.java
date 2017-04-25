@@ -1,6 +1,9 @@
 
 package org.usfirst.frc.team1710.robot;
 //other libraries
+import jaci.pathfinder.Pathfinder;
+import jaci.pathfinder.Trajectory;
+
 import org.usfirst.frc.team1710.robot.Commands.MotionProfile;
 import org.usfirst.frc.team1710.robot.commandGroups.CrossBaseline;
 import org.usfirst.frc.team1710.robot.commandGroups.EncoderTest;
@@ -16,6 +19,8 @@ import org.usfirst.frc.team1710.robot.commandGroups.HopperShootRed;
 import org.usfirst.frc.team1710.robot.commandGroups.JustShoot;
 import org.usfirst.frc.team1710.robot.commandGroups.RightGearNoEncoder;
 import org.usfirst.frc.team1710.robot.commandGroups.RotateToAngleTest;
+
+import trajectoryGeneration.Waypoints;
 
 import com.ctre.CANTalon;
 import com.ctre.CANTalon.FeedbackDevice;
@@ -49,7 +54,7 @@ public class Robot extends IterativeRobot {
 	static final double kI = 0.0025;
 	static final double kD = 0.0;
 	boolean PIDReady;
-	
+	public static Trajectory traj;
     public void robotInit() {
     	/*UsbCamera camera;
     	camera = CameraServer.getInstance().startAutomaticCapture();
@@ -57,6 +62,8 @@ public class Robot extends IterativeRobot {
     	camera.setFPS(20);
     	camera.setBrightness(25);
     	camera.setExposureManual(0);*/
+    	Trajectory.Config config = new Trajectory.Config(Trajectory.FitMethod.HERMITE_CUBIC, Trajectory.Config.SAMPLES_HIGH, 0.05, 1.5, 2, 60.0);
+    	traj = Pathfinder.generate(Waypoints.hopperShootRedSnek, config);
     	RobotMap.directionMultiplier = 1;
     	motorMap.practiceBot();
     	//motorMap.competitionBot();

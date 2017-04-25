@@ -20,14 +20,14 @@ public class Waypoints {
     public static Waypoint[] hopperShootBlueSnek = new Waypoint[] {
         new Waypoint(1, 0, 0),
         new Waypoint(2, .4, 0),
-        new Waypoint(3, 1.2, 0),
-        new Waypoint(4.35, 1.3, -10),
+        new Waypoint(3.3, 1.2, 0),
+        new Waypoint(4.55, 1.3, -10),
     };
     public static Waypoint[] hopperShootRedSnek = new Waypoint[] {
         new Waypoint(1, 0, 0),
         new Waypoint(2, -.4, 0),
-        new Waypoint(3, -1.65, 0),
-        new Waypoint(4.35, -1.7, 10),
+        new Waypoint(3.3, -1.65, 0),
+        new Waypoint(4.55, -1.7, 10),
     };
     //TODO:adjust distances
     //this path starts parallel to the boiler then curves right into the hopper button

@@ -4,6 +4,7 @@ import java.io.File;
 
 import org.usfirst.frc.team1710.robot.Drive;
 import org.usfirst.frc.team1710.robot.Pneumatics;
+import org.usfirst.frc.team1710.robot.Robot;
 import org.usfirst.frc.team1710.robot.RobotMap;
 
 import edu.wpi.first.wpilibj.command.Command;
@@ -27,8 +28,7 @@ public class FollowPath extends Command {
 	int rightEncPos, leftEncPos, count;
 	boolean _reverse;
 	EncoderFollower right, left;
-    public FollowPath(Waypoint[] points, boolean reverse) {
-    	_points = points;
+    public FollowPath(boolean reverse) {
     	_reverse = reverse;
     }
 
@@ -36,13 +36,9 @@ public class FollowPath extends Command {
     protected void initialize() {
     	count = 0;
     	Pneumatics.shiftForward();
-    	Trajectory.Config config = new Trajectory.Config(Trajectory.FitMethod.HERMITE_CUBIC, Trajectory.Config.SAMPLES_HIGH, 0.05, 1.5, 2, 60.0);
-		File trajectoryFile = new File("GearRightRed" + ".csv");
-    	Trajectory trajectory = Pathfinder.generate(_points, config);
-		Pathfinder.writeToCSV(trajectoryFile, trajectory);
     	RobotMap.RM2.setEncPosition(0);
     	RobotMap.LM3.setEncPosition(0);
-    	TankModifier modifier = new TankModifier(trajectory).modify(wheelBase);
+    	TankModifier modifier = new TankModifier(Robot.traj).modify(wheelBase);
     	right = new EncoderFollower(modifier.getRightTrajectory());
     	right.configureEncoder(rightEncPos, 2000, wheelDiameter);
     	//pid stuff
