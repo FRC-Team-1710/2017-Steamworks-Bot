@@ -13,12 +13,13 @@ import edu.wpi.first.wpilibj.command.Command;
  *
  */
 public class DriveToPosition extends Command {
-	double positionPublic, currentPosition;
+	double positionPublic, currentPosition, _speed;
 	boolean done;
 	float _heading;
-    public DriveToPosition(int inches, float heading) {
+    public DriveToPosition(int inches, float heading, double speed) {
     	positionPublic = inches * 400;
     	_heading = heading;
+    	_speed = speed;
     }
 
     // Called just before this Command runs the first time
@@ -42,20 +43,24 @@ public class DriveToPosition extends Command {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	currentPosition = RobotMap.RM2.getEncPosition();
-    	if(Math.abs(currentPosition - positionPublic) > 1250) {
-    		Drive.straightDrive(0.5, 1, _heading);
-    		RobotMap.pLM1.set(RobotMap.LPower * -1);
-    		RobotMap.LM2.set(RobotMap.LPower * -1);
-    		RobotMap.LM3.set(RobotMap.LPower * -1);
-    		RobotMap.pRM1.set(RobotMap.RPower);
-    		RobotMap.RM2.set(RobotMap.RPower);
-    		RobotMap.RM3.set(RobotMap.RPower);
+    	if((Math.abs(currentPosition)) < (Math.abs(positionPublic))) {
+    		if(positionPublic < 0){
+    			Drive.straightDrive(-_speed, 1, _heading);
+    		}else{
+    			Drive.straightDrive(_speed, 1, _heading);
+    		}
+    		RobotMap.LM1.set(RobotMap.LPower );
+    		RobotMap.LM2.set(RobotMap.LPower );
+    		RobotMap.LM3.set(RobotMap.LPower );
+    		RobotMap.RM1.set(RobotMap.RPower * -1);
+    		RobotMap.RM2.set(RobotMap.RPower * -1);
+    		RobotMap.RM3.set(RobotMap.RPower * -1);
     	} else {
     		done = true;
-    		RobotMap.pLM1.set(0);
+    		RobotMap.LM1.set(0);
     		RobotMap.LM2.set(0);
     		RobotMap.LM3.set(0);
-    		RobotMap.pRM1.set(0);
+    		RobotMap.RM1.set(0);
     		RobotMap.RM2.set(0);
     		RobotMap.RM3.set(0);
     		System.out.println("bye");

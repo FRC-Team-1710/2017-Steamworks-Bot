@@ -1,6 +1,7 @@
 package org.usfirst.frc.team1710.robot.Commands;
 
 import org.usfirst.frc.team1710.robot.BetterVision;
+import org.usfirst.frc.team1710.robot.Drive;
 import org.usfirst.frc.team1710.robot.RobotMap;
 import org.usfirst.frc.team1710.robot.Shooter;
 
@@ -24,29 +25,33 @@ public class RunShooterAuto extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	count++;
-    	if(count > 50){
+    	count ++;
+    	if(count > 150){
     		Shooter.BestShooter();
+    		Drive.stopDriving();
     	}
     	else{
     		BetterVision.trackBoiler(_config);
+    		Shooter.BestShooter();
+       		RobotMap.RM1.set(RobotMap.RPower);
+        	RobotMap.RM2.set(RobotMap.RPower);
+        	RobotMap.RM3.set(RobotMap.RPower);
+        	RobotMap.LM1.set(RobotMap.LPower * -1);
+        	RobotMap.LM2.set(RobotMap.LPower * -1);
+        	RobotMap.LM3.set(RobotMap.LPower * -1);
     	}
-   		RobotMap.pRM1.set(RobotMap.RPower);
-    	RobotMap.RM2.set(RobotMap.RPower);
-    	RobotMap.RM3.set(RobotMap.RPower);
-    	RobotMap.pLM1.set(RobotMap.LPower * -1);
-    	RobotMap.LM2.set(RobotMap.LPower * -1);
-    	RobotMap.LM3.set(RobotMap.LPower * -1);
+
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return done;
+        return count >= (timePublic/20);
     }
 
     // Called once after isFinished returns true
     protected void end() {
     	Shooter.stopShooter();
+    	Drive.stopDriving();
     }
 
     // Called when another command which requires one or more of the same

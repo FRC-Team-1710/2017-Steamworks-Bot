@@ -23,8 +23,7 @@ import trajectoryGeneration.Waypoints;
 public class EncoderTest extends CommandGroup {
 
     public EncoderTest() {
-    	//addSequential( new FileGen(Waypoints.hopperShootRedSnek));
     	addSequential(new ZeroYaw());
-    	addSequential(new FollowPath(false));
+    	addSequential(new DriveToPosition(90, 0, 0.45));
     }
 }

@@ -17,9 +17,10 @@ public class Shooter extends Subsystem {
 	public static boolean shooterAtSpeed, firstInterval, secondInterval, runIndexer;
 	static double power = 0;
 	static double error = 0;
-	static double goalVelocity = 29000;
+	static double goalVelocity = 26000;
 	static boolean moveAway, moveCloser, added, subtracted;
 	static double motorPower = 0.6;
+	int count;
 	
     public void initDefaultCommand() {
        power = 0;
@@ -100,21 +101,20 @@ public class Shooter extends Subsystem {
     
     public static void BestShooter() {
     	double shooterVelocity = RobotMap.Shooter1.getEncVelocity();
-    	
-    	
-    	if(shooterVelocity > 25500) {
+    	SmartDashboard.putNumber("v", shooterVelocity);
+    	if(shooterVelocity > 27000) {
     		//lower motor power
     		subtracted = false;
     		if(subtracted == false) {
-    			motorPower -= 0.015;
+    			motorPower -= 0.02;
     			System.out.println("subtracted");
     			subtracted = true;
     		}
-    	} else if(shooterVelocity < 23000) {
+    	} else if(shooterVelocity < 24500) {
     		//increase motor power
     		added = false;
     		if(added == false) {
-    			motorPower += 0.009;
+    			motorPower += 0.015;
     			System.out.println("added");
     			added = true;
     		}
@@ -122,13 +122,13 @@ public class Shooter extends Subsystem {
     		runIndexer = true;
     	}
     	
-    	if(runIndexer == true && Math.abs((BetterVision.targetX-300)/500) < .4) {
+    	if(runIndexer == true) {
     		runIndexer();
     	} else {
     		stopIndexer();
     	}
     	RobotMap.Shooter1.set(motorPower);
-    	RobotMap.Shooter2.set(motorPower);
+    	RobotMap.Shooter2.set(-motorPower);
     	Timer.delay(0.25);
     }
 }

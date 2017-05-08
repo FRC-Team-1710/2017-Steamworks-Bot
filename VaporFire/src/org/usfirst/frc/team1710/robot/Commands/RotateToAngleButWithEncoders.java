@@ -36,18 +36,18 @@ public class RotateToAngleButWithEncoders extends Command {
     	SmartDashboard.putNumber("encoder2", rightPosition);
     	if(_dir == true && _count > Math.abs(rightPosition)) {
     		Drive.simpleArcade(_speed, 0, 1);
-    		RobotMap.pLM1.set(RobotMap.LPower);
+    		RobotMap.LM1.set(RobotMap.LPower);
     		RobotMap.LM2.set(RobotMap.LPower);
     		RobotMap.LM3.set(RobotMap.LPower);
-    		RobotMap.pRM1.set(RobotMap.LPower);
+    		RobotMap.RM1.set(RobotMap.LPower);
     		RobotMap.RM2.set(RobotMap.LPower);
     		RobotMap.RM3.set(RobotMap.LPower);
     	} else if(_dir == false && _count > Math.abs(rightPosition)) {
     		Drive.simpleArcade(_speed, 0, -1);
-    		RobotMap.pLM1.set(RobotMap.LPower);
+    		RobotMap.LM1.set(RobotMap.LPower);
     		RobotMap.LM2.set(RobotMap.LPower);
     		RobotMap.LM3.set(RobotMap.LPower);
-    		RobotMap.pRM1.set(RobotMap.LPower);
+    		RobotMap.RM1.set(RobotMap.LPower);
     		RobotMap.RM2.set(RobotMap.LPower);
     		RobotMap.RM3.set(RobotMap.LPower);
     	} else {

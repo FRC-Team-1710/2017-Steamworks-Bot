@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 public class JustShoot extends CommandGroup {
 
     public JustShoot() {
-    	addSequential(new DriveToPosition(100, 0));
+    	addSequential(new DriveToPosition(100, 0, 0.45));
     	addSequential(new RunShooterAuto(4000, 2));
     }
 }

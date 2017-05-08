@@ -26,7 +26,7 @@ public class Drive extends Subsystem {
     		RobotMap.LPower = (((forwardP*multiplier) * -1) - (turnP*multiplier*-1));    		
     		RobotMap.RPower = (((forwardP*multiplier) * -1) + (turnP*multiplier*-1)); 
         	RobotMap.axisType = 2;
-        	Pneumatics.shiftReverse();
+        	Pneumatics.shiftForward();
     	}
     	else if (onTurbo == false && neutral == false){ 
     		if(RobotMap.flipped = true) {
@@ -37,7 +37,7 @@ public class Drive extends Subsystem {
     			RobotMap.RPower = (((forwardP*multiplier) * -1) + (turnP)); 
     		}
         	RobotMap.axisType = 0;
-        	Pneumatics.shiftForward();
+        	Pneumatics.shiftReverse();
     	}
     	else if(onTurbo == true && onSteg == true) {
     		//StegDrive(forwardP, currentYaw, multiplier);
@@ -56,10 +56,10 @@ public class Drive extends Subsystem {
     }
     
     public static void stopDriving() {
-		RobotMap.pLM1.set(0);
+		RobotMap.LM1.set(0);
 		RobotMap.LM2.set(0);
 		RobotMap.LM3.set(0);
-		RobotMap.pRM1.set(0);
+		RobotMap.RM1.set(0);
 		RobotMap.RM2.set(0);
 		RobotMap.RM3.set(0);
     }
@@ -70,7 +70,7 @@ public class Drive extends Subsystem {
     }
     
     public static void straightDrive(double forwardP, double multiplier, float goalAngle) {
-    	angleCorrection = (goalAngle + RobotMap.navx.getYaw()) * -0.0055;
+    	angleCorrection = (goalAngle - RobotMap.navx.getYaw()) * -0.0055;
     	RobotMap.LPower = ((forwardP*multiplier) + (angleCorrection));
     	RobotMap.RPower = ((forwardP*multiplier) - (angleCorrection));
     }
@@ -79,10 +79,10 @@ public class Drive extends Subsystem {
     	angleCorrection = (goalAngle - RobotMap.navx.getYaw()) * inc;
     	RobotMap.LPower = ((forwardP*1) - (angleCorrection));
     	RobotMap.RPower = ((forwardP*1) + (angleCorrection));
-		RobotMap.pLM1.set(RobotMap.LPower * -1);
+		RobotMap.LM1.set(RobotMap.LPower * -1);
 		RobotMap.LM2.set(RobotMap.LPower * -1);
 		RobotMap.LM3.set(RobotMap.LPower * -1);
-		RobotMap.pRM1.set(RobotMap.RPower);
+		RobotMap.RM1.set(RobotMap.RPower);
 		RobotMap.RM2.set(RobotMap.RPower);
 		RobotMap.RM3.set(RobotMap.RPower);
     }

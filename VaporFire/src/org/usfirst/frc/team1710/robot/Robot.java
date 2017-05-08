@@ -45,7 +45,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Robot extends IterativeRobot {
-	//double compressorCurrent;
+	//double compressorCurrent6
 	Command autonomousCommand;
 	SendableChooser autoChooser;
 	
@@ -56,17 +56,16 @@ public class Robot extends IterativeRobot {
 	boolean PIDReady;
 	public static Trajectory traj;
     public void robotInit() {
-    	/*UsbCamera camera;
+    	UsbCamera camera;
     	camera = CameraServer.getInstance().startAutomaticCapture();
     	camera.setResolution(320, 240);
     	camera.setFPS(20);
     	camera.setBrightness(25);
-    	camera.setExposureManual(0);*/
-    	Trajectory.Config config = new Trajectory.Config(Trajectory.FitMethod.HERMITE_CUBIC, Trajectory.Config.SAMPLES_HIGH, 0.05, 1.5, 2, 60.0);
-    	traj = Pathfinder.generate(Waypoints.hopperShootRedSnek, config);
+    	camera.setExposureManual(0);
+    	//this is your auto chooser :/
     	RobotMap.directionMultiplier = 1;
-    	motorMap.practiceBot();
-    	//motorMap.competitionBot();
+    	//motorMap.practiceBot();
+    	motorMap.competitionBot();
         RobotMap.driveStick = new Joystick(0);
         RobotMap.mechStick = new Joystick(1);
         if(motorMap.runningPracticeBot == true) {
@@ -89,20 +88,17 @@ public class Robot extends IterativeRobot {
         
         //Set defaults
         RobotMap.Compressor.setClosedLoopControl(false);
-
+        RobotMap.RM1.enableBrakeMode(true);
+        RobotMap.RM2.enableBrakeMode(true);
+        RobotMap.LM1.enableBrakeMode(true);
+        RobotMap.LM2.enableBrakeMode(true);
     	//Auto stuff
     	autoChooser = new SendableChooser();
-        autoChooser.addObject("Gear Left", new GearPlaceLeft());
-        autoChooser.addObject("Gear Right", new GearPlaceRight());
         autoChooser.addDefault("Center Gear", new EncoderTest());
-        autoChooser.addObject("Gear Left Shoot", new GearPlaceLeftShoot());
-        autoChooser.addObject("Gear Right Shoot Red", new GearPlaceRightShoot());
         autoChooser.addObject("Gear Center Shoot Red", new GearCenterShootRed());
         autoChooser.addObject("Gear Center Shoot Blue", new GearCenterShoot());
         autoChooser.addObject("HopperShoot Blue", new HopperShoot());
         autoChooser.addObject("HopperShoot Red", new HopperShootRed());
-        autoChooser.addObject("Cross Baseline", new CrossBaseline());
-        autoChooser.addObject("Gear Right, time based", new RightGearNoEncoder());
         autoChooser.addObject("Just Shoot", new JustShoot());
         SmartDashboard.putData("Meme Chooser", autoChooser);
         RobotMap.RPiston.set(DoubleSolenoid.Value.kOff);
@@ -166,9 +162,9 @@ public class Robot extends IterativeRobot {
     	}
     	//Climber
     	if(RobotMap.mechStick.getRawButton(2) == true) {
-    		RobotMap.pClimber.set(Math.abs(RobotMap.mechStick.getRawAxis(1)));
+    		RobotMap.Climber.set(Math.abs(RobotMap.mechStick.getRawAxis(1)));
     	} else {
-    		RobotMap.pClimber.set(0);
+    		RobotMap.Climber.set(0);
     	}
     	
     	if(RobotMap.mechStick.getRawButton(5) == true) {
@@ -185,7 +181,6 @@ public class Robot extends IterativeRobot {
     	//Shooter
     	if(RobotMap.onShootSys == true) {
     		Shooter.BestShooter();
-    		SmartDashboard.putNumber("Velocity", RobotMap.Shooter1.getEncVelocity());
     	} else if(RobotMap.mechStick.getRawButton(7) == true) {
     		Shooter.ShootLow();
     	}
@@ -203,11 +198,7 @@ public class Robot extends IterativeRobot {
     	/*angleIncrease = angleInitial - anglePrevious;
     	angle = anglePrevious + angleIncrease;
     	anglePrevious = angle;*/
-    	SmartDashboard.putNumber("encoder1", RobotMap.LM2.getEncPosition());
-    	SmartDashboard.putNumber("encoder2", RobotMap.LM3.getEncPosition());
-    	SmartDashboard.putNumber("encoder3", RobotMap.RM2.getEncPosition());
-    	SmartDashboard.putNumber("encoder4", RobotMap.RM3.getEncPosition());
-
+    	SmartDashboard.putNumber("e1",RobotMap.Shooter1.getEncVelocity());
     }
 
     public void testPeriodic() {

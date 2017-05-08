@@ -28,7 +28,7 @@ public static boolean done;
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	if(Math.abs(_goalAngle) > Math.abs(RobotMap.navx.getYaw())){
-    		Drive.curve(_forwardP, _inc, _goalAngle);
+    		Drive.curve(-_forwardP, _inc, _goalAngle);
     	}
     	else{
     		done = true;
@@ -43,10 +43,10 @@ public static boolean done;
 
     // Called once after isFinished returns true
     protected void end() {
-		RobotMap.pLM1.set(0);
+		RobotMap.LM1.set(0);
 		RobotMap.LM2.set(0);
 		RobotMap.LM3.set(0);
-		RobotMap.pRM1.set(0);
+		RobotMap.RM1.set(0);
 		RobotMap.RM2.set(0);
 		RobotMap.RM3.set(0);
     	RobotMap.RM2.setEncPosition(0);

@@ -22,16 +22,14 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 public class HopperShootRed extends CommandGroup {
 
     public HopperShootRed() {
-   /* 	addSequential(new ZeroYaw());
-    	addSequential(new followcurve(.0015, 40));
     	addSequential(new ZeroYaw());
-    	addSequential(new DriveToPosition(20, 0));
+    	addSequential(new followcurve(.003, -40));
+    	addSequential(new ZeroYaw());
+    	addSequential(new DriveToPosition(-20, 0, 0.4));
+    	addSequential(new ZeroYaw());
     	addSequential(new RotateToAngleButWithEncoders(true, 2500, -0.5));
     	addSequential(new RotateToAngleButWithEncoders(true, 2500, 0.5));
-    	addSequential(new RunShooterAuto(7500, 4)); */
-      	addSequential(new ZeroYaw());
-    	addSequential(new FollowPath(false));
-    	addSequential(new RunShooterAuto(3000, 1));
+    	addSequential(new RunShooterAuto(7500, 4));
     }
     
     protected void interrupted() {

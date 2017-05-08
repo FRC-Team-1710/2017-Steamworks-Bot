@@ -55,11 +55,11 @@ public class FollowPathFromFile extends Command {
     	angleDiff = Pathfinder.boundHalfDegrees(goalHeading - currentHeading);
     	turnVal = 0.8 * (-1.0/80.0) * angleDiff;
     	
-    	RobotMap.pRM1.set((rightOutput + turnVal) * 1);
+    	RobotMap.RM1.set((rightOutput + turnVal) * 1);
     	RobotMap.RM2.set((rightOutput + turnVal) * 1);
     	RobotMap.RM3.set((rightOutput + turnVal) * 1);
 
-    	RobotMap.pLM1.set((leftOutput - turnVal) * -1);
+    	RobotMap.LM1.set((leftOutput - turnVal) * -1);
     	RobotMap.LM2.set((leftOutput - turnVal) * -1);
     	RobotMap.LM3.set((leftOutput - turnVal) * -1);
     	

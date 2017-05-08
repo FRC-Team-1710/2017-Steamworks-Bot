@@ -19,15 +19,15 @@ public class Waypoints {
     //this path snakes right up to the button and does a swift, clean turn back and forth to release the balls
     public static Waypoint[] hopperShootBlueSnek = new Waypoint[] {
         new Waypoint(1, 0, 0),
-        new Waypoint(2, .4, 0),
-        new Waypoint(3.3, 1.2, 0),
-        new Waypoint(4.55, 1.3, -10),
+        new Waypoint(2, -.3, 0),
+        new Waypoint(3.3, -.55, 0),
+        new Waypoint(4.2, -.65, 0),
     };
     public static Waypoint[] hopperShootRedSnek = new Waypoint[] {
         new Waypoint(1, 0, 0),
-        new Waypoint(2, -.4, 0),
-        new Waypoint(3.3, -1.65, 0),
-        new Waypoint(4.55, -1.7, 10),
+        new Waypoint(2, .4, 0),
+        new Waypoint(3.3, 1.2, 0),
+        new Waypoint(4.55, 1.35, 0),
     };
     //TODO:adjust distances
     //this path starts parallel to the boiler then curves right into the hopper button
@@ -46,7 +46,20 @@ public class Waypoints {
         new Waypoint(0, 0, 0),
         new Waypoint(4.5, 0, 0),
         new Waypoint(6, 1, 0),
+        new Waypoint(8, 1, 0),
     };
+    
+    public static Waypoint[] gearLeftRed = new Waypoint[] {
+            new Waypoint(0, 0, 0),
+            new Waypoint(4.5, 0, 0),
+            new Waypoint(6, -1, 0),
+            new Waypoint(8, -1, 0),
+        };
+    
+    public static Waypoint[] gearCenter = new Waypoint[] {
+            new Waypoint(0, 0, 0),
+            new Waypoint(4, 0, 0),
+        };
     
     public static Waypoint[] gearRightRedBackupAndShootPart = new Waypoint[] {
         new Waypoint(0, 0, 0),

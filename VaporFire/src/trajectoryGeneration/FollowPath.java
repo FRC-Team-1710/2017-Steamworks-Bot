@@ -35,19 +35,19 @@ public class FollowPath extends Command {
     // Called just before this Command runs the first time
     protected void initialize() {
     	count = 0;
-    	Pneumatics.shiftForward();
+    	Pneumatics.shiftReverse();
     	RobotMap.RM2.setEncPosition(0);
     	RobotMap.LM3.setEncPosition(0);
     	TankModifier modifier = new TankModifier(Robot.traj).modify(wheelBase);
     	right = new EncoderFollower(modifier.getRightTrajectory());
     	right.configureEncoder(rightEncPos, 2000, wheelDiameter);
     	//pid stuff
-    	right.configurePIDVA(0.8, 0, 0, 1 / 1.5, 0);
+    	right.configurePIDVA(0.8, 0, 0, 1 / 1.7, 0);
     	
     	left = new EncoderFollower(modifier.getLeftTrajectory());
     	left.configureEncoder(leftEncPos, 2000, wheelDiameter);
     	//pid stuff
-    	left.configurePIDVA(0.8, 0, 0, 1 / 1.5, 0);
+    	left.configurePIDVA(0.8, 0, 0, 1 / 1.7, 0);
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -61,23 +61,22 @@ public class FollowPath extends Command {
     	angleDiff = Pathfinder.boundHalfDegrees(goalHeading - currentHeading);
     	turnVal = 0.8 * (-1.0/80.0) * angleDiff;
     	if(_reverse == false) {
-    		RobotMap.pRM1.set((rightOutput + turnVal) * 1);
+    		RobotMap.RM1.set((rightOutput + turnVal) * 1);
     		RobotMap.RM2.set((rightOutput + turnVal) * 1);
     		RobotMap.RM3.set((rightOutput + turnVal) * 1);
 
-    		RobotMap.pLM1.set((leftOutput - turnVal) * -1);
+    		RobotMap.LM1.set((leftOutput - turnVal) * -1);
     		RobotMap.LM2.set((leftOutput - turnVal) * -1);
     		RobotMap.LM3.set((leftOutput - turnVal) * -1);
     	} else {
-    		RobotMap.pRM1.set((rightOutput + turnVal) * -1);
+    		RobotMap.RM1.set((rightOutput + turnVal) * -1);
     		RobotMap.RM2.set((rightOutput + turnVal) * -1);
     		RobotMap.RM3.set((rightOutput + turnVal) * -1);
 
-    		RobotMap.pLM1.set((leftOutput - turnVal) * 1);
+    		RobotMap.LM1.set((leftOutput - turnVal) * 1);
     		RobotMap.LM2.set((leftOutput - turnVal) * 1);
     		RobotMap.LM3.set((leftOutput - turnVal) * 1);
     	}
-    	
     	SmartDashboard.putNumber("RightOutput", rightOutput);
     	SmartDashboard.putNumber("LeftOutput", leftOutput);
     	count ++;
@@ -85,11 +84,13 @@ public class FollowPath extends Command {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return rightOutput == 0 && leftOutput == 0 && count > 5;
+        return left.isFinished() && right.isFinished();
     }
 
     // Called once after isFinished returns true
     protected void end() {
+    	Drive.zeroYaw();
+    	System.out.println(count);
     	count = 0;
     	Drive.stopDriving();
     }
