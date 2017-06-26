@@ -19,7 +19,7 @@ public class BetterVision extends Subsystem {
 	public static double targetX, targetY;
 	static double error;
 	public static boolean errorFound, sideToSide, upAndDown;
-	public static int count;
+	public static int count, xError, yError;
 	
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
@@ -33,15 +33,16 @@ public class BetterVision extends Subsystem {
     	table = NetworkTable.getTable("GRIP/BoilerReport");
     	centerX = table.getNumberArray("centerX");
     	centerY = table.getNumberArray("centerY");
+
     	System.out.println(centerX.length);
     	if(config == 1) {
     		if(centerX.length > 0) {
     			targetX = centerX[0];
     			targetY = centerY[0];
-				Drive.simpleArcade(0, -(targetX-170), .00175);
+				Drive.simpleArcade((targetY-200), -(targetX-190), 0.00175);
     		} else {
     			//red side
-    			Drive.simpleArcade(0, 0.15, 1);
+    			Drive.simpleArcade(0, 0.25, 1);
     		}
     	} else if(config == 2) {
     		if(centerX.length > 0) {

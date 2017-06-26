@@ -102,7 +102,7 @@ public class Shooter extends Subsystem {
     public static void BestShooter() {
     	double shooterVelocity = RobotMap.Shooter1.getEncVelocity();
     	SmartDashboard.putNumber("v", shooterVelocity);
-    	if(shooterVelocity > 27000) {
+    	if(shooterVelocity > 28000) {
     		//lower motor power
     		subtracted = false;
     		if(subtracted == false) {
@@ -110,7 +110,7 @@ public class Shooter extends Subsystem {
     			System.out.println("subtracted");
     			subtracted = true;
     		}
-    	} else if(shooterVelocity < 24500) {
+    	} else if(shooterVelocity < 25000) {
     		//increase motor power
     		added = false;
     		if(added == false) {
