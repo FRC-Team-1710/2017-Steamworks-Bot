@@ -43,6 +43,7 @@ public class DriveToPosition extends Command {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	currentPosition = RobotMap.RM2.getEncPosition();
+    	System.out.println(currentPosition);
     	if((Math.abs(currentPosition)) < (Math.abs(positionPublic))) {
     		if(positionPublic < 0){
     			Drive.straightDrive(-_speed, 1, _heading);
