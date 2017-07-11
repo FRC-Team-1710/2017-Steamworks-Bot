@@ -20,6 +20,6 @@ public class GearPlaceRight extends CommandGroup {
     	addSequential(new ZeroYaw());
     	addSequential(new RotatetoAngle(-70));
     	addSequential(new ZeroYaw());
-    	addSequential(new EncoderDrive(36, .4, true));
+    	addSequential(new DriveToPosition(36, 0, .4));
     }
 }
