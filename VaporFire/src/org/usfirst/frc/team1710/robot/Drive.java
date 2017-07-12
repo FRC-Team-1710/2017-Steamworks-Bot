@@ -77,14 +77,14 @@ public class Drive extends Subsystem {
     
     public static void curve(double forwardP, double inc, float goalAngle) {
     	angleCorrection = (goalAngle - RobotMap.navx.getYaw()) * inc;
-    	RobotMap.LPower = ((forwardP*1) - (angleCorrection));
-    	RobotMap.RPower = ((forwardP*1) + (angleCorrection));
+    	RobotMap.LPower = ((forwardP*1) + (angleCorrection));
+    	RobotMap.RPower = ((forwardP*1) - (angleCorrection));
 		RobotMap.LM1.set(RobotMap.LPower * -1);
 		RobotMap.LM2.set(RobotMap.LPower * -1);
 		RobotMap.LM3.set(RobotMap.LPower * -1);
-		RobotMap.RM1.set(RobotMap.RPower);
-		RobotMap.RM2.set(RobotMap.RPower);
-		RobotMap.RM3.set(RobotMap.RPower);
+		RobotMap.RM1.set(RobotMap.RPower * 1);
+		RobotMap.RM2.set(RobotMap.RPower * 1);
+		RobotMap.RM3.set(RobotMap.RPower * 1);
     }
     
     public static void pidDrive() {

@@ -23,6 +23,7 @@ public static boolean done;
     protected void initialize() {
     	done = false;
     	RobotMap.RM2.setEncPosition(0);
+    	RobotMap.LM3.setEncPosition(0);
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -33,7 +34,6 @@ public static boolean done;
     	else{
     		done = true;
     	}
-    	System.out.println(RobotMap.navx.getYaw());
     }
 
     // Make this return true when this Command no longer needs to run execute()
