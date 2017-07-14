@@ -31,14 +31,14 @@ public class RunShooterAuto extends Command {
     		Drive.stopDriving();
     	}
     	else{
-    		BetterVision.trackBoiler(_config);
+    		//BetterVision.trackBoiler(_config);
     		Shooter.BestShooter();
-       		RobotMap.RM1.set(RobotMap.RPower);
+       		/*RobotMap.RM1.set(RobotMap.RPower);
         	RobotMap.RM2.set(RobotMap.RPower);
         	RobotMap.RM3.set(RobotMap.RPower);
         	RobotMap.LM1.set(RobotMap.LPower * -1);
         	RobotMap.LM2.set(RobotMap.LPower * -1);
-        	RobotMap.LM3.set(RobotMap.LPower * -1);
+        	RobotMap.LM3.set(RobotMap.LPower * -1);*/
     	}
 
     }

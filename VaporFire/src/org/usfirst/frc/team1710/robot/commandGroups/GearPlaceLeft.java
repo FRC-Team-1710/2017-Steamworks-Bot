@@ -16,10 +16,10 @@ public class GearPlaceLeft extends CommandGroup {
     	addSequential(new ZeroYaw());
     	//drives 90 inches forward holding a heading of 0 degrees (straight)
     	//at 80% speed, do change the direction just make the distance negative.
-    	addSequential(new DriveToPosition(74, 0, .65));
+    	addSequential(new DriveToPosition(78, 0, .6));
     	addSequential(new ZeroYaw());
-    	addSequential(new RotatetoAngle(50));
+    	addSequential(new RotatetoAngle(55));
     	addSequential(new ZeroYaw());
-    	addSequential(new DriveToPosition(27, 0, .4));
+    	addSequential(new DriveToPosition(18, 0, .35));
     }
 }

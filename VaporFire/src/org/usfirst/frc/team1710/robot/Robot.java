@@ -94,11 +94,12 @@ public class Robot extends IterativeRobot {
         RobotMap.LM2.enableBrakeMode(true);
     	//Auto stuff
     	autoChooser = new SendableChooser();
-        autoChooser.addDefault("Center Gear", new GearPlaceRight());
+        autoChooser.addDefault("Left Peg", new GearPlaceLeftShoot());
+        autoChooser.addObject("Right Peg", new GearPlaceRight());
         autoChooser.addObject("Gear Center Shoot Red", new GearCenterShootRed());
         autoChooser.addObject("Gear Center Shoot Blue", new GearCenterShoot());
-        autoChooser.addObject("HopperShoot Blue", new HopperShoot());
-        autoChooser.addObject("HopperShoot Red", new HopperShootRed());
+        autoChooser.addObject("Left Peg Shoot", new GearPlaceLeftShoot());
+        autoChooser.addObject("Right Peg Shoot", new GearPlaceRightShoot());
         autoChooser.addObject("Just Shoot", new JustShoot());
         SmartDashboard.putData("Meme Chooser", autoChooser);
         RobotMap.RPiston.set(DoubleSolenoid.Value.kOff);
@@ -198,7 +199,6 @@ public class Robot extends IterativeRobot {
     	/*angleIncrease = angleInitial - anglePrevious;
     	angle = anglePrevious + angleIncrease;
     	anglePrevious = angle;*/
-    	SmartDashboard.putNumber("e1",RobotMap.Shooter1.getEncVelocity());
     }
 
     public void testPeriodic() {
