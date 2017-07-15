@@ -38,9 +38,9 @@ public class RotatetoAngle extends Command {
     			Drive.simpleArcade(0, 0, 0);
     			done = true;
     		} else if(currentYaw > turningDegreePublic) {
-    			Drive.simpleArcade(0, -0.3, 1);
+    			Drive.simpleArcade(0, -0.4, 1);
     		} else if(currentYaw < turningDegreePublic) {
-    			Drive.simpleArcade(0, 0.3, 1);
+    			Drive.simpleArcade(0, 0.4, 1);
     		}
     	} else {
         	currentYaw = RobotMap.navx.getYaw();
@@ -50,9 +50,9 @@ public class RotatetoAngle extends Command {
     			Drive.simpleArcade(0, 0, 0);
         		done = true;
         	} else if(currentYaw > turningDegreePublic) {
-    			Drive.simpleArcade(0, -0.3, 1);
+    			Drive.simpleArcade(0, -0.4, 1);
     		} else if(currentYaw < turningDegreePublic) {
-    			Drive.simpleArcade(0, 0.3, 1);
+    			Drive.simpleArcade(0, 0.4, 1);
     		}
     	}
 		RobotMap.LM1.set(RobotMap.LPower);

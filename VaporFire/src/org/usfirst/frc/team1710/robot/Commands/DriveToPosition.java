@@ -16,13 +16,13 @@ public class DriveToPosition extends Command {
 	double positionPublic, currentPosition, _speed;
 	boolean done;
 	float _heading;
-    public DriveToPosition(int inches, float heading, double speed) {
-    	positionPublic = inches * 400;
+    public DriveToPosition(double d, float heading, double speed) {
+    	positionPublic = d * 400;
     	_heading = heading;
     	_speed = speed;
     }
 
-    // Called just before this Command runs the first time
+	// Called just before this Command runs the first time
     protected void initialize() {
     	/*RobotMap.LM3.setFeedbackDevice(FeedbackDevice.QuadEncoder);
     	RobotMap.LM3.changeControlMode(TalonControlMode.Position);

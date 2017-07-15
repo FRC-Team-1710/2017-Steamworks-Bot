@@ -15,15 +15,17 @@ public class GearPlaceRightShoot extends CommandGroup {
 
     public GearPlaceRightShoot() {
     	addSequential(new ZeroYaw());
-    	addSequential(new DriveToPosition(107, 0 ,0.45));
+    	//drives 90 inches forward holding a heading of 0 degrees (straight)
+    	//at 80% speed, do change the direction just make the distance negative.
+    	addSequential(new DriveToPosition(81, 0, .65));
     	addSequential(new ZeroYaw());
-    	addSequential(new RotatetoAngle(-45));
+    	addSequential(new RotatetoAngle(-63));
     	addSequential(new ZeroYaw());
-    	addSequential(new DriveToPosition(48, 0, 0.45));
-    	addSequential(new Delay(2));
+    	addSequential(new DriveToPosition(23, 0, .4));
+    	//wait for pilot
+    	addSequential(new Delay(1.6));
     	addSequential(new ZeroYaw());
-    	addSequential(new DriveToPosition(-48, 0, 0.45));
-    	addSequential(new ZeroYaw());
-    	addSequential(new RunShooterAuto(5000, 2));
+    	addSequential(new DriveToPosition(-42, 10, .4));
+    	addSequential(new RunShooterAuto(4000, 2));
     }
 }

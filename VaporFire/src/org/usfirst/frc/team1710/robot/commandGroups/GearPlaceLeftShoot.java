@@ -17,11 +17,11 @@ public class GearPlaceLeftShoot extends CommandGroup {
     	addSequential(new ZeroYaw());
     	//drives 90 inches forward holding a heading of 0 degrees (straight)
     	//at 80% speed, do change the direction just make the distance negative.
-    	addSequential(new DriveToPosition(78, 0, .6));
+    	addSequential(new DriveToPosition(81, 0, .6));
     	addSequential(new ZeroYaw());
-    	addSequential(new RotatetoAngle(55));
+    	addSequential(new RotatetoAngle(63));
     	addSequential(new ZeroYaw());
-    	addSequential(new DriveToPosition(18, 0, .35));
+    	addSequential(new DriveToPosition(22, 0, .35));
     	//wait for pilot
     	addSequential(new Delay(1.6));
     	addSequential(new ZeroYaw());

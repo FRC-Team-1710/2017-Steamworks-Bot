@@ -94,13 +94,14 @@ public class Robot extends IterativeRobot {
         RobotMap.LM2.enableBrakeMode(true);
     	//Auto stuff
     	autoChooser = new SendableChooser();
-        autoChooser.addDefault("Left Peg", new GearPlaceLeftShoot());
-        autoChooser.addObject("Right Peg", new GearPlaceRight());
+        autoChooser.addDefault("Right Peg", new GearPlaceRight());
+        autoChooser.addObject("Center Peg", new GearPlaceCenter());
         autoChooser.addObject("Gear Center Shoot Red", new GearCenterShootRed());
         autoChooser.addObject("Gear Center Shoot Blue", new GearCenterShoot());
         autoChooser.addObject("Left Peg Shoot", new GearPlaceLeftShoot());
         autoChooser.addObject("Right Peg Shoot", new GearPlaceRightShoot());
         autoChooser.addObject("Just Shoot", new JustShoot());
+        autoChooser.addObject("Left Peg", new GearPlaceLeft());
         SmartDashboard.putData("Meme Chooser", autoChooser);
         RobotMap.RPiston.set(DoubleSolenoid.Value.kOff);
         RobotMap.LPiston.set(DoubleSolenoid.Value.kOff);
