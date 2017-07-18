@@ -47,8 +47,8 @@ public class Shooter extends Subsystem {
     
     public static void runIndexer(){
     	if(motorMap.runningCompetitionBot == true) {
-    		//was 0.84
-    		RobotMap.Injector.set(0.80);
+    		//was 0.65
+    		RobotMap.Injector.set(0.65);
     	} else {
     		RobotMap.pInjector.set(0.65);
     	}
@@ -102,7 +102,7 @@ public class Shooter extends Subsystem {
     public static void BestShooter() {
     	double shooterVelocity = RobotMap.Shooter1.getEncVelocity();
     	SmartDashboard.putNumber("v", shooterVelocity);
-    	if(shooterVelocity > 26000) {
+    	if(shooterVelocity > 26500) {
     		//lower motor power
     		subtracted = false;
     		if(subtracted == false) {
@@ -110,11 +110,11 @@ public class Shooter extends Subsystem {
     			System.out.println("subtracted");
     			subtracted = true;
     		}
-    	} else if(shooterVelocity < 23000) {
+    	} else if(shooterVelocity < 25500) {
     		//increase motor power
     		added = false;
     		if(added == false) {
-    			motorPower += 0.01;
+    			motorPower += 0.025;
     			System.out.println("added");
     			added = true;
     		}
@@ -129,6 +129,6 @@ public class Shooter extends Subsystem {
     	}
     	RobotMap.Shooter1.set(motorPower);
     	RobotMap.Shooter2.set(-motorPower);
-    	Timer.delay(0.25);
+    	Timer.delay(0.01);
     }
 }

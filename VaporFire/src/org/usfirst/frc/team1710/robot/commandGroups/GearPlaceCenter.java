@@ -15,6 +15,6 @@ public class GearPlaceCenter extends CommandGroup {
 	//for red alliance, would be left for the blue alliance
     public GearPlaceCenter() {
     	addSequential(new ZeroYaw());
-    	addSequential(new DriveToPosition(75, 0, 0.4));
+    	addSequential(new DriveToPosition(78, 0, 0.375));
     }
 }

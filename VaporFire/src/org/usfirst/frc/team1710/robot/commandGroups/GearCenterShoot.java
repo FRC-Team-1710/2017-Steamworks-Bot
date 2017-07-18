@@ -18,14 +18,14 @@ public class GearCenterShoot extends CommandGroup {
     public GearCenterShoot() {
     	//blue alliance
     	addSequential(new ZeroYaw());
-    	addSequential(new DriveToPosition(83, 0, 0.45));
-    	addSequential(new Delay(2.25));
+    	addSequential(new DriveToPosition(72, 0, 0.6));
+    	addSequential(new Delay(2));
     	addSequential(new ZeroYaw());
-    	addSequential(new DriveToPosition(-10, 0, 0.75));
+    	addSequential(new DriveToPosition(-5, 0, 0.75));
     	addSequential(new ZeroYaw());
-    	addSequential(new RotatetoAngle(80));
+    	addSequential(new RotatetoAngle(75));
     	addSequential(new ZeroYaw());
-    	addSequential(new DriveToPosition(-45, 0, 0.75));
-    	addSequential(new RunShooterAuto(4000, 2));
+    	addSequential(new DriveToPosition(-35, 0, 0.75));
+    	addSequential(new RunShooterAuto(5500, 2));
      }
 }

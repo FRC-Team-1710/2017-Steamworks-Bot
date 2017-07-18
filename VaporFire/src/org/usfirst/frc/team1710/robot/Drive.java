@@ -70,7 +70,7 @@ public class Drive extends Subsystem {
     }
     
     public static void straightDrive(double forwardP, double multiplier, float goalAngle) {
-    	angleCorrection = (goalAngle - RobotMap.navx.getYaw()) * -0.0055;
+    	angleCorrection = (goalAngle - RobotMap.navx.getYaw()) * -0.02;
     	RobotMap.LPower = ((forwardP*multiplier) + (angleCorrection));
     	RobotMap.RPower = ((forwardP*multiplier) - (angleCorrection));
     }
