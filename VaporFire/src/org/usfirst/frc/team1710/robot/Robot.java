@@ -94,7 +94,7 @@ public class Robot extends IterativeRobot {
         RobotMap.LM2.enableBrakeMode(true);
     	//Auto stuff
     	autoChooser = new SendableChooser();
-        autoChooser.addDefault("Right Peg", new GearPlaceRight());
+        autoChooser.addDefault("AutoChallenge", new AutoChallenge());
         autoChooser.addObject("Center Peg", new GearPlaceCenter());
         autoChooser.addObject("Gear Center Shoot Red", new GearCenterShootRed());
         autoChooser.addObject("Gear Center Shoot Blue", new GearCenterShoot());

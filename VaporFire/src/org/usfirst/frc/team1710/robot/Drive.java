@@ -87,6 +87,18 @@ public class Drive extends Subsystem {
 		RobotMap.RM3.set(RobotMap.RPower * 1);
     }
     
+    public static void leftDrive(double power) {
+    	RobotMap.LM1.set(power);
+    	RobotMap.LM2.set(power);
+    	RobotMap.LM3.set(power);
+    }
+    
+    public static void rightDrive(double power) {
+    	RobotMap.RM1.set(power);
+    	RobotMap.RM2.set(power);
+    	RobotMap.RM3.set(power);
+    }
+    
     public static void pidDrive() {
     	
     }
