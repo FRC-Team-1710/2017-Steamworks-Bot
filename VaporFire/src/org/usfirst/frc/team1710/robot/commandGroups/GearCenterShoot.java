@@ -4,7 +4,6 @@ import org.usfirst.frc.team1710.robot.Commands.DriveToPosition;
 import org.usfirst.frc.team1710.robot.Commands.EncoderDrive;
 import org.usfirst.frc.team1710.robot.Commands.RotatetoAngle;
 import org.usfirst.frc.team1710.robot.Commands.RunShooterAuto;
-import org.usfirst.frc.team1710.robot.Commands.TrackHigh;
 import org.usfirst.frc.team1710.robot.Commands.ZeroYaw;
 import org.usfirst.frc.team1710.robot.Commands.followcurve;
 

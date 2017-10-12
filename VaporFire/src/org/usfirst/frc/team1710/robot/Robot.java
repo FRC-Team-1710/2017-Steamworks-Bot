@@ -4,9 +4,8 @@ package org.usfirst.frc.team1710.robot;
 import jaci.pathfinder.Pathfinder;
 import jaci.pathfinder.Trajectory;
 
-import org.usfirst.frc.team1710.robot.Commands.MotionProfile;
+import org.usfirst.frc.team1710.robot.commandGroups.AutoChallenge;
 import org.usfirst.frc.team1710.robot.commandGroups.CrossBaseline;
-import org.usfirst.frc.team1710.robot.commandGroups.EncoderTest;
 import org.usfirst.frc.team1710.robot.commandGroups.GearCenterShoot;
 import org.usfirst.frc.team1710.robot.commandGroups.GearCenterShootRed;
 import org.usfirst.frc.team1710.robot.commandGroups.GearPlaceCenter;
@@ -14,13 +13,10 @@ import org.usfirst.frc.team1710.robot.commandGroups.GearPlaceLeft;
 import org.usfirst.frc.team1710.robot.commandGroups.GearPlaceLeftShoot;
 import org.usfirst.frc.team1710.robot.commandGroups.GearPlaceRightShoot;
 import org.usfirst.frc.team1710.robot.commandGroups.GearPlaceRight;
-import org.usfirst.frc.team1710.robot.commandGroups.HopperShoot;
-import org.usfirst.frc.team1710.robot.commandGroups.HopperShootRed;
 import org.usfirst.frc.team1710.robot.commandGroups.JustShoot;
 import org.usfirst.frc.team1710.robot.commandGroups.RightGearNoEncoder;
 import org.usfirst.frc.team1710.robot.commandGroups.RotateToAngleTest;
 
-import trajectoryGeneration.Waypoints;
 
 import com.ctre.CANTalon;
 import com.ctre.CANTalon.FeedbackDevice;
