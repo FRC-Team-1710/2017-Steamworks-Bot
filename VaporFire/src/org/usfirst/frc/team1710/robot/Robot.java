@@ -14,6 +14,7 @@ import org.usfirst.frc.team1710.robot.commandGroups.GearPlaceLeftShoot;
 import org.usfirst.frc.team1710.robot.commandGroups.GearPlaceRightShoot;
 import org.usfirst.frc.team1710.robot.commandGroups.GearPlaceRight;
 import org.usfirst.frc.team1710.robot.commandGroups.JustShoot;
+import org.usfirst.frc.team1710.robot.commandGroups.MotionProfileTest;
 import org.usfirst.frc.team1710.robot.commandGroups.RightGearNoEncoder;
 import org.usfirst.frc.team1710.robot.commandGroups.RotateToAngleTest;
 
@@ -90,7 +91,7 @@ public class Robot extends IterativeRobot {
         RobotMap.LM2.enableBrakeMode(true);
     	//Auto stuff
     	autoChooser = new SendableChooser();
-        autoChooser.addDefault("AutoChallenge", new AutoChallenge());
+        autoChooser.addDefault("AutoChallenge", new MotionProfileTest());
         autoChooser.addObject("Center Peg", new GearPlaceCenter());
         autoChooser.addObject("Gear Center Shoot Red", new GearCenterShootRed());
         autoChooser.addObject("Gear Center Shoot Blue", new GearCenterShoot());
@@ -117,6 +118,8 @@ public class Robot extends IterativeRobot {
     }
     
     public void teleopInit() {
+    	RobotMap.LM3.setPosition(0);
+    	RobotMap.RM2.setPosition(0);
     }
     
     public void teleopPeriodic() {
@@ -196,6 +199,7 @@ public class Robot extends IterativeRobot {
     	/*angleIncrease = angleInitial - anglePrevious;
     	angle = anglePrevious + angleIncrease;
     	anglePrevious = angle;*/
+    	System.out.println(RobotMap.RM2.getPosition());
     }
 
     public void testPeriodic() {

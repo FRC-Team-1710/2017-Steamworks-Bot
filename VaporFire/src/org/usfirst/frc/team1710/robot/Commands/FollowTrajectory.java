@@ -21,11 +21,11 @@ public class FollowTrajectory extends Command {
 	TankModifier modifier;
 	Timer timer;
 
-	double maxVelocity = 12;				///
-	double maxAcceleration = 12;		/// REMEMBER THESE ARE ALL IN METERS
+	double maxVelocity = 9;				///
+	double maxAcceleration = 9;		/// REMEMBER THESE ARE ALL IN METERS
 	double maxJerk = 60;				///	
-	double drivebaseWidth = .762;
-	double wheelDiam = .0889;
+	double drivebaseWidth = .711;
+	double wheelDiam = .101;
 	
 	double kP = 3.5;
 	double kI = 0;
@@ -45,16 +45,17 @@ public class FollowTrajectory extends Command {
     protected void initialize() {
     	timer.reset();
     	timer.start();
+    	RobotMap.LM3.setPosition(0);
+    	RobotMap.RM2.setPosition(0);
+    	
     	Waypoint[] points = new Waypoint[]{
     		    new Waypoint(0, 0 ,0),     // This is the start out waypoint 
-    		    new Waypoint(2.17, -.2, -45)	// 5m forward
+    		    new Waypoint(2, 2, 90)	// 5m forward
     	};
     	Trajectory.Config config = new Trajectory.Config(Trajectory.FitMethod.HERMITE_CUBIC, Trajectory.Config.SAMPLES_HIGH, 0.05, maxVelocity, maxAcceleration, maxJerk);
     	trajectory = Pathfinder.generate(points, config);
-    	//.762
     	TankModifier modifier = new TankModifier(trajectory).modify(drivebaseWidth);
 
-    	// This 
     	left = new EncoderFollower(modifier.getLeftTrajectory());
     	right = new EncoderFollower(modifier.getRightTrajectory());
     	
@@ -92,7 +93,8 @@ public class FollowTrajectory extends Command {
     	        seg.dt, seg.x, seg.y, seg.position, seg.velocity, 
     	            seg.acceleration, seg.jerk, seg.heading);
     	}
-    	System.out.println(l + " " + r);
+    	//System.out.println(l + " " + r);
+    	System.out.println();
     }
 
     // Make this return true when this Command no longer needs to run execute()

@@ -94,9 +94,9 @@ public class Drive extends Subsystem {
     }
     
     public static void rightDrive(double power) {
-    	RobotMap.RM1.set(power);
-    	RobotMap.RM2.set(power);
-    	RobotMap.RM3.set(power);
+    	RobotMap.RM1.set(-power);
+    	RobotMap.RM2.set(-power);
+    	RobotMap.RM3.set(-power);
     }
     
     public static void pidDrive() {

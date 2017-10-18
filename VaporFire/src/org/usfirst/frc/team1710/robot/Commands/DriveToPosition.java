@@ -75,6 +75,7 @@ public class DriveToPosition extends Command {
 
     // Called once after isFinished returns true
     protected void end() {
+    	RobotMap.navx.zeroYaw();
     	RobotMap.RM2.setEncPosition(0);
     	done = false;
     }
